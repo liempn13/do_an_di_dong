@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class LoginEmail extends StatefulWidget {
   final String title;
 
-  LoginEmail({Key? key, required this.title}) : super(key: key);
+  const LoginEmail({super.key, required this.title});
 
   @override
   State<LoginEmail> createState() => _LoginEmailState();
@@ -29,7 +29,7 @@ class _LoginEmailState extends State<LoginEmail> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             child: IntrinsicHeight(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,16 +37,16 @@ class _LoginEmailState extends State<LoginEmail> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: [
                             TextFormField(
                               controller: usernameController,
-                              scrollPadding: EdgeInsets.only(bottom: 150),
-                              style: TextStyle(fontSize: 18),
-                              decoration: InputDecoration(
+                              scrollPadding: const EdgeInsets.only(bottom: 150),
+                              style: const TextStyle(fontSize: 18),
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.email_outlined),
                                 labelText: "Email",
                                 border: OutlineInputBorder(
@@ -66,16 +66,16 @@ class _LoginEmailState extends State<LoginEmail> {
                                 return null;
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             TextFormField(
                               controller: passwordController,
-                              scrollPadding: EdgeInsets.only(bottom: 150),
-                              style: TextStyle(fontSize: 18),
+                              scrollPadding: const EdgeInsets.only(bottom: 150),
+                              style: const TextStyle(fontSize: 18),
                               obscureText: !_passwordVisible,
                               decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.lock_outline),
+                                prefixIcon: const Icon(Icons.lock_outline),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     _passwordVisible
@@ -89,11 +89,11 @@ class _LoginEmailState extends State<LoginEmail> {
                                   },
                                 ),
                                 labelText: "Password",
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10)),
                                 ),
-                                fillColor: Color(0xfff3f3f4),
+                                fillColor: const Color(0xfff3f3f4),
                                 filled: true,
                               ),
                               validator: (value) {
@@ -105,17 +105,17 @@ class _LoginEmailState extends State<LoginEmail> {
                                 return null;
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             _forgetPassword(),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             _logInButton(),
-                            Padding(
+                            const Padding(
                               padding:
-                                  const EdgeInsets.only(top: 10, bottom: 10),
+                                  EdgeInsets.only(top: 10, bottom: 10),
                               child: Center(
                                 child: Text(
                                   'OR',
@@ -128,7 +128,7 @@ class _LoginEmailState extends State<LoginEmail> {
                               ),
                             ),
                             _createAccount(),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             _loginGoogle()
@@ -160,18 +160,18 @@ class _LoginEmailState extends State<LoginEmail> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.grey.shade100,
-              offset: Offset(2, 4),
+              offset: const Offset(2, 4),
               blurRadius: 5,
               spreadRadius: 2,
             ),
           ],
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: <Color>[
@@ -180,7 +180,7 @@ class _LoginEmailState extends State<LoginEmail> {
             ],
           ),
         ),
-        child: Text(
+        child: const Text(
           'LogIn',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
@@ -191,13 +191,13 @@ class _LoginEmailState extends State<LoginEmail> {
   Widget _forgetPassword() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 0),
+      padding: const EdgeInsets.symmetric(vertical: 0),
       alignment: Alignment.bottomRight,
       child: TextButton(
         onPressed: () {
           // Navigator.of(context).pushNamed(AppRoutes.forgotPasswordRoute),
         },
-        child: Text(
+        child: const Text(
           'Forget password?',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
         ),
@@ -207,7 +207,7 @@ class _LoginEmailState extends State<LoginEmail> {
 
   Widget _createAccount() {
     return Container(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -239,8 +239,8 @@ class _LoginEmailState extends State<LoginEmail> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
         child: Row(
@@ -252,10 +252,10 @@ class _LoginEmailState extends State<LoginEmail> {
               width: 40,
               height: 40,
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
-            Text(
+            const Text(
               'Sign in with Google',
               style: TextStyle(
                 color: Colors.black87,

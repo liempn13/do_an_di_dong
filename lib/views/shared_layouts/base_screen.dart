@@ -24,7 +24,7 @@ class BasePage extends StatefulWidget {
   final AppBar? appBar;
   final Drawer? drawer;
 
-  BasePage({
+  const BasePage({
     this.fabl,
     this.showAppBar = false,
     this.showLeadingAction = false,
@@ -44,8 +44,8 @@ class BasePage extends StatefulWidget {
     this.actions,
     this.drawer,
     this.appBar,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _BasePageState createState() => _BasePageState();

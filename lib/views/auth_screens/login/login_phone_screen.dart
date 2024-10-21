@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class LoginPhone extends StatefulWidget {
   final String title;
 
-  LoginPhone({Key? key, required this.title}) : super(key: key);
+  const LoginPhone({super.key, required this.title});
 
   @override
   State<LoginPhone> createState() => _LoginPhoneState();
@@ -21,13 +21,13 @@ class _LoginPhoneState extends State<LoginPhone> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             child: IntrinsicHeight(
               child: Column(
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -36,9 +36,9 @@ class _LoginPhoneState extends State<LoginPhone> {
                           children: [
                             TextFormField(
                               controller: phoneController,
-                              scrollPadding: EdgeInsets.only(bottom: 150),
-                              style: TextStyle(fontSize: 18),
-                              decoration: InputDecoration(
+                              scrollPadding: const EdgeInsets.only(bottom: 150),
+                              style: const TextStyle(fontSize: 18),
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.phone),
                                 labelText: "Enter your phone number",
                                 border: OutlineInputBorder(
@@ -58,13 +58,13 @@ class _LoginPhoneState extends State<LoginPhone> {
                                 return null;
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             _logInButton(),
-                            Padding(
+                            const Padding(
                               padding:
-                                  const EdgeInsets.only(top: 10, bottom: 10),
+                                  EdgeInsets.only(top: 10, bottom: 10),
                               child: Center(
                                 child: Text(
                                   'OR',
@@ -77,7 +77,7 @@ class _LoginPhoneState extends State<LoginPhone> {
                               ),
                             ),
                             _createAccount(),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             _loginGoogle()
@@ -108,18 +108,18 @@ class _LoginPhoneState extends State<LoginPhone> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.grey.shade100,
-              offset: Offset(2, 4),
+              offset: const Offset(2, 4),
               blurRadius: 5,
               spreadRadius: 2,
             ),
           ],
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: <Color>[
@@ -128,7 +128,7 @@ class _LoginPhoneState extends State<LoginPhone> {
             ],
           ),
         ),
-        child: Text(
+        child: const Text(
           'LogIn',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
@@ -138,7 +138,7 @@ class _LoginPhoneState extends State<LoginPhone> {
 
   Widget _createAccount() {
     return Container(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -170,8 +170,8 @@ class _LoginPhoneState extends State<LoginPhone> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
         child: Row(
@@ -183,10 +183,10 @@ class _LoginPhoneState extends State<LoginPhone> {
               width: 40,
               height: 40,
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
-            Text(
+            const Text(
               'Sign in with Google',
               style: TextStyle(
                 color: Colors.black87,

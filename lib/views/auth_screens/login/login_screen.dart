@@ -1,108 +1,132 @@
-import 'package:do_an_di_dong/views/auth_screens/login/login_email_screen.dart';
-import 'package:do_an_di_dong/views/auth_screens/login/login_phone_screen.dart';
-import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
+import 'package:do_an_di_dong/views/auth_screens/signup_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _TapBarState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _TapBarState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
+  bool _anHienPass = true;
+
+  // TextEditingController để điều khiển các trường nhập liệu
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: BasePage(
-        showAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text('Đăng nhập',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),),
+        centerTitle: true,
+        backgroundColor: Colors.purple,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
-              child: _title(),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 50,
-                //padding: EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.white,
-                  border: Border.all(color: Colors.blue),
+            const SizedBox(height: 30.0),
+            // Tên đăng nhập
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(
+                labelText: 'Tên đăng nhập',
+                labelStyle: const TextStyle(
+                color: Colors.grey,
                 ),
-                child: TabBar(
-                  labelColor: Colors.blue[800],
-                  dividerColor: Colors.transparent,
-                  unselectedLabelColor: Colors.blue[400],
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.blue,
-                            blurRadius: 1.3,
-                            spreadRadius: 1.5,
-                            offset: Offset(0.0, 2.0))
-                      ]),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  //labelPadding: EdgeInsets.symmetric(horizontal: 10),
-                  tabs: const [
-                    Tab(
-                      text: 'Email Address',
-                    ),
-                    Tab(
-                      text: 'Phone Number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                prefixIcon: const Icon(Icons.person),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            // Mật khẩu
+            TextField(
+              controller: _passwordController,
+              obscureText: _anHienPass,
+              decoration: InputDecoration(
+                labelText: 'Mật khẩu',
+                labelStyle: const TextStyle(
+                color: Colors.grey,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _anHienPass ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _anHienPass = !_anHienPass;
+                    });
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 30.0),
+            // Nút Đăng nhập
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                ),
+                onPressed: () {
+                  
+                  print('Đã nhấn Đăng nhập');
+                },
+                child: const Text(
+                  'Đăng nhập',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            // Đăng nhập nếu đã có tài khoản
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  text: 'Nếu bạn chưa có tài khoản, ',
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.0,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Đăng ký',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                           Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const SignupScreen()),
+                        );
+                        },
                     ),
                   ],
                 ),
               ),
             ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  Center(child: LoginEmail(title: 'Login')),
-                  Center(child: LoginPhone(title: 'Login')),
-                ],
-              ),
-            ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _title() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Welcome Back",
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 30,
-            color: Colors.black,
-          ),
-        ),
-        Text(
-          'Login to continue',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      ],
     );
   }
 }

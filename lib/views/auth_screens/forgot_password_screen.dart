@@ -13,7 +13,7 @@ class ForgePasswordScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -26,7 +26,7 @@ class ForgePasswordScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
               child: _title(),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.9,
@@ -44,7 +44,7 @@ class ForgePasswordScreen extends StatelessWidget {
                   indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
                       color: Colors.white,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                             color: Colors.blue,
                             blurRadius: 1.3,
@@ -64,7 +64,7 @@ class ForgePasswordScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: TabBarView(
                 children: [
                   // Center(child: LoginEmail(title: 'Login')),
@@ -79,7 +79,7 @@ class ForgePasswordScreen extends StatelessWidget {
   }
 
   Widget _title() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
