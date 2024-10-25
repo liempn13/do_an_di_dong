@@ -1,3 +1,4 @@
+import 'package:do_an_di_dong/views/auth_screens/forgot_password_screen.dart';
 import 'package:do_an_di_dong/views/auth_screens/signup_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -20,29 +21,42 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Đăng nhập',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),),
-        centerTitle: true,
-        backgroundColor: Colors.purple,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Đăng nhập',
+      //   style: TextStyle(
+      //     fontWeight: FontWeight.bold,
+      //     fontSize: 30.0,
+      //   ),),
+      //   centerTitle: true,
+      //   backgroundColor: Colors.white,
+      // ),
+
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
           children: [
-            const SizedBox(height: 30.0),
+            const SizedBox(height: 100.0),
+            Center(
+              child: RichText(
+                  text: const TextSpan(
+                text: 'Đăng nhập ',
+                style: const TextStyle(
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
+            ),
+            const SizedBox(height: 40.0),
             // Tên đăng nhập
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
                 labelText: 'Tên đăng nhập',
                 labelStyle: const TextStyle(
-                color: Colors.grey,
+                  color: Colors.grey,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
                 prefixIcon: const Icon(Icons.person),
               ),
@@ -55,10 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: InputDecoration(
                 labelText: 'Mật khẩu',
                 labelStyle: const TextStyle(
-                color: Colors.grey,
+                  color: Colors.grey,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
                 prefixIcon: const Icon(Icons.lock),
                 suffixIcon: IconButton(
@@ -81,12 +95,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 onPressed: () {
-                  
                   print('Đã nhấn Đăng nhập');
                 },
                 child: const Text(
@@ -95,12 +108,34 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 20.0),
-            // Đăng nhập nếu đã có tài khoản
+            const SizedBox(height: 30.0),
+            // quên mk
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ForgePasswordScreen()));
+                },
+                child: RichText(
+                  text: const TextSpan(
+                    text: 'Quên mật khẩu?',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 221, 221, 222),
+                      fontSize: 14.0,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            // Đăng ký nếu chưa có tài khoản
             Center(
               child: RichText(
                 text: TextSpan(
-                  text: 'Nếu bạn chưa có tài khoản, ',
+                  text: 'Nếu bạn chưa có tài khoản?, ',
                   style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 14.0,
@@ -114,10 +149,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                           Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const SignupScreen()),
-                        );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignupScreen()),
+                          );
                         },
                     ),
                   ],
