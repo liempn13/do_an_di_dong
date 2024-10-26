@@ -1,5 +1,6 @@
 import 'package:do_an_di_dong/views/auth_screens/forgot_password_screen.dart';
 import 'package:do_an_di_dong/views/auth_screens/signup_screen.dart';
+import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BasePage(
       backgroundColor: Colors.white,
       // appBar: AppBar(
       //   title: const Text('Đăng nhập',
@@ -30,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
       //   centerTitle: true,
       //   backgroundColor: Colors.white,
       // ),
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(

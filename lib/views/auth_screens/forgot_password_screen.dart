@@ -1,3 +1,4 @@
+import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/material.dart';
 
 class ForgePasswordScreen extends StatefulWidget {
@@ -10,18 +11,11 @@ class ForgePasswordScreen extends StatefulWidget {
 class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BasePage(
+      showAppBar: true,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Quên mật khẩu',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-      ),
+      appBarColor: Colors.white,
+      title: 'Quên mật khẩu',
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(

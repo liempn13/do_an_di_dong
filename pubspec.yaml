@@ -1,15 +1,28 @@
 name: do_an_di_dong
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: ">=3.4.3 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-
+  localize_and_translate: ^4.1.1
+  provider: ^6.1.2
+  http: ^1.2.0
+  email_otp: ^3.0.1
+  validators: ^3.0.0
+  velocity_x: ^4.2.1
+  custom_clippers: ^2.0.0
+  pull_to_refresh_flutter3: ^2.0.2
+  google_fonts: ^6.2.1
+  crypto: ^3.0.3
+  flutter_icons:
+    git:
+      url: https://github.com/imclerran/flutter-icons.git
+      ref: dart-3
 dev_dependencies:
   flutter_test:
     sdk: flutter

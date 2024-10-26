@@ -1,3 +1,4 @@
+import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/material.dart';
 
 class new_password_screen extends StatefulWidget {
@@ -12,8 +13,9 @@ class _new_password_screenState extends State<new_password_screen> {
   bool _anHienPass2 = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BasePage(
       backgroundColor: Colors.white,
+      showAppBar: true,
       appBar: AppBar(
         title: const Text('Tạo mật khẩu mới',
         style: TextStyle(

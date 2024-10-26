@@ -1,22 +1,28 @@
+import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/material.dart';
 
 class otp_forgot_password_screen extends StatefulWidget {
   const otp_forgot_password_screen({super.key});
 
   @override
-  State<otp_forgot_password_screen> createState() => _otp_forgot_password_screenState();
+  State<otp_forgot_password_screen> createState() =>
+      _otp_forgot_password_screenState();
 }
 
-class _otp_forgot_password_screenState extends State<otp_forgot_password_screen> {
+class _otp_forgot_password_screenState
+    extends State<otp_forgot_password_screen> {
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
+    return BasePage(
       backgroundColor: Colors.white,
+      showAppBar: true,
       appBar: AppBar(
-        title: const Text('Quên mật khẩu',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),),
+        title: const Text(
+          'Quên mật khẩu',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
@@ -25,10 +31,8 @@ class _otp_forgot_password_screenState extends State<otp_forgot_password_screen>
         child: ListView(
           children: [
             const SizedBox(height: 30.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              RichText(
                 text: const TextSpan(
                   text: 'Mã OTP đã được gửi về điện thoại, ',
                   style: const TextStyle(
@@ -46,16 +50,14 @@ class _otp_forgot_password_screenState extends State<otp_forgot_password_screen>
                   ),
                 ),
               ),
-              ]
-              
-            ),
+            ]),
             const SizedBox(height: 10.0),
             // nhập Email/sđt
             TextField(
               decoration: InputDecoration(
                 labelText: 'Nhập mã otp',
                 labelStyle: const TextStyle(
-                color: Colors.grey,
+                  color: Colors.grey,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -64,7 +66,7 @@ class _otp_forgot_password_screenState extends State<otp_forgot_password_screen>
               ),
             ),
             const SizedBox(height: 16.0),
-            
+
             // Nút Đăng nhập
             SizedBox(
               width: double.infinity,
@@ -77,7 +79,6 @@ class _otp_forgot_password_screenState extends State<otp_forgot_password_screen>
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 onPressed: () {
-                  
                   print('Đã nhấn gửi');
                 },
                 child: const Text(
