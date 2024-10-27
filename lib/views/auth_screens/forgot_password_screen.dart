@@ -1,3 +1,4 @@
+import 'package:do_an_di_dong/views/auth_screens/otp_forgot_password.dart';
 import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ class ForgePasswordScreen extends StatefulWidget {
 }
 
 class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
+  String? _errorQmk;
+  final TextEditingController _qmkController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -24,16 +27,17 @@ class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
             const SizedBox(height: 30.0),
             // nhập Email/sđt
             TextField(
+              controller: _qmkController,
               decoration: InputDecoration(
-                labelText: 'Số điện thoại/ email',
-                labelStyle: const TextStyle(
-                  color: Colors.grey,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                prefixIcon: const Icon(Icons.person),
-              ),
+                  labelText: 'Số điện thoại/ email',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  prefixIcon: const Icon(Icons.person),
+                  errorText: _errorQmk),
             ),
             const SizedBox(height: 16.0),
 
@@ -49,7 +53,20 @@ class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 onPressed: () {
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => OTP_forgot_password()));
+                  setState(() {
+                    if (_qmkController.text.isEmpty)
+                      _errorQmk = 'Vui lòng nhập SĐT hoặc email';
+                    else
+                      _errorQmk = null;
+                    if (_errorQmk == null) {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const OtpForgotPasswordScreen()),
+                      // );
+                    }
+                  });
                 },
                 child: const Text(
                   'Gửi',
