@@ -1,4 +1,5 @@
 import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
+import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BasePage(
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),

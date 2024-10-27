@@ -1,5 +1,4 @@
 import 'package:do_an_di_dong/views/auth_screens/otp_forgot_password.dart';
-import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/material.dart';
 
 class ForgePasswordScreen extends StatefulWidget {
@@ -14,12 +13,18 @@ class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
   final TextEditingController _qmkController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      showAppBar: true,
-      showLeadingAction: true,
+    return Scaffold(
       backgroundColor: Colors.white,
-      appBarColor: Colors.white,
-      title: 'Quên mật khẩu',
+      appBar: AppBar(
+        title: const Text(
+          'Quên mật khẩu',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
@@ -59,12 +64,12 @@ class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
                     else
                       _errorQmk = null;
                     if (_errorQmk == null) {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           const OtpForgotPasswordScreen()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const OtpForgotPasswordScreen()),
+                      );
                     }
                   });
                 },
