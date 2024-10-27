@@ -41,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: const TextSpan(
                 text: 'Đăng nhập ',
                 style: const TextStyle(
+                  color: Colors.black,
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),

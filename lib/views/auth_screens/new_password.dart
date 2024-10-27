@@ -1,5 +1,6 @@
 import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class new_password_screen extends StatefulWidget {
   const new_password_screen({super.key});
@@ -16,14 +17,8 @@ class _new_password_screenState extends State<new_password_screen> {
     return BasePage(
       backgroundColor: Colors.white,
       showAppBar: true,
-      appBar: AppBar(
-        title: const Text('Tạo mật khẩu mới',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),),
-        centerTitle: true,
-        backgroundColor: Colors.purple,
-      ),
+      title: 'Tạo mật khẩu mới'.tr(),
+      appBarColor: Colors.purple,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
@@ -36,7 +31,7 @@ class _new_password_screenState extends State<new_password_screen> {
               decoration: InputDecoration(
                 labelText: 'Mật khẩu mới',
                 labelStyle: const TextStyle(
-                color: Colors.grey,
+                  color: Colors.grey,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -55,13 +50,13 @@ class _new_password_screenState extends State<new_password_screen> {
               ),
             ),
             const SizedBox(height: 16.0),
-             TextField(
+            TextField(
               //controller: ,
               obscureText: _anHienPass2,
               decoration: InputDecoration(
                 labelText: 'Lặp lại mật khẩu mới',
                 labelStyle: const TextStyle(
-                color: Colors.grey,
+                  color: Colors.grey,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -92,7 +87,6 @@ class _new_password_screenState extends State<new_password_screen> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 onPressed: () {
-                  
                   //Navigator.push(context, MaterialPageRoute(builder: (context) => OTP_forgot_password()));
                 },
                 child: const Text(

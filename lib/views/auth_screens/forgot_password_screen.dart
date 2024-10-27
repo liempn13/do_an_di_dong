@@ -13,6 +13,7 @@ class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
   Widget build(BuildContext context) {
     return BasePage(
       showAppBar: true,
+      showLeadingAction: true,
       backgroundColor: Colors.white,
       appBarColor: Colors.white,
       title: 'Quên mật khẩu',

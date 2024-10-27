@@ -59,6 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   text: const TextSpan(
                 text: 'Đăng ký ',
                 style: const TextStyle(
+                  color: Colors.black,
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),

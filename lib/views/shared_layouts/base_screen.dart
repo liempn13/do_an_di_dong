@@ -73,14 +73,15 @@ class _BasePageState extends State<BasePage> {
             ? widget.appBar ??
                 AppBar(
                   actions: widget.actions,
-                  // backgroundColor: widget.appBarColor ?? context.primaryColor,
+                  backgroundColor: widget.appBarColor ?? widget.backgroundColor,
                   automaticallyImplyLeading: widget.showLeadingAction,
                   elevation: widget.elevation,
+                  centerTitle: true,
                   leading: widget.showLeadingAction
                       ? widget.leading ??
                           IconButton(
                             icon: const Icon(
-                              Icons.arrow_left_outlined,
+                              Icons.arrow_back,
                             ),
                             onPressed: (widget.onBackPressed != null)
                                 ? () => widget.onBackPressed!()
