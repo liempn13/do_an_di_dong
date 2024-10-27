@@ -130,7 +130,10 @@ class _SignupScreenState extends State<SignupScreen> {
               onChanged: (value) {
                 setState(() {
                   _errorPass = value.isNotEmpty && !isValidPassword(value)
-                      ? 'Mật khẩu phải có ít nhất 1 chữ thường, 1 chữ hoa, 1 số và 1 ký tự đặc biệt'
+                      ? '''
+                      Mật khẩu phải có ít nhất
+                      1 chữ thường, 1 chữ hoa,
+                      1 số và 1 ký tự đặc biệt'''
                       : null;
                 });
               },
@@ -232,7 +235,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       _errorUsername =
                           'Tên đăng nhập chỉ được phép chứa chữ cái, số và dấu gạch dưới';
                     } else {
-                      _errorUsername = null; // Không có lỗi
+                      _errorUsername = null;
                     }
 
                     // Kiểm tra mật khẩu
@@ -242,7 +245,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       _errorPass =
                           'Mật khẩu phải có ít nhất 1 chữ thường, 1 chữ hoa, 1 số và 1 ký tự đặc biệt';
                     } else {
-                      _errorPass = null; // Không có lỗi
+                      _errorPass = null;
                     }
 
                     // Kiểm tra lặp lại mật khẩu
@@ -252,7 +255,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         _passwordController.text) {
                       _errorPass2 = 'Mật khẩu không khớp với mật khẩu chính';
                     } else {
-                      _errorPass2 = null; // Không có lỗi
+                      _errorPass2 = null;
                     }
 
                     // Kiểm tra email
@@ -261,21 +264,16 @@ class _SignupScreenState extends State<SignupScreen> {
                     } else if (!isValidEmail(_emailController.text)) {
                       __errorEmail = 'Email không hợp lệ';
                     } else {
-                      __errorEmail = null; // Không có lỗi
+                      __errorEmail = null;
                     }
 
-                    // Kiểm tra số điện thoại (nếu cần)
-                    if (_phoneController.text.isEmpty) {
-                      // Bạn có thể thêm lỗi cho số điện thoại ở đây nếu cần
-                    }
+                    if (_phoneController.text.isEmpty) {}
 
-                    // Nếu tất cả các trường không có lỗi, tiến hành đăng ký
                     if (_errorUsername == null &&
                         _errorPass == null &&
                         _errorPass2 == null &&
                         __errorEmail == null) {
                       print('Đã nhấn Đăng ký');
-                      // Thực hiện đăng ký tại đây
                     }
                   });
                 },

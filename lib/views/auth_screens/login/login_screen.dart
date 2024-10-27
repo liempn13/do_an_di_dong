@@ -12,7 +12,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _anHienPass = true;
-
+  String? _errorUsername;
+  String? _errorPass;
   // TextEditingController để điều khiển các trường nhập liệu
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -21,16 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: const Text('Đăng nhập',
-      //   style: TextStyle(
-      //     fontWeight: FontWeight.bold,
-      //     fontSize: 30.0,
-      //   ),),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.white,
-      // ),
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
@@ -40,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: RichText(
                   text: const TextSpan(
                 text: 'Đăng nhập ',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -59,7 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 prefixIcon: const Icon(Icons.person),
+                errorText: _errorUsername,
               ),
+              onChanged: (value) {
+                setState(() {});
+              },
             ),
             const SizedBox(height: 16.0),
             // Mật khẩu
@@ -75,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 prefixIcon: const Icon(Icons.lock),
+                errorText: _errorPass,
                 suffixIcon: IconButton(
                   icon: Icon(
                     _anHienPass ? Icons.visibility_off : Icons.visibility,
@@ -100,7 +96,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 onPressed: () {
-                  print('Đã nhấn Đăng nhập');
+                  setState(() {
+                    if (_usernameController.text.isEmpty) {
+                      _errorUsername = 'Không được để trống tên đăng nhập';
+                    } else {
+                      _errorUsername = null;
+                    }
+
+                    if (_passwordController.text.isEmpty) {
+                      _errorPass = 'Không được để trống mật khẩu';
+                    } else {
+                      _errorPass = null;
+                    }
+                    if (_errorUsername == null && _errorPass == null) {
+                      print('Đăng nhập thành công');
+                    }
+                  });
                 },
                 child: const Text(
                   'Đăng nhập',
