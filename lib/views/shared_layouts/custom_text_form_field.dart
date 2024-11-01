@@ -76,6 +76,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         // color: Theme.of(context).textTheme.bodyLarge!.color,
       ),
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.grey[400],
         labelText: widget.labelText,
         labelStyle: AppTextStyle.h5TitleTextStyle(
           fontWeight: FontWeight.w600,
@@ -91,20 +93,16 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         enabledBorder: widget.underline
             ? InputStyles.inputUnderlineEnabledBorder()
             : InputStyles.inputEnabledBorder(),
-        errorBorder: widget.underline
-            ? InputStyles.inputUnderlineEnabledBorder()
-            : InputStyles.inputEnabledBorder(),
+        errorBorder: InputStyles.inputEnabledBorder(),
         focusedErrorBorder: widget.underline
             ? InputStyles.inputUnderlineFocusBorder()
             : InputStyles.inputFocusBorder(),
-        focusedBorder: widget.underline
-            ? InputStyles.inputUnderlineFocusBorder()
-            : InputStyles.inputFocusBorder(),
+        focusedBorder: InputStyles.inputFocusBorder(),
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon ?? _getSuffixWidget(),
         contentPadding: EdgeInsets.all(10),
       ),
-      
+
       //Đổi màu cursor
       // cursorColor: AppColor.cursorColor,
       obscureText: (widget.obscureText) ? !makePasswordVisible : false,
