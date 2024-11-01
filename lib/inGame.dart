@@ -11,7 +11,6 @@ class inGame extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.settings, color: Colors.black),
           onPressed: () {
-            // Gọi hàm showSettingsDialog khi nhấn nút Settings
             showSettingsDialog(context);
           },
         ),
@@ -67,25 +66,61 @@ class inGame extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Settings'),
-          content: Text('Choose your action.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Đóng pop-up
-              },
-              child: Text('Option 1'),
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomButton(text: 'Option 1'),
+                SizedBox(height: 16),
+                CustomButton(text: 'Option 2'),
+                SizedBox(height: 16),
+                CustomButton(text: 'Option 3'),
+              ],
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Đóng pop-up
-              },
-              child: Text('Option 2'),
-            ),
-          ],
+          ),
         );
       },
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final String text;
+
+  const CustomButton({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 0,
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+          ),
+        ),
+      ),
     );
   }
 }
