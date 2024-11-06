@@ -87,7 +87,7 @@ class settingHomepage extends StatelessWidget {
                     children: [
                       Icon(Icons.logout, color: Colors.blue),
                       SizedBox(width: 16.0),
-                      Text(
+                        Text(
                         'Đăng xuất',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),

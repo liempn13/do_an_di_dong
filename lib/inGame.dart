@@ -1,7 +1,15 @@
+import 'package:do_an_di_dong/models/options.dart';
+import 'package:do_an_di_dong/models/questions.dart';
+import 'package:do_an_di_dong/view_models/options_view_model.dart';
+import 'package:do_an_di_dong/view_models/questions_view_model.dart';
+import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class inGame extends StatelessWidget {
-  const inGame({super.key});
+  Questions? questions;
+  Options? options;
+  inGame({super.key, this.questions, this.options});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,7 @@ class inGame extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'When was the American declaration of independence signed?',
+                  questions!.questionContent,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22,
@@ -43,16 +51,19 @@ class inGame extends StatelessWidget {
           ),
           const SizedBox(height: 32.0), // Khoảng cách giữa câu hỏi và đáp án
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              children: [
-                OptionButton(option: 'A. July 4th, 1778'),
-                OptionButton(option: 'B. July 4th, 1776'),
-                OptionButton(option: 'C. August 2nd, 1776'),
-                OptionButton(option: 'D. August 6th, 1776'),
-              ],
-            ),
-          ),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Consumer<OptionsViewModel>(
+                  builder: (context, viewModel, child) {
+                Provider.of<OptionsViewModel>(context, listen: false)
+                    .getOption(questions!.questionID);
+                List<Options> optionList = viewModel.listOption;
+                return CustomListView(
+                    dataSet: optionList,
+                    itemBuilder: (context, index) {
+                      return OptionButton(
+                          option: optionList[index].optionContent);
+                    });
+              })),
           const SizedBox(
               height: 32.0), // Cách đều phần dưới với các câu trả lời
         ],
