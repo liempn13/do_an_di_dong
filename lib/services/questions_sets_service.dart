@@ -31,4 +31,11 @@ class QuestionsSetsService {
       Uri.parse("${AppStrings.baseUrlApi}question/$questionsSetID"),
     );
   }
+
+  Future<http.Response> getQuestionsSetsList(int topicID) async {
+    //Load
+    return await http.get(
+      Uri.parse("${AppStrings.baseUrlApi}question/$topicID"),
+    );
+  }
 }

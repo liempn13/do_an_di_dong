@@ -1,5 +1,8 @@
+import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/notification.dart';
+import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -9,9 +12,7 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  String? selectedValue1;
-  String? selectedValue2;
-  String? selectedValue3;
+  Topics? selectedTopic;
 
   @override
   Widget build(BuildContext context) {
@@ -74,30 +75,32 @@ class _homePageState extends State<homePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: DropdownButton<String>(
-                value: selectedValue1,
-                hint: Text("Chọn chủ đề"),
-                isExpanded: true, // Giúp DropdownButton rộng ra hết chiều ngang
-                items: <String>['Chủ đề 1', 'Chủ đề 2', 'Chủ đế 3']
-                    .map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: Consumer<TopicsViewModel>(
+                    builder: (context, viewModel, child) {
+                  Provider.of<TopicsViewModel>(context, listen: false);
+                  List<Topics> topicList = viewModel.listTopics;
+                  return DropdownButton<Topics>(
+                    value: selectedTopic,
+                    hint: Text("Chọn chủ đề"),
+                    isExpanded:
+                        true, // Giúp DropdownButton rộng ra hết chiều ngang
+                    items: topicList.map((Topics topic) {
+                      return DropdownMenuItem<Topics>(
+                        value: topic,
+                        child: Text(topic.topicName),
+                      );
+                    }).toList(),
+                    underline: SizedBox(),
+                    onChanged: (Topics? value) {
+                      selectedTopic = value;
+                    }, // Loại bỏ đường kẻ dưới mặc định
                   );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedValue1 = newValue;
-                  });
-                },
-                underline: SizedBox(), // Loại bỏ đường kẻ dưới mặc định
-              ),
-            ),
+                })),
             //---Sizebox là khoảng cách giữa các thành phần với nhau
             SizedBox(height: 30),
             Container(
@@ -106,51 +109,53 @@ class _homePageState extends State<homePage> {
                 borderRadius: BorderRadius.circular(30.0),
                 border: Border.all(color: Colors.grey),
               ),
-              child: DropdownButton<String>(
-                value: selectedValue2,
-                hint: Text("Chọn bộ đề"),
-                isExpanded: true,
-                items: <String>['Bộ đề 1', 'Bộ đề 2', 'Bộ đề 3']
-                    .map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedValue2 = newValue;
-                  });
-                },
-                underline: SizedBox(), // Loại bỏ đường kẻ dưới mặc định
-              ),
+              child:
+                  // DropdownButton<String>(
+                  //   value: selectedValue2,
+                  //   hint: Text("Chọn bộ đề"),
+                  //   isExpnded: true,
+                  //   items: <String>['Bộ đề 1', 'Bộ đề 2', 'Bộ đề 3']
+                  //       .map((String value) {
+                  //     return DropdownMenuItem<String>(
+                  //       value: value,
+                  //       child: Text(value),
+                  //     );
+                  //   }).toList(),
+                  //   onChanged: (String? newValue) {
+                  //     setState(() {
+                  //       selectedValue2 = newValue;
+                  //     });
+                  //   },
+                  //   underline:
+                  SizedBox(), // Loại bỏ đường kẻ dưới mặc định
+              // ),
             ),
             //----------------------------------------------------------
             SizedBox(height: 30),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: DropdownButton<String>(
-                value: selectedValue3,
-                hint: Text("Thời gian mỗi câu / Số câu hỏi của bộ đề"),
-                isExpanded: true,
-                items: <String>['10', '20', '30'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedValue3 = newValue;
-                  });
-                },
-                underline: SizedBox(),
-              ),
-            ),
+            // Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 16.0),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(30.0),
+            //     border: Border.all(color: Colors.grey),
+            //   ),
+            //   child: DropdownButton<String>(
+            //     value: selectedValue3,
+            //     hint: Text("Bộ đề"),
+            //     isExpanded: true,
+            //     items: <String>['10', '20', '30'].map((String value) {
+            //       return DropdownMenuItem<String>(
+            //         value: value,
+            //         child: Text(value),
+            //       );
+            //     }).toList(),
+            //     onChanged: (String? newValue) {
+            //       setState(() {
+            //         selectedValue3 = newValue;
+            //       });
+            //     },
+            //     underline: SizedBox(),
+            //   ),
+            // ),
             //-----------------------------------------------------
             SizedBox(height: 30),
             Row(
