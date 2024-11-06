@@ -27,7 +27,7 @@ class TopicsService {
   Future<http.Response> getTopicsList() async {
     //Load
     return await http.get(
-      Uri.parse("${AppStrings.baseUrlApi}"),
+      Uri.parse("${AppStrings.baseUrlApi}topics"),
     );
   }
 

@@ -1,6 +1,8 @@
+import 'package:do_an_di_dong/inGame.dart';
 import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/notification.dart';
 import 'package:do_an_di_dong/view_models/topics_view_model.dart';
+import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -74,33 +76,6 @@ class _homePageState extends State<homePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  border: Border.all(color: Colors.grey),
-                ),
-                child: Consumer<TopicsViewModel>(
-                    builder: (context, viewModel, child) {
-                  Provider.of<TopicsViewModel>(context, listen: false);
-                  List<Topics> topicList = viewModel.listTopics;
-                  return DropdownButton<Topics>(
-                    value: selectedTopic,
-                    hint: Text("Chọn chủ đề"),
-                    isExpanded:
-                        true, // Giúp DropdownButton rộng ra hết chiều ngang
-                    items: topicList.map((Topics topic) {
-                      return DropdownMenuItem<Topics>(
-                        value: topic,
-                        child: Text(topic.topicName),
-                      );
-                    }).toList(),
-                    underline: SizedBox(),
-                    onChanged: (Topics? value) {
-                      selectedTopic = value;
-                    }, // Loại bỏ đường kẻ dưới mặc định
-                  );
-                })),
             //---Sizebox là khoảng cách giữa các thành phần với nhau
             SizedBox(height: 30),
             Container(

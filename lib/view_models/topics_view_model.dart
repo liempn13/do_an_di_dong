@@ -10,12 +10,16 @@ class TopicsViewModel extends ChangeNotifier {
   List<Topics> list = []; //Danh sách tạm lưu dữ liệu gọi từ api xuống
   bool fetchingData = false; //
   List<Topics> get listTopics => list;
+
   Future<void> getTopicsList() async {
+    fetchingData = true;
     try {
       list = await topicRepo.getTopicsList();
+      notifyListeners();
     } catch (e) {
-      throw Exception("Failed Add topic: $e");
+      throw Exception("Failed Load topic: $e");
     }
+    fetchingData = false;
   }
 
   Future<void> addTopic(Topics topics) async {
