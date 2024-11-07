@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Options {
   Options(
       {required this.optionID,

@@ -2,11 +2,13 @@ import 'package:do_an_di_dong/views/auth_screens/profile/edit_profile_screen.dar
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Thông tin cá nhân',
           style: TextStyle(color: Colors.white),
         ),
@@ -16,12 +18,12 @@ class ProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 50,
               backgroundImage: NetworkImage(
                   'https://images.pexels.com/photos/8631270/pexels-photo-8631270.jpeg'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Tên:',
@@ -32,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
               readOnly: true,
               controller: TextEditingController(text: 'DiênFake'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Email:',
@@ -43,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
               readOnly: true,
               controller: TextEditingController(text: 'dien@gmail.com'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Số điện thoại:',
@@ -54,13 +56,13 @@ class ProfileScreen extends StatelessWidget {
               readOnly: true,
               controller: TextEditingController(text: '0123456789'),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => EditProfileScreen(),
+                    builder: (context) => const EditProfileScreen(),
                   ),
                 );
               },

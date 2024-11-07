@@ -29,7 +29,7 @@ class _OtpForgotPasswordScreenState extends State<OtpForgotPasswordScreen> {
               RichText(
                 text: const TextSpan(
                   text: 'Mã OTP đã được gửi về điện thoại, ',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.grey,
                     fontSize: 14.0,
                   ),
@@ -38,7 +38,7 @@ class _OtpForgotPasswordScreenState extends State<OtpForgotPasswordScreen> {
               RichText(
                 text: const TextSpan(
                   text: 'vui lòng nhập mã otp  ',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.grey,
                     fontSize: 14.0,
                   ),

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Friends {
   Friends({required this.userID, required this.friendID});
   int userID;

@@ -59,10 +59,11 @@ class _ForgePasswordScreenState extends State<ForgePasswordScreen> {
                 ),
                 onPressed: () {
                   setState(() {
-                    if (_qmkController.text.isEmpty)
+                    if (_qmkController.text.isEmpty) {
                       _errorQmk = 'Vui lòng nhập SĐT hoặc email';
-                    else
+                    } else {
                       _errorQmk = null;
+                    }
                     if (_errorQmk == null) {
                       Navigator.push(
                         context,

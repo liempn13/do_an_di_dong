@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Users {
   Users(
       {required this.userID,

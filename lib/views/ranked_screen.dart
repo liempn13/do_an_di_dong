@@ -8,8 +8,8 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
-  Color BGEXP = Color.fromARGB(255, 173, 73, 225);
-  Color BGWin = Color.fromARGB(255, 235, 211, 248);
+  Color BGEXP = const Color.fromARGB(255, 173, 73, 225);
+  Color BGWin = const Color.fromARGB(255, 235, 211, 248);
   Color TextEXP = Colors.white;
   Color TextWin = Colors.black;
   double fsexp = 20;
@@ -19,9 +19,9 @@ class _ScreenState extends State<Screen> {
 
   void updateEXP() {
     setState(() {
-      BGEXP = Color.fromARGB(255, 173, 73, 225);
+      BGEXP = const Color.fromARGB(255, 173, 73, 225);
       TextEXP = Colors.white;
-      BGWin = Color.fromARGB(255, 235, 211, 248);
+      BGWin = const Color.fromARGB(255, 235, 211, 248);
       TextWin = Colors.black;
       fsexp = 20;
       fswin = 15;
@@ -30,9 +30,9 @@ class _ScreenState extends State<Screen> {
 
   void updateWin() {
     setState(() {
-      BGWin = Color.fromARGB(255, 173, 73, 225);
+      BGWin = const Color.fromARGB(255, 173, 73, 225);
       TextWin = Colors.white;
-      BGEXP = Color.fromARGB(255, 235, 211, 248);
+      BGEXP = const Color.fromARGB(255, 235, 211, 248);
       TextEXP = Colors.black;
       fsexp = 15;
       fswin = 20;
@@ -84,7 +84,7 @@ class _ScreenState extends State<Screen> {
               width: MediaQuery.of(context).size.width * 0.8,
               height: 60,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 235, 211, 248),
+                  color: const Color.fromARGB(255, 235, 211, 248),
                   borderRadius: BorderRadius.circular(25)),
               child: Row(
                 children: [
@@ -329,30 +329,38 @@ class _ScreenState extends State<Screen> {
                                         child: Text((index + 3).toString()),
                                       )),
                                 ),
-                                Padding(padding: const EdgeInsets.only(left: 13),
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),
-                                  color: Colors.black,
-                                  ),
-                                  
-                                ),
-                                ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 15),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 17),
-                                      child: Text('Tên người dùng', style: TextStyle(fontSize: 20),),
+                                  padding: const EdgeInsets.only(left: 13),
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.black,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 6),
-                                      child: Text('000 EXP', style: TextStyle(fontSize: 13),),
-                                    )
-                                  ]),
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 17),
+                                          child: Text(
+                                            'Tên người dùng',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 6),
+                                          child: Text(
+                                            '000 EXP',
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                        )
+                                      ]),
                                 )
                               ],
                             ),

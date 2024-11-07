@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Rooms {
   Rooms(
       {required this.roomID,

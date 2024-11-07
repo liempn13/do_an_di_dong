@@ -1,15 +1,31 @@
 import 'package:do_an_di_dong/models/options.dart';
 import 'package:do_an_di_dong/models/questions.dart';
 import 'package:do_an_di_dong/view_models/options_view_model.dart';
-import 'package:do_an_di_dong/view_models/questions_view_model.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class inGame extends StatelessWidget {
+class inGame extends StatefulWidget {
   Questions? questions;
-  Options? options;
-  inGame({super.key, this.questions, this.options});
+  inGame({super.key, this.questions});
+
+  @override
+  State<inGame> createState() => _inGameState();
+}
+
+class _inGameState extends State<inGame> {
+  @override
+  void initState() {
+    Provider.of<OptionsViewModel>(context, listen: false)
+        .getOption(widget.questions!.questionID);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +33,7 @@ class inGame extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
-          icon: Icon(Icons.settings, color: Colors.black),
+          icon: const Icon(Icons.settings, color: Colors.black),
           onPressed: () {
             showSettingsDialog(context);
           },
@@ -25,7 +41,8 @@ class inGame extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(height: 32.0), // Khoảng cách giữa AppBar đến phần câu hỏi
+          const SizedBox(
+              height: 32.0), // Khoảng cách giữa AppBar đến phần câu hỏi
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
@@ -37,10 +54,11 @@ class inGame extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
+                //Noi dung cau hoi
                 child: Text(
-                  questions!.questionContent,
+                  widget.questions!.questionContent,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -55,7 +73,7 @@ class inGame extends StatelessWidget {
               child: Consumer<OptionsViewModel>(
                   builder: (context, viewModel, child) {
                 Provider.of<OptionsViewModel>(context, listen: false)
-                    .getOption(questions!.questionID);
+                    .getOption(widget.questions!.questionID);
                 List<Options> optionList = viewModel.listOption;
                 return CustomListView(
                     dataSet: optionList,
@@ -81,8 +99,8 @@ class inGame extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+          child: const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -118,7 +136,7 @@ class CustomButton extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -126,7 +144,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 16,
           ),

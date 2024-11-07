@@ -16,8 +16,8 @@ class UiSpacer {
   static Widget formVerticalSpace({double space = 15}) =>
       SizedBox(height: space);
 
-  static Widget emptySpace() => SizedBox(width: 0, height: 0);
-  static Widget expandedSpace() => Expanded(
+  static Widget emptySpace() => const SizedBox(width: 0, height: 0);
+  static Widget expandedSpace() => const Expanded(
         child: SizedBox.shrink(),
       );
 
@@ -29,7 +29,7 @@ class UiSpacer {
         color: color,
       );
 
-  static Widget swipeIndicator() => Divider(
+  static Widget swipeIndicator() => const Divider(
         height: 4,
         thickness: 4,
       ).w(40).box.rounded.clip(Clip.antiAlias).make().centered();
@@ -41,7 +41,7 @@ class UiSpacer {
       ClipPath(
         clipper: MultiplePointsClipper(Sides.bottom,
             heightOfPoint: 5, numberOfPoints: 40),
-        child: SizedBox(
+        child: const SizedBox(
           height: 8,
           width: double.infinity,
         ).box.color(color ?? Vx.gray200).make(),

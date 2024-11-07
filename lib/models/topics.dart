@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Topics {
   Topics({required this.topicID, required this.topicName});
   int topicID;

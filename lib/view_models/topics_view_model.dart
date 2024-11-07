@@ -1,7 +1,6 @@
 import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/repository/topic_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
 class TopicsViewModel extends ChangeNotifier {
   //lam viec voi giao dien va repo

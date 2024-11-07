@@ -57,35 +57,35 @@ class CustomGridView extends StatelessWidget {
     this.onRefresh,
     this.onLoading,
     this.canPullUp = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
-    if (this.items != null && this.items!.isNotEmpty) {
+    if (items != null && items!.isNotEmpty) {
       return GridView.count(
         crossAxisCount: crossAxisCount,
-        children: this.items ?? [],
-        padding: this.padding,
-        physics: this.noScrollPhysics ? NeverScrollableScrollPhysics() : null,
+        padding: padding,
+        physics: noScrollPhysics ? const NeverScrollableScrollPhysics() : null,
         shrinkWrap: true,
-        reverse: this.reversed,
-        scrollDirection: this.scrollDirection,
+        reverse: reversed,
+        scrollDirection: scrollDirection,
+        children: items ?? [],
       );
     }
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: this.crossAxisCount,
-        childAspectRatio: this.childAspectRatio,
-        crossAxisSpacing: this.crossAxisSpacing,
-        mainAxisSpacing: this.mainAxisSpacing,
+        crossAxisCount: crossAxisCount,
+        childAspectRatio: childAspectRatio,
+        crossAxisSpacing: crossAxisSpacing,
+        mainAxisSpacing: mainAxisSpacing,
       ),
-      padding: this.padding,
-      physics: this.noScrollPhysics ? NeverScrollableScrollPhysics() : null,
+      padding: padding,
+      physics: noScrollPhysics ? const NeverScrollableScrollPhysics() : null,
       shrinkWrap: true,
-      itemBuilder: this.itemBuilder,
-      itemCount: this.dataSet?.length ?? 0,
-      reverse: this.reversed,
-      scrollDirection: this.scrollDirection,
+      itemBuilder: itemBuilder,
+      itemCount: dataSet?.length ?? 0,
+      reverse: reversed,
+      scrollDirection: scrollDirection,
     );
   }
 }

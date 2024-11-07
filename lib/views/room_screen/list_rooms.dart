@@ -23,7 +23,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
           children: [
             Row(
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: 50,
                   child: TextField(
@@ -97,11 +97,12 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                           Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(children: [
                                     Padding(
-                                      padding: EdgeInsets.only(top: 5),
+                                      padding: const EdgeInsets.only(top: 5),
                                       child: Container(
                                         width: 50,
                                         height: 50,
@@ -110,35 +111,11 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                                 width: 4, color: Colors.white),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        child: Center(child: Text('Avatar')),
+                                        child:
+                                            const Center(child: Text('Avatar')),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 7),
-                                      child: Center(
-                                        child: Text(
-                                          'Tên người chơi',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    )
-                                  ]),
-
-                                  Column(children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 50),
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 4, color: Colors.white),
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        child: Center(child: Text('Avatar')),
-                                      ),
-                                    ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsets.only(top: 7),
                                       child: Center(
                                         child: Text(
@@ -150,7 +127,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                   ]),
                                   Column(children: [
                                     Padding(
-                                      padding: EdgeInsets.only(top: 50),
+                                      padding: const EdgeInsets.only(top: 50),
                                       child: Container(
                                         width: 50,
                                         height: 50,
@@ -159,10 +136,11 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                                 width: 4, color: Colors.white),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        child: Center(child: Text('Avatar')),
+                                        child:
+                                            const Center(child: Text('Avatar')),
                                       ),
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding: EdgeInsets.only(top: 7),
                                       child: Center(
                                         child: Text(
@@ -174,7 +152,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                   ]),
                                   Column(children: [
                                     Padding(
-                                      padding: EdgeInsets.only(top: 1),
+                                      padding: const EdgeInsets.only(top: 50),
                                       child: Container(
                                         width: 50,
                                         height: 50,
@@ -183,10 +161,36 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                                 width: 4, color: Colors.white),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        child: Center(child: Text('Avatar')),
+                                        child:
+                                            const Center(child: Text('Avatar')),
                                       ),
                                     ),
+                                    const Padding(
+                                      padding: EdgeInsets.only(top: 7),
+                                      child: Center(
+                                        child: Text(
+                                          'Tên người chơi',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+                                  Column(children: [
                                     Padding(
+                                      padding: const EdgeInsets.only(top: 1),
+                                      child: Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 4, color: Colors.white),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child:
+                                            const Center(child: Text('Avatar')),
+                                      ),
+                                    ),
+                                    const Padding(
                                       padding: EdgeInsets.only(top: 7),
                                       child: Center(
                                         child: Text(
@@ -198,16 +202,24 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                   ]),
                                 ],
                               ),
-
-                              Padding(padding: EdgeInsets.only(top: 17),
-                              child: Center(
-                                child: Text('Tên chủ đề', style: TextStyle(fontSize: 25, color: Colors.white),),
-                              ),),
-
+                              const Padding(
+                                padding: EdgeInsets.only(top: 17),
+                                child: Center(
+                                  child: Text(
+                                    'Tên chủ đề',
+                                    style: TextStyle(
+                                        fontSize: 25, color: Colors.white),
+                                  ),
+                                ),
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.join_inner_outlined), label: Text('Vào Phòng'))
+                                  ElevatedButton.icon(
+                                      onPressed: () {},
+                                      icon:
+                                          const Icon(Icons.join_inner_outlined),
+                                      label: const Text('Vào Phòng'))
                                 ],
                               )
                             ],

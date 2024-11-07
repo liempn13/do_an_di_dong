@@ -19,9 +19,9 @@ class _QuestionListScreenState extends State<QuestionListScreen> {
       children: [
         Consumer<QuestionsViewModel>(builder: (context, viewModel, child) {
           return CustomListView(
-            dataSet: [],
+            dataSet: const [],
             itemBuilder: (context, index) {
-              return Placeholder();
+              return const Placeholder();
             },
           );
         })

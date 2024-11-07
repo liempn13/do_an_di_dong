@@ -15,12 +15,12 @@ class notification extends StatelessWidget {
             // Quay lại trang HomePage
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => homePage()),
+              MaterialPageRoute(builder: (context) => const homePage()),
             );
           },
-          icon: Icon(Icons.arrow_left),
+          icon: const Icon(Icons.arrow_left),
         ),
-        title: Text(
+        title: const Text(
           "Thông báo",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'invite_list_screen.dart';
 
 class FriendListScreen extends StatefulWidget {
+  const FriendListScreen({super.key});
+
   @override
   _FriendListScreenState createState() => _FriendListScreenState();
 }
@@ -54,7 +56,7 @@ class _FriendListScreenState extends State<FriendListScreen>
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'ID người chơi',
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -70,56 +72,56 @@ class _FriendListScreenState extends State<FriendListScreen>
                 ListView(
                   children: [
                     ListTile(
-                      leading: CircleAvatar(child: Icon(Icons.person)),
-                      title: Text("Diênlimited"),
-                      subtitle: Text("Tỉ số: 5-3"),
+                      leading: const CircleAvatar(child: Icon(Icons.person)),
+                      title: const Text("Diênlimited"),
+                      subtitle: const Text("Tỉ số: 5-3"),
                       trailing: ElevatedButton(
                         onPressed: () {},
-                        child: Text("Thách đấu"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
                         ),
+                        child: const Text("Thách đấu"),
                       ),
                     ),
                     ListTile(
-                      leading: CircleAvatar(child: Icon(Icons.person)),
-                      title: Text("Diên123"),
-                      subtitle: Text("Tỉ số: 7-12"),
+                      leading: const CircleAvatar(child: Icon(Icons.person)),
+                      title: const Text("Diên123"),
+                      subtitle: const Text("Tỉ số: 7-12"),
                       trailing: ElevatedButton(
                         onPressed: () {},
-                        child: Text("Thách đấu"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
                         ),
+                        child: const Text("Thách đấu"),
                       ),
                     ),
                     ListTile(
-                      leading: CircleAvatar(child: Icon(Icons.person)),
-                      title: Text("Diên123vippro"),
-                      subtitle: Text("Tỉ số: 0-0"),
+                      leading: const CircleAvatar(child: Icon(Icons.person)),
+                      title: const Text("Diên123vippro"),
+                      subtitle: const Text("Tỉ số: 0-0"),
                       trailing: ElevatedButton(
                         onPressed: () {},
-                        child: Text("Thách đấu"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
                         ),
+                        child: const Text("Thách đấu"),
                       ),
                     ),
                     ListTile(
-                      leading: CircleAvatar(child: Icon(Icons.person)),
-                      title: Text("Diênn111"),
-                      subtitle: Text("Tỉ số: 5-5"),
+                      leading: const CircleAvatar(child: Icon(Icons.person)),
+                      title: const Text("Diênn111"),
+                      subtitle: const Text("Tỉ số: 5-5"),
                       trailing: ElevatedButton(
                         onPressed: () {},
-                        child: Text("Thách đấu"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
                         ),
+                        child: const Text("Thách đấu"),
                       ),
                     ),
                   ],
                 ),
-                InviteListScreen(),
+                const InviteListScreen(),
               ],
             ),
           ),

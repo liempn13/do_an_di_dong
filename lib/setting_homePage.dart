@@ -22,8 +22,8 @@ class settingHomepage extends StatelessWidget {
             icon: const Icon(Icons.home, color: Colors.black),
             onPressed: () {
               // Điều hướng tới trang chủ
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => homePage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const homePage()));
             },
           ),
         ],
@@ -45,7 +45,7 @@ class settingHomepage extends StatelessWidget {
                 onTap: () {},
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Icon(Icons.face, color: Colors.blue),
                       SizedBox(width: 16.0),
@@ -64,7 +64,7 @@ class settingHomepage extends StatelessWidget {
                 onTap: () {},
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Icon(Icons.sunny, color: Colors.blue),
                       SizedBox(width: 16.0),
@@ -83,11 +83,11 @@ class settingHomepage extends StatelessWidget {
                 onTap: () {},
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Icon(Icons.logout, color: Colors.blue),
                       SizedBox(width: 16.0),
-                        Text(
+                      Text(
                         'Đăng xuất',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),

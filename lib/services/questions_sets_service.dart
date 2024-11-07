@@ -35,7 +35,7 @@ class QuestionsSetsService {
   Future<http.Response> getQuestionsSetsList(int topicID) async {
     //Load
     return await http.get(
-      Uri.parse("${AppStrings.baseUrlApi}question/$topicID"),
+      Uri.parse("${AppStrings.baseUrlApi}set/$topicID"),
     );
   }
 }

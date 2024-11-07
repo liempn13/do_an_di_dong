@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ForgePasswordScreen()));
+                          builder: (context) => const ForgePasswordScreen()));
                 },
                 child: RichText(
                   text: const TextSpan(

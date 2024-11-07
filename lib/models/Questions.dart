@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Questions {
   Questions(
       {required this.questionContent,

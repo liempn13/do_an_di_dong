@@ -1,8 +1,11 @@
 import 'package:do_an_di_dong/inGame.dart';
 import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/notification.dart';
+import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/view_models/topics_view_model.dart';
+import 'package:do_an_di_dong/views/ranked_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
+import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +17,32 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  int _selectedIndex = 0;
   Topics? selectedTopic;
+
+  static const List<Widget> _pages = <Widget>[
+    Center(child: Text('Trang chủ')),
+    Center(child: Text('Bảng xếp hạng')),
+    Center(child: Text('Lịch sử đấu')),
+    settingHomepage(),
+  ];
+  void _onItemTapped(int index) {
+    if (index == 3) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => settingHomepage()));
+    } else if (index == 1) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Screen()));
+    } else if (index == 2) {
+      //Truyền page lịch sử đấu
+      //  Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => settingHomepage()));
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,27 +50,6 @@ class _homePageState extends State<homePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        // Bên trái appbar
-        leading: PopupMenuButton<String>(
-          icon: CircleAvatar(
-            radius: 30,
-            // Link hình ảnh cần sửa lại
-            backgroundImage: NetworkImage(
-              'https://example.com/your-avatar-image.jpg',
-            ),
-          ),
-          onSelected: (value) {
-            if (value == 'logout') {
-              print('Đăng xuất');
-            }
-          },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-            PopupMenuItem<String>(
-              value: 'logout',
-              child: Text('Đăng xuất'),
-            ),
-          ],
-        ),
         // Ở giữa appbar
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +57,7 @@ class _homePageState extends State<homePage> {
             CircleAvatar(
               radius: 20,
               backgroundColor: Colors.grey.shade300,
-              child: Text(
+              child: const Text(
                 '3',
               ),
             )
@@ -59,12 +66,12 @@ class _homePageState extends State<homePage> {
         // Bên phải appbar
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: const Icon(Icons.notifications),
             onPressed: () {
               // Bay sang trang thông báo
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => notification()),
+                MaterialPageRoute(builder: (context) => const notification()),
               );
             },
           ),
@@ -77,9 +84,9 @@ class _homePageState extends State<homePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //---Sizebox là khoảng cách giữa các thành phần với nhau
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
                 border: Border.all(color: Colors.grey),
@@ -102,11 +109,11 @@ class _homePageState extends State<homePage> {
                   //     });
                   //   },
                   //   underline:
-                  SizedBox(), // Loại bỏ đường kẻ dưới mặc định
+                  const SizedBox(), // Loại bỏ đường kẻ dưới mặc định
               // ),
             ),
             //----------------------------------------------------------
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Container(
             //   padding: EdgeInsets.symmetric(horizontal: 16.0),
             //   decoration: BoxDecoration(
@@ -132,34 +139,39 @@ class _homePageState extends State<homePage> {
             //   ),
             // ),
             //-----------------------------------------------------
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TopicsListScreen()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32.0, vertical: 16.0),
+                  ),
+                  child: const Text(
                     'Luyện tập',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32.0, vertical: 16.0),
+                  ),
+                  child: const Text(
                     'Thi đấu',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
                   ),
                 ),
               ],
@@ -168,16 +180,18 @@ class _homePageState extends State<homePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Trang chủ'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.view_column), label: 'Bảng xếp hạng'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.history), label: 'Lịch sử đấu'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: 'Cài đặt')
-          ]),
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Trang chủ'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.view_column), label: 'Bảng xếp hạng'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.history), label: 'Lịch sử đấu'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Cài đặt')
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

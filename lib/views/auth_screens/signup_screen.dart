@@ -59,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
               child: RichText(
                   text: const TextSpan(
                 text: 'Đăng ký ',
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,

@@ -34,7 +34,7 @@ class TopicsService {
   Future<http.Response> getTopic(int topicID) async {
     //Load
     return await http.get(
-      Uri.parse("${AppStrings.baseUrlApi}"),
+      Uri.parse(AppStrings.baseUrlApi),
     );
   }
 }

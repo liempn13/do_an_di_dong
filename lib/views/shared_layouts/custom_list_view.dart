@@ -55,8 +55,8 @@ class CustomListView extends StatelessWidget {
     this.onLoading,
     this.canPullUp = false,
     this.separator,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +72,16 @@ class CustomListView extends StatelessWidget {
     //     : UiSpacer.emptySpace(),
     // showTabBar ? tabView() : UiSpacer.emptySpace(),
     return ListView.separated(
-      controller: this.scrollController,
-      padding: this.padding,
+      controller: scrollController,
+      padding: padding,
       shrinkWrap: true,
-      reverse: this.reversed,
-      physics: this.noScrollPhysics ? NeverScrollableScrollPhysics() : null,
-      scrollDirection: this.scrollDirection,
-      itemBuilder: this.itemBuilder,
-      itemCount: this.dataSet.length,
-      separatorBuilder: this.separatorBuilder ??
-          (context, index) => this.scrollDirection == Axis.vertical
+      reverse: reversed,
+      physics: noScrollPhysics ? const NeverScrollableScrollPhysics() : null,
+      scrollDirection: scrollDirection,
+      itemBuilder: itemBuilder,
+      itemCount: dataSet.length,
+      separatorBuilder: separatorBuilder ??
+          (context, index) => scrollDirection == Axis.vertical
               ? UiSpacer.verticalSpace(space: separator ?? 20.0)
               : UiSpacer.horizontalSpace(space: separator ?? 20.0),
     );
@@ -129,16 +129,16 @@ class CustomListView extends StatelessWidget {
   //Listview
   Widget listView() {
     return ListView.separated(
-      controller: this.scrollController,
-      padding: this.padding,
+      controller: scrollController,
+      padding: padding,
       shrinkWrap: true,
-      reverse: this.reversed,
-      physics: this.noScrollPhysics ? NeverScrollableScrollPhysics() : null,
-      scrollDirection: this.scrollDirection,
-      itemBuilder: this.itemBuilder,
-      itemCount: this.dataSet.length,
-      separatorBuilder: this.separatorBuilder ??
-          (context, index) => this.scrollDirection == Axis.vertical
+      reverse: reversed,
+      physics: noScrollPhysics ? const NeverScrollableScrollPhysics() : null,
+      scrollDirection: scrollDirection,
+      itemBuilder: itemBuilder,
+      itemCount: dataSet.length,
+      separatorBuilder: separatorBuilder ??
+          (context, index) => scrollDirection == Axis.vertical
               ? UiSpacer.verticalSpace(space: separator ?? 20.0)
               : UiSpacer.horizontalSpace(space: separator ?? 20.0),
     );
@@ -147,17 +147,17 @@ class CustomListView extends StatelessWidget {
   //Tab
   Widget tabView() {
     return DefaultTabController(
-        length: this.tabLength,
+        length: tabLength,
         child: TabBar(
             labelColor: Colors.white,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black,
                   )
                 ]),
             indicatorSize: TabBarIndicatorSize.tab,
-            tabs: this.tabList!));
+            tabs: tabList!));
   }
 }

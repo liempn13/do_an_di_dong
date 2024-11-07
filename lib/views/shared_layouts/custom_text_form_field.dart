@@ -6,8 +6,8 @@ import '../../constant/app_text_styles.dart';
 import '../../constant/input.styles.dart';
 
 class CustomTextFormField extends StatefulWidget {
-  CustomTextFormField({
-    Key? key,
+  const CustomTextFormField({
+    super.key,
     this.filled,
     this.fillColor,
     this.textEditingController,
@@ -31,7 +31,7 @@ class CustomTextFormField extends StatefulWidget {
     this.underline = false,
     this.inputFormatters,
     this.colorHintText,
-  }) : super(key: key);
+  });
 
   //
   final bool? filled;
@@ -100,7 +100,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         focusedBorder: InputStyles.inputFocusBorder(),
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon ?? _getSuffixWidget(),
-        contentPadding: EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(10),
       ),
 
       //Đổi màu cursor
@@ -133,10 +133,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       return ButtonTheme(
         minWidth: 30,
         height: 30,
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         child: TextButton(
           style: TextButton.styleFrom(
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
           ),
           onPressed: () {
             setState(() {
@@ -152,7 +152,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 }

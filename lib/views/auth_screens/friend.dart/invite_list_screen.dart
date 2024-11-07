@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class InviteListScreen extends StatelessWidget {
+  const InviteListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +13,7 @@ class InviteListScreen extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'ID người chơi',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -22,43 +24,43 @@ class InviteListScreen extends StatelessWidget {
             child: ListView(
               children: [
                 ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.person)),
-                  title: Text("Diên111"),
+                  leading: const CircleAvatar(child: Icon(Icons.person)),
+                  title: const Text("Diên111"),
                   trailing: ElevatedButton(
                     onPressed: () {},
-                    child: Text("Kết bạn"),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.purple),
+                    child: const Text("Kết bạn"),
                   ),
                 ),
                 ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.person)),
-                  title: Text("Diên321"),
+                  leading: const CircleAvatar(child: Icon(Icons.person)),
+                  title: const Text("Diên321"),
                   trailing: ElevatedButton(
                     onPressed: () {},
-                    child: Text("Kết bạn"),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.purple),
+                    child: const Text("Kết bạn"),
                   ),
                 ),
                 ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.person)),
-                  title: Text("Diên1111111"),
+                  leading: const CircleAvatar(child: Icon(Icons.person)),
+                  title: const Text("Diên1111111"),
                   trailing: ElevatedButton(
                     onPressed: () {},
-                    child: Text("Kết bạn"),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.purple),
+                    child: const Text("Kết bạn"),
                   ),
                 ),
                 ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.person)),
-                  title: Text("DiênDiên"),
+                  leading: const CircleAvatar(child: Icon(Icons.person)),
+                  title: const Text("DiênDiên"),
                   trailing: ElevatedButton(
                     onPressed: () {},
-                    child: Text("Kết bạn"),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.purple),
+                    child: const Text("Kết bạn"),
                   ),
                 ),
               ],

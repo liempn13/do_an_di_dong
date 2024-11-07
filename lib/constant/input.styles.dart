@@ -29,7 +29,7 @@ class InputStyles {
   //get the border for the textform field
   static InputBorder inputUnderlineFocusBorder() {
     return UnderlineInputBorder(
-      borderSide: BorderSide(
+      borderSide: const BorderSide(
           // color: AppColor.cancelledColor,
           ),
       borderRadius: BorderRadius.circular(Vx.dp8),

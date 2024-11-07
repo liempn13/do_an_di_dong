@@ -19,6 +19,8 @@ class BattleRecord {
 }
 
 class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({super.key});
+
   @override
   _HistoryScreenState createState() => _HistoryScreenState();
 }
@@ -59,7 +61,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Lịch sử đấu',
           style: TextStyle(color: Colors.white),
         ),
@@ -80,7 +82,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 class BattleRecordCard extends StatelessWidget {
   final BattleRecord record; // Bản ghi trận đấu hiện tại
 
-  BattleRecordCard({required this.record});
+  const BattleRecordCard({super.key, required this.record});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class BattleRecordCard extends StatelessWidget {
     bool isSinglePlayer = record.player2Name.isEmpty;
 
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -100,23 +102,23 @@ class BattleRecordCard extends StatelessWidget {
                     name:
                         record.player1Name), // Hiển thị thông tin người chơi 1
                 if (!isSinglePlayer) // 2 ng chơi thì có chữ vs
-                  Text('VS',
+                  const Text('VS',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 if (!isSinglePlayer) PlayerInfo(name: record.player2Name),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(record.topic,
-                style: TextStyle(fontSize: 14, color: Colors.black54)),
-            SizedBox(height: 8),
+                style: const TextStyle(fontSize: 14, color: Colors.black54)),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ScoreBox(score: record.player1Score), // điểm của người chơi 1
                 Text(record.time,
-                    style:
-                        TextStyle(color: Colors.black54)), // thời gian trận đấu
+                    style: const TextStyle(
+                        color: Colors.black54)), // thời gian trận đấu
                 if (!isSinglePlayer)
                   ScoreBox(
                       score:
@@ -134,21 +136,21 @@ class BattleRecordCard extends StatelessWidget {
 class PlayerInfo extends StatelessWidget {
   final String name;
 
-  PlayerInfo({required this.name});
+  const PlayerInfo({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
+        const CircleAvatar(
           backgroundColor: Colors.grey,
           radius: 20,
           child: Icon(Icons.person, color: Colors.white),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           name,
-          style: TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14),
           overflow: TextOverflow.ellipsis, // cắt chữ khi tên quá dài
         ),
       ],
@@ -160,19 +162,19 @@ class PlayerInfo extends StatelessWidget {
 class ScoreBox extends StatelessWidget {
   final int score;
 
-  ScoreBox({required this.score});
+  const ScoreBox({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.green,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
         score.toString(),
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        style: const TextStyle(color: Colors.white, fontSize: 16),
       ),
     );
   }

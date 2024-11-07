@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class QuestionSetsDetail {
   QuestionSetsDetail({required this.questionsSetID, required this.questionID});
   int questionsSetID;

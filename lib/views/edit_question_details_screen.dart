@@ -22,23 +22,24 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
         showAppBar: true,
         // showLeadingAction: true,
         appBar: AppBar(
-          leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+          leading:
+              IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
           centerTitle: true,
-          title: CustomTextFormField(
+          title: const CustomTextFormField(
             hintText: "Your question",
           ),
           actions: [
             SpeedDial(
               elevation: 0,
               icon: Icons.menu,
-              buttonSize: Size(50, 50),
+              buttonSize: const Size(50, 50),
               direction: SpeedDialDirection.down,
               children: [
                 SpeedDialChild(
                     label: "Points",
                     onTap: () => showDialog<Widget>(
                           context: context,
-                          builder: (context) => Dialog(
+                          builder: (context) => const Dialog(
                             child: Center(
                                 child: Column(
                               children: [],
@@ -54,11 +55,11 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
                                   child: Column(
                                 children: [
                                   CustomGridView(
-                                      dataSet: [],
+                                      dataSet: const [],
                                       itemBuilder: (context, index) =>
                                           TextButton(
                                               onPressed: () {},
-                                              child: Text("20 sec"))),
+                                              child: const Text("20 sec"))),
                                 ],
                               )),
                             ))),
@@ -67,7 +68,7 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
                     label: "Delete",
                     onTap: () => showDialog<Widget>(
                         context: context,
-                        builder: (context) => Dialog(
+                        builder: (context) => const Dialog(
                               child: Center(
                                   child: Column(
                                 children: [],
@@ -87,45 +88,45 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
                 height: 180,
                 decoration: BoxDecoration(
                     color: Colors.grey[400],
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: Center(),
+                    borderRadius: const BorderRadius.all(Radius.circular(20))),
+                child: const Center(),
               ).p8(),
               ListTile(
-                title: CustomTextFormField(
+                title: const CustomTextFormField(
                   isReadOnly: true,
                 ),
                 trailing: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {},
                 ),
               ),
               //
               ListTile(
-                title: CustomTextFormField(
+                title: const CustomTextFormField(
                   isReadOnly: false,
                 ),
                 trailing: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {},
                 ),
               ),
               //
               ListTile(
-                title: CustomTextFormField(
+                title: const CustomTextFormField(
                   isReadOnly: false,
                 ),
                 trailing: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {},
                 ),
               ),
               //
               ListTile(
-                title: CustomTextFormField(
+                title: const CustomTextFormField(
                   isReadOnly: false,
                 ),
                 trailing: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {},
                 ),
               ),
