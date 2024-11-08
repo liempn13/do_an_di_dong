@@ -3,8 +3,10 @@ import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/views/question_set_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_grid_view.dart';
+import 'package:do_an_di_dong/views/shared_layouts/custom_text_form_field.dart';
 import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -17,17 +19,58 @@ class TopicsListScreen extends StatefulWidget {
 
 class _TopicsListScreenState extends State<TopicsListScreen> {
   @override
+  void initState() {
+    Provider.of<TopicsViewModel>(context, listen: false).getTopicsList();
+    super.initState();
+  }
+
+  @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController topicNameTxt = TextEditingController();
     return BasePage(
       showAppBar: true,
       title: "CHỌN CHỦ ĐỀ",
-      actions: const [],
+      actions: [
+        SpeedDial(
+          elevation: 0,
+          icon: Icons.menu,
+          buttonSize: Size(50, 50),
+          direction: SpeedDialDirection.down,
+          children: [
+            SpeedDialChild(
+                label: "New",
+                onTap: () => showDialog<Widget>(
+                    context: context,
+                    builder: (context) => Dialog(
+                          child: Container(
+                              height: 300,
+                              child: Column(
+                                children: [
+                                  Center(
+                                      child: CustomTextFormField(
+                                    hintText: "Tên chủ đề",
+                                    textEditingController: topicNameTxt,
+                                  )),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Provider.of<TopicsViewModel>(context,
+                                                listen: false)
+                                            .addTopic(Topics(
+                                                topicName: topicNameTxt.text));
+                                        initState();
+                                      },
+                                      child: Text("Thêm"))
+                                ],
+                              )),
+                        ))),
+          ],
+        ).px4()
+      ],
       body: Consumer<TopicsViewModel>(builder: (context, viewModel, child) {
         if (!viewModel.fetchingData && viewModel.listTopics.isEmpty) {
           Provider.of<TopicsViewModel>(context, listen: false).getTopicsList();

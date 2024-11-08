@@ -14,9 +14,9 @@ class QuestionSetDetailsRepo {
     final response = await service.getQuestionSetDetails(questionsSetID);
     if (response.statusCode == 200) {
       optionsList = List<Options>.from(
-          json.decode(response.body).map((x) => Options.fromJson(x)));
+          json.decode(response.body)[''].map((x) => Options.fromJson(x)));
       questionList = List<Questions>.from(
-          json.decode(response.body).map((x) => Questions.fromJson(x)));
+          json.decode(response.body)[''].map((x) => Questions.fromJson(x)));
     } else {
       throw Exception("Failed code");
     }

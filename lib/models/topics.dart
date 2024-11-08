@@ -1,6 +1,6 @@
 class Topics {
-  Topics({required this.topicID, required this.topicName});
-  int topicID;
+  Topics({ this.topicID, required this.topicName});
+  int? topicID;
   String topicName;
 
   factory Topics.fromJson(Map<String, dynamic> json) {
@@ -13,8 +13,8 @@ class Topics {
   Map<String, dynamic> toJson() {
     //tu giao dien thanh json xuong database
     final map = <String, dynamic>{};
-    map["user_id"] = topicID;
-    map["friend_id"] = topicName;
+    map["topic_id"] = topicID;
+    map["topic_name"] = topicName;
     return map;
   }
 }

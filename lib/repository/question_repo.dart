@@ -30,7 +30,7 @@ class QuestionRepo {
   Future<bool> addQuetion(Questions question) async {
     final response = await service.createQuestion(question);
     if (response.statusCode == 200) {
-      print("Add successful");
+     
       return true;
     } else {
       throw Exception("Failed code");
@@ -40,7 +40,7 @@ class QuestionRepo {
   Future<bool> updateQuestion(Questions question) async {
     final response = await service.updateQuestion(question);
     if (response.statusCode == 200) {
-      print("Update successful");
+     
       return true;
     } else {
       throw Exception("Failed code");

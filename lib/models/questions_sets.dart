@@ -1,10 +1,10 @@
 class QuestionsSets {
   QuestionsSets(
-      {required this.questionsSetID,
+      {this.questionsSetID,
       required this.questionsSetName,
       required this.topicID,
       required this.questionQuantity});
-  int questionsSetID;
+  int? questionsSetID;
   String questionsSetName;
   int topicID;
   int questionQuantity;

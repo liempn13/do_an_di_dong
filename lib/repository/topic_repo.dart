@@ -10,7 +10,6 @@ class TopicRepo {
   Future<bool> addTopics(Topics topic) async {
     final reponse = await service.createTopics(topic);
     if (reponse.statusCode == 200) {
-      print("Add successful");
       return true;
     } else {
       throw Exception("Failed code");

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class TopicsService {
   Future<http.Response> createTopics(Topics topic) async {
     //Them
-    return await http.post(Uri.parse("${AppStrings.baseUrlApi}question"),
+    return await http.post(Uri.parse("${AppStrings.baseUrlApi}topic/create"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -16,7 +16,7 @@ class TopicsService {
 
   Future<http.Response> updateTopics(Topics topic) async {
     //Sua
-    return await http.put(Uri.parse("${AppStrings.baseUrlApi}question"),
+    return await http.put(Uri.parse("${AppStrings.baseUrlApi}topic/update"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

@@ -26,7 +26,7 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
               IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
           centerTitle: true,
           title: const CustomTextFormField(
-            hintText: "Your question",
+            hintText: "Nội dung câu hỏi",
           ),
           actions: [
             SpeedDial(
@@ -36,7 +36,7 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
               direction: SpeedDialDirection.down,
               children: [
                 SpeedDialChild(
-                    label: "Points",
+                    label: "Điểm",
                     onTap: () => showDialog<Widget>(
                           context: context,
                           builder: (context) => const Dialog(
@@ -47,7 +47,7 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
                           ),
                         )),
                 SpeedDialChild(
-                    label: "Set time limit",
+                    label: "Đặt thời gian",
                     onTap: () => showDialog<Widget>(
                         context: context,
                         builder: (BuildContext context) => Dialog(
@@ -59,13 +59,13 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
                                       itemBuilder: (context, index) =>
                                           TextButton(
                                               onPressed: () {},
-                                              child: const Text("20 sec"))),
+                                              child: const Text("20 giây"))),
                                 ],
                               )),
                             ))),
-                SpeedDialChild(label: "Save", onTap: () {}),
+                SpeedDialChild(label: "Lưu", onTap: () {}),
                 SpeedDialChild(
-                    label: "Delete",
+                    label: "Xoá",
                     onTap: () => showDialog<Widget>(
                         context: context,
                         builder: (context) => const Dialog(
