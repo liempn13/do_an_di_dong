@@ -14,4 +14,9 @@ Future<http.Response> getListRooms(int roomID) async {
   );
 }
 
+Future<http.Response> getCreator(int userID) async {
+  return await http.get(
+    Uri.parse("${AppStrings.baseUrlApi}user/user_id")
+  );
+}
 }

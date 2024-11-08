@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:do_an_di_dong/models/Rooms.dart';
+import 'package:do_an_di_dong/models/Users.dart';
 import 'package:do_an_di_dong/services/list_rooms_services.dart';
 
 class ListRoomsRepo {
@@ -20,6 +21,16 @@ class ListRoomsRepo {
     if (reponse.statusCode == 200) {
       return Rooms.fromJson(json.decode(reponse.body));
     } else {
+      throw Exception("Failed code");
+    }
+  }
+
+  Future<Users> getCreator(int userID) async {
+    final reponse = await service.getCreator(userID);
+    if(reponse.statusCode == 200) {
+      return Users.fromJson(json.decode(reponse.body));
+    }
+    else {
       throw Exception("Failed code");
     }
   }
