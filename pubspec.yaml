@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  webview_flutter: ^4.0.4
   localize_and_translate: ^4.1.1
   provider: ^6.1.2
   http: ^1.2.0
@@ -31,8 +32,6 @@ dev_dependencies:
 
 flutter:
   assets:
-      - assets/img/ranked.png
-      - assets/img/bgroom.jpg
-      - assets/img/anh_do_vui.jpg
+      - assets/img/
   uses-material-design: true
 

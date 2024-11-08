@@ -30,12 +30,13 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
+        '/homePage': (context) => const homePage(),
         '/settingHomepage': (context) => const settingHomepage(),
         '/profileScreen': (context) => const ProfileScreen(),
         '/loginPage': (context) => const LoginScreen(),
       },
       debugShowCheckedModeBanner: false,
-      home: homePage(),
+      home: inGame(),
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

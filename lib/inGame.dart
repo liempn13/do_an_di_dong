@@ -6,27 +6,8 @@ import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class inGame extends StatefulWidget {
-  Questions? questions;
-  inGame({super.key, this.questions});
-
-  @override
-  State<inGame> createState() => _inGameState();
-}
-
-class _inGameState extends State<inGame> {
-  @override
-  void initState() {
-    Provider.of<OptionsViewModel>(context, listen: false)
-        .getOption(widget.questions!.questionID);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+class inGame extends StatelessWidget {
+  inGame({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +15,7 @@ class _inGameState extends State<inGame> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
-          icon: const Icon(Icons.settings, color: Colors.black),
+          icon: Icon(Icons.settings, color: Colors.black),
           onPressed: () {
             showSettingsDialog(context);
           },
@@ -42,8 +23,7 @@ class _inGameState extends State<inGame> {
       ),
       body: Column(
         children: [
-          const SizedBox(
-              height: 32.0), // Khoảng cách giữa AppBar đến phần câu hỏi
+          SizedBox(height: 32.0), // Khoảng cách giữa AppBar đến phần câu hỏi
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
@@ -54,12 +34,11 @@ class _inGameState extends State<inGame> {
                 border: Border.all(color: Colors.blue),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
-                //Noi dung cau hoi
+              child: const Center(
                 child: Text(
-                  widget.questions!.questionContent,
+                  "huuhg",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -69,101 +48,52 @@ class _inGameState extends State<inGame> {
             ),
           ),
           const SizedBox(height: 32.0), // Khoảng cách giữa câu hỏi và đáp án
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Consumer<OptionsViewModel>(
-                  builder: (context, viewModel, child) {
-                Provider.of<OptionsViewModel>(context, listen: false)
-                    .getOption(widget.questions!.questionID);
-                List<Options> optionList = viewModel.listOption;
-                return CustomListView(
-                    dataSet: optionList,
-                    itemBuilder: (context, index) {
-                      return OptionButton(
-                          option: optionList[index].optionContent);
-                    });
-              })),
-          const SizedBox(
-              height: 32.0), // Cách đều phần dưới với các câu trả lời
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+
+            child: SizedBox(
+                height: 32.0), // Cách đều phần dưới với các câu trả lời
+          )
         ],
       ),
       backgroundColor: Colors.white,
     );
   }
-
-  // Hàm hiển thị bảng pop-up cài đặt
-  void showSettingsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomButton(
-                  text: 'Tiếp tục',
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pop(); // Close the dialog and stay on the current page
-                  },
-                ),
-                const SizedBox(height: 16),
-                CustomButton(
-                  text: 'Quay trở lại trang tiêu đề',
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(
-                        '/homePage'); // Navigate to the home page
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 }
 
-class OptionButton extends StatelessWidget {
-  final String option;
-  const OptionButton({super.key, required this.option});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.blue),
+// Hàm hiển thị bảng pop-up cài đặt
+void showSettingsDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white, // Màu nền của nút
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            elevation: 0, // Loại bỏ đổ bóng cho nút
-          ),
-          onPressed: () {},
-          child: Align(
-            alignment: Alignment.centerLeft, // Căn chữ về bên trái
-            child: Text(
-              option,
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomButton(
+                text: 'Tiếp tục',
+                onPressed: () {
+                  Navigator.of(context)
+                      .pop(); // Close the dialog and stay on the current page
+                },
               ),
-            ),
+              const SizedBox(height: 16),
+              CustomButton(
+                text: 'Quay trở lại trang tiêu đề',
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed(
+                      '/homePage'); // Navigate to the home page
+                },
+              ),
+            ],
           ),
         ),
-      ),
-    );
-  }
+      );
+    },
+  );
 }
