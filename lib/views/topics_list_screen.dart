@@ -34,7 +34,15 @@ class _TopicsListScreenState extends State<TopicsListScreen> {
     TextEditingController topicNameTxt = TextEditingController();
     return BasePage(
       showAppBar: true,
-      title: "CHỌN CHỦ ĐỀ",
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: Center(
+          child: Text(
+            "Chọn chủ đề",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
       actions: [
         SpeedDial(
           elevation: 0,

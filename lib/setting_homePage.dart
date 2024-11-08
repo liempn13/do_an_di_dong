@@ -1,3 +1,5 @@
+import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
+import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:do_an_di_dong/homePage.dart';
 
@@ -17,16 +19,6 @@ class settingHomepage extends StatelessWidget {
         title: const Text('Cài đặt', style: TextStyle(color: Colors.blue)),
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home, color: Colors.black),
-            onPressed: () {
-              // Điều hướng tới trang chủ
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const homePage()));
-            },
-          ),
-        ],
       ),
       body: Center(
         child: Container(
@@ -40,9 +32,12 @@ class settingHomepage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Chỉnh sửa thông tin cá nahn6
+              // Chỉnh sửa thông tin cá nhân
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ProfileScreen()));
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: const Row(
@@ -59,7 +54,7 @@ class settingHomepage extends StatelessWidget {
               ),
               const Divider(height: 1, color: Colors.grey),
 
-              // Cài đặt giao dein65
+              // Cài đặt giao diện
               GestureDetector(
                 onTap: () {},
                 child: Container(
@@ -69,7 +64,7 @@ class settingHomepage extends StatelessWidget {
                       Icon(Icons.sunny, color: Colors.blue),
                       SizedBox(width: 16.0),
                       Text(
-                        'Cài đặt giao diên',
+                        'Cài đặt giao diện',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
@@ -80,7 +75,10 @@ class settingHomepage extends StatelessWidget {
 
               // Đăng xuất
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  // Navigate to the login page
+                  Navigator.pushReplacementNamed(context, '/loginPage');
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: const Row(

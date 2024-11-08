@@ -49,7 +49,7 @@ class _homePageState extends State<homePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.purple,
         // Ở giữa appbar
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -78,105 +78,56 @@ class _homePageState extends State<homePage> {
         ],
       ),
       //phần thân------
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //---Sizebox là khoảng cách giữa các thành phần với nhau
-            const SizedBox(height: 30),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                border: Border.all(color: Colors.grey),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/img/anh_do_vui.jpg"),
+          fit: BoxFit.cover,
+        )),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //---Sizebox là khoảng cách giữa các thành phần với nhau
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TopicsListScreen()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32.0, vertical: 16.0),
+                    ),
+                    child: const Text(
+                      'Luyện tập',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32.0, vertical: 16.0),
+                    ),
+                    child: const Text(
+                      'Thi đấu',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
-              child:
-                  // DropdownButton<String>(
-                  //   value: selectedValue2,
-                  //   hint: Text("Chọn bộ đề"),
-                  //   isExpnded: true,
-                  //   items: <String>['Bộ đề 1', 'Bộ đề 2', 'Bộ đề 3']
-                  //       .map((String value) {
-                  //     return DropdownMenuItem<String>(
-                  //       value: value,
-                  //       child: Text(value),
-                  //     );
-                  //   }).toList(),
-                  //   onChanged: (String? newValue) {
-                  //     setState(() {
-                  //       selectedValue2 = newValue;
-                  //     });
-                  //   },
-                  //   underline:
-                  const SizedBox(), // Loại bỏ đường kẻ dưới mặc định
-              // ),
-            ),
-            //----------------------------------------------------------
-            const SizedBox(height: 30),
-            // Container(
-            //   padding: EdgeInsets.symmetric(horizontal: 16.0),
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(30.0),
-            //     border: Border.all(color: Colors.grey),
-            //   ),
-            //   child: DropdownButton<String>(
-            //     value: selectedValue3,
-            //     hint: Text("Bộ đề"),
-            //     isExpanded: true,
-            //     items: <String>['10', '20', '30'].map((String value) {
-            //       return DropdownMenuItem<String>(
-            //         value: value,
-            //         child: Text(value),
-            //       );
-            //     }).toList(),
-            //     onChanged: (String? newValue) {
-            //       setState(() {
-            //         selectedValue3 = newValue;
-            //       });
-            //     },
-            //     underline: SizedBox(),
-            //   ),
-            // ),
-            //-----------------------------------------------------
-            const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TopicsListScreen()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32.0, vertical: 16.0),
-                  ),
-                  child: const Text(
-                    'Luyện tập',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32.0, vertical: 16.0),
-                  ),
-                  child: const Text(
-                    'Thi đấu',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

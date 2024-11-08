@@ -38,7 +38,6 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
     TextEditingController setNameTxt = TextEditingController();
     TextEditingController questionQuantityTxt = TextEditingController();
     return BasePage(
-      showAppBar: true,
       actions: [
         SpeedDial(
           elevation: 0,
@@ -93,6 +92,16 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
           ],
         ).px4()
       ],
+      showAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: Center(
+          child: Text(
+            "Chọn bộ đề",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
       body:
           Consumer<QuestionsSetViewModel>(builder: (context, viewModel, child) {
         if (!viewModel.fetchingData && viewModel.listQuestionSets.isEmpty) {
