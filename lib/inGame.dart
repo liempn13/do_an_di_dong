@@ -1,3 +1,4 @@
+import 'package:do_an_di_dong/custombutton_popup.dart';
 import 'package:do_an_di_dong/models/options.dart';
 import 'package:do_an_di_dong/models/questions.dart';
 import 'package:do_an_di_dong/view_models/options_view_model.dart';
@@ -99,57 +100,31 @@ class _inGameState extends State<inGame> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Padding(
-            padding: EdgeInsets.all(16.0),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CustomButton(text: 'Option 1'),
-                SizedBox(height: 16),
-                CustomButton(text: 'Option 2'),
-                SizedBox(height: 16),
-                CustomButton(text: 'Option 3'),
+                CustomButton(
+                  text: 'Tiếp tục',
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pop(); // Close the dialog and stay on the current page
+                  },
+                ),
+                const SizedBox(height: 16),
+                CustomButton(
+                  text: 'Quay trở lại trang tiêu đề',
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(
+                        '/homePage'); // Navigate to the home page
+                  },
+                ),
               ],
             ),
           ),
         );
       },
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  final String text;
-
-  const CustomButton({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 0,
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-        ),
-      ),
     );
   }
 }

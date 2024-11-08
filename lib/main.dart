@@ -1,7 +1,10 @@
 import 'package:do_an_di_dong/homePage.dart';
 import 'package:do_an_di_dong/inGame.dart';
+import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/view_models/questions_sets_view_model.dart';
 import 'package:do_an_di_dong/view_models/topics_view_model.dart';
+import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
+import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
@@ -26,8 +29,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/settingHomepage': (context) => const settingHomepage(),
+        '/profileScreen': (context) => const ProfileScreen(),
+        '/loginPage': (context) => const LoginScreen(),
+      },
       debugShowCheckedModeBanner: false,
-      home: inGame(),
+      home: homePage(),
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

@@ -1,3 +1,4 @@
+import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class EditProfileScreen extends StatelessWidget {
           color: Colors.white,
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/settingHomepage');
           },
         ),
       ),

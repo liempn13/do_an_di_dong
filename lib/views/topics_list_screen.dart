@@ -26,7 +26,15 @@ class _TopicsListScreenState extends State<TopicsListScreen> {
   Widget build(BuildContext context) {
     return BasePage(
       showAppBar: true,
-      title: "CHỌN CHỦ ĐỀ",
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: Center(
+          child: Text(
+            "Chọn chủ đề",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
       actions: const [],
       body: Consumer<TopicsViewModel>(builder: (context, viewModel, child) {
         if (!viewModel.fetchingData && viewModel.listTopics.isEmpty) {

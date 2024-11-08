@@ -35,6 +35,16 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
+      showAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: Center(
+          child: Text(
+            "Chọn bộ đề",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
       body:
           Consumer<QuestionsSetViewModel>(builder: (context, viewModel, child) {
         if (!viewModel.fetchingData && viewModel.listQuestionSets.isEmpty) {
