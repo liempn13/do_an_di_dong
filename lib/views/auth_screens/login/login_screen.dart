@@ -1,7 +1,12 @@
-import 'package:do_an_di_dong/views/auth_screens/forgot_password_screen.dart';
-import 'package:do_an_di_dong/views/auth_screens/signup_screen.dart';
+import 'package:do_an_di_dong/models/Users.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:do_an_di_dong/homePage.dart';
+import 'package:do_an_di_dong/view_models/users_view_model.dart';
+import 'package:do_an_di_dong/views/auth_screens/forgot_password_screen.dart';
+import 'package:do_an_di_dong/views/auth_screens/signup_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,14 +17,16 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _anHienPass = true;
-  String? _errorUsername;
+  String? _errorEmail;
   String? _errorPass;
+  Users? user;
   // TextEditingController để điều khiển các trường nhập liệu
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final usersViewModel = Provider.of<UsersViewModel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -40,9 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 40.0),
             // Tên đăng nhập
             TextField(
-              controller: _usernameController,
+              controller: _emailController,
               decoration: InputDecoration(
-                labelText: 'Tên đăng nhập',
+                labelText: 'Email hoặc số điện thoại',
                 labelStyle: const TextStyle(
                   color: Colors.grey,
                 ),
@@ -50,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 prefixIcon: const Icon(Icons.person),
-                errorText: _errorUsername,
+                errorText: _errorEmail,
               ),
               onChanged: (value) {
                 setState(() {});
@@ -95,12 +102,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   setState(() {
-                    if (_usernameController.text.isEmpty) {
-                      _errorUsername = 'Không được để trống tên đăng nhập';
+                    if (_emailController.text.isEmpty) {
+                      _errorEmail = 'Không được để trống tên email/sđt';
                     } else {
-                      _errorUsername = null;
+                      _errorEmail = null;
                     }
 
                     if (_passwordController.text.isEmpty) {
@@ -108,10 +115,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     } else {
                       _errorPass = null;
                     }
-                    if (_errorUsername == null && _errorPass == null) {
-                      print('Đăng nhập thành công');
-                    }
                   });
+                  try {
+                    if (_errorEmail == null && _errorPass == null) {
+                      if (isEmail(_emailController.text)) {
+                        // Đăng nhập bằng email
+                        user = await usersViewModel.loginEmail(
+                            _emailController.text, _passwordController.text);
+                        Navigator.pushReplacementNamed(context, '/homePage');
+                      } else if (SPUtill.isPhoneNumber(_emailController.text)) {
+                        // Đăng nhập bằng số điện thoại
+                        user = await usersViewModel.loginPhone(
+                            _emailController.text, _passwordController.text);
+                        Navigator.pushReplacementNamed(context, '/homePage');
+                      } else {
+                        throw Exception(
+                            'Vui lòng nhập email hoặc số điện thoại hợp lệ');
+                      }
+                    }
+                  } catch (e) {
+                    print('Error: $e');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Lỗi kết nối')),
+                    );
+                  }
                 },
                 child: const Text(
                   'Đăng nhập',
@@ -175,5 +202,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+}
+
+class SPUtill {
+  // Hàm kiểm tra số điện thoại hợp lệ
+  static bool isPhoneNumber(String input) {
+    // Kiểm tra nếu chuỗi là số và có độ dài hợp lệ
+    return input.length == 10 && isNumeric(input);
   }
 }

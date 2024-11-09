@@ -48,7 +48,7 @@ class UsersService {
 
   // kiểm tra email trong đn
   Future<http.Response> emailLogin(String email, String password) async {
-    return await http.put(
+    return await http.post(
       Uri.parse("${AppStrings.baseUrlApi}auth/login/email"),
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ class UsersService {
 
   // kiểm tra sđt trong dn
   Future<http.Response> phoneNumberLogin(String phone, String password) async {
-    return await http.put(
+    return await http.post(
       Uri.parse("${AppStrings.baseUrlApi}auth/login/phone"),
       headers: {
         'Content-Type': 'application/json',

@@ -27,6 +27,9 @@ void main() {
     ),
     ChangeNotifierProvider<ListRoomsViewModel>(
       create: (context) => ListRoomsViewModel(),
+    ),
+    ChangeNotifierProvider<UsersViewModel>(
+      create: (context) => UsersViewModel(),
     )
   ], child: const LocalizedApp(child: MainApp())));
 }
@@ -44,7 +47,7 @@ class MainApp extends StatelessWidget {
         '/loginPage': (context) => const LoginScreen(),
       },
       debugShowCheckedModeBanner: false,
-      home: homePage(),
+      home: LoginScreen(),
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

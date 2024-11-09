@@ -1,6 +1,6 @@
 class Users {
   Users(
-      {required this.userID,
+      {this.userID,
       required this.userGameName,
       required this.email,
       required this.phone,
@@ -9,7 +9,7 @@ class Users {
       required this.level,
       required this.exp,
       required this.status});
-  int userID;
+  int? userID;
   String userGameName;
   String email;
   String phone;

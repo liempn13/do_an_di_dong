@@ -1,3 +1,3 @@
 class AppStrings {
-  static const String baseUrlApi = "http://172.16.23.120:8000/api/v1/";
+  static const String baseUrlApi = "http://192.168.1.244:8000/api/v1/";
 }

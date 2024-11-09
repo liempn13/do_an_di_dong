@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:do_an_di_dong/models/Users.dart';
 import 'package:do_an_di_dong/services/users_service.dart';
 
@@ -7,7 +8,7 @@ class UsersRepository {
 
   Future<List<Users>> getUserList() async {
     final response = await service.getUser();
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return List<Users>.from(
           json.decode(response.body).map((x) => Users.fromJson(x)));
     } else {
@@ -17,7 +18,7 @@ class UsersRepository {
 
   Future<bool> addUser(Users user) async {
     final response = await service.createUser(user);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       print("Thêm người dùng thành công. Response body: ${response.body}");
       return true;
     } else {
@@ -30,7 +31,7 @@ class UsersRepository {
   Future<bool> updateUser(Users user) async {
     try {
       final response = await service.updateUser(user);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print(
             "Cập nhật thông tin người dùng thành công. Response body: ${response.body}");
         return true;
@@ -45,100 +46,27 @@ class UsersRepository {
     }
   }
 
-  /// Đăng nhập bằng email
   Future<Users> emailLogin(String email, String password) async {
     final response = await service.emailLogin(email, password);
-
     if (response.statusCode == 200 || response.statusCode == 201) {
-      try {
-        final jsonData = json.decode(response.body);
-        final user = Users.fromJson(jsonData);
-
-        // Kiểm tra nếu thông tin đăng nhập khớp
-        if (user.email == email && user.password == password) {
-          print("Đăng nhập thành công.");
-          return user;
-        } else {
-          // Nếu email hoặc mật khẩu không khớp
-          throw Exception("Email hoặc mật khẩu không chính xác.");
-        }
-      } catch (e) {
-        throw Exception("Đăng nhập thành công nhưng không thể parse JSON: $e");
-      }
+      //save on the shared preferences that the user is logged in
+      print(Users.fromJson(json.decode(response.body)));
+      return Users.fromJson(json.decode(response.body));
     } else {
-      // Nếu phản hồi không phải 200 hoặc 201
       throw Exception(
-        'Đăng nhập thất bại: ${response.statusCode} - ${response.body}',
-      );
+          'Không thể đăng nhập: ${response.statusCode} - ${response.body}');
     }
   }
 
-  /// Đăng nhập bằng số điện thoại
   Future<Users> phoneNumberLogin(String phone, String password) async {
     final response = await service.phoneNumberLogin(phone, password);
-
     if (response.statusCode == 200 || response.statusCode == 201) {
-      try {
-        final jsonData = json.decode(response.body);
-        final user = Users.fromJson(jsonData);
-
-        // Kiểm tra nếu thông tin đăng nhập khớp
-        if (user.phone == phone && user.password == password) {
-          print("Đăng nhập thành công.");
-          return user;
-        } else {
-          // Nếu số điện thoại hoặc mật khẩu không khớp
-          throw Exception("Số điện thoại hoặc mật khẩu không chính xác.");
-        }
-      } catch (e) {
-        throw Exception("Đăng nhập thành công nhưng không thể parse JSON: $e");
-      }
+      return Users.fromJson(json.decode(response.body));
     } else {
-      // Nếu phản hồi không phải 200 hoặc 201
       throw Exception(
-        'Đăng nhập thất bại: ${response.statusCode} - ${response.body}',
-      );
+          'Không thể đăng nhập: ${response.statusCode} - ${response.body}');
     }
   }
-
-  // Future<Users> emailLogin(String email, String password) async {
-  //   final response = await service.emailLogin(email, password);
-
-  //   if (response.statusCode == 200 || response.statusCode == 201) {
-  //     try {
-  //       final jsonData = json.decode(response.body);
-  //       final user = Users.fromJson(jsonData);
-  //       print(user);
-  //       return user;
-  //     } catch (e) {
-  //       throw Exception("Đăng nhập thành công nhưng không thể parse JSON: $e");
-  //     }
-  //   } else {
-  //     throw Exception(
-  //       'Đăng nhập thất bại: ${response.statusCode} - ${response.body}',
-  //     );
-  //   }
-  // }
-
-  // Future<Users> phoneNumberLogin(String phone, String password) async {
-  //   final response = await service.phoneNumberLogin(phone, password);
-
-  //   if (response.statusCode == 200 || response.statusCode == 201) {
-  //     // Kiểm tra và parse JSON response
-  //     try {
-  //       final jsonData = json.decode(response.body);
-  //       final user = Users.fromJson(jsonData);
-  //       print(user);
-  //       return user;
-  //     } catch (e) {
-  //       throw Exception("Đăng nhập thành công nhưng không thể parse JSON: $e");
-  //     }
-  //   } else {
-  //     throw Exception(
-  //       'Đăng nhập thất bại: ${response.statusCode} - ${response.body}',
-  //     );
-  //   }
-  // }
 
   Future<bool> logOut() async {
     final response = await service.logoutUser();
