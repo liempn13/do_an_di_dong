@@ -34,7 +34,10 @@ void main() {
       create: (context) => QuestionsSetDetailsViewModel(),
     ),
     ChangeNotifierProvider<OptionsViewModel>(
-      create: (context) => OptionsViewModel(),
+      create: (context) => OptionsViewModel()),
+      
+    ChangeNotifierProvider<UsersViewModel>(
+      create: (context) => UsersViewModel(),
     )
   ], child: const LocalizedApp(child: MainApp())));
 }
