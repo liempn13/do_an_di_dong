@@ -120,14 +120,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (_errorEmail == null && _errorPass == null) {
                       if (isEmail(_emailController.text)) {
                         // Đăng nhập bằng email
-                        user = await usersViewModel.loginEmail(
+                        usersViewModel.loginEmail(
                             _emailController.text, _passwordController.text);
-                        Navigator.pushReplacementNamed(context, '/homePage');
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => homePage(),
+                          ),
+                        );
                       } else if (SPUtill.isPhoneNumber(_emailController.text)) {
                         // Đăng nhập bằng số điện thoại
-                        user = await usersViewModel.loginPhone(
+                        usersViewModel.loginPhone(
                             _emailController.text, _passwordController.text);
-                        Navigator.pushReplacementNamed(context, '/homePage');
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => homePage(),
+                          ),
+                        );
                       } else {
                         throw Exception(
                             'Vui lòng nhập email hoặc số điện thoại hợp lệ');

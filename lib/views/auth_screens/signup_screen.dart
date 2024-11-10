@@ -293,10 +293,27 @@ class _SignupScreenState extends State<SignupScreen> {
                       if (response.statusCode == 200 ||
                           response.statusCode == 201) {
                         print('Đăng ký thành công');
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Chúc mừng'),
+                              content: Text('Đăng ký thành công}'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginScreen()),
+                                    );
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
                         );
                       } else {
                         //
