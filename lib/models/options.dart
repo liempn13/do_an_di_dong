@@ -6,7 +6,7 @@ class Options {
       required this.questionID});
   int optionID;
   String optionContent;
-  int optionValue;
+  bool optionValue;
   int questionID;
   factory Options.fromJson(Map<String, dynamic> json) {
     return Options(

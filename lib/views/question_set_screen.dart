@@ -1,10 +1,13 @@
 import 'package:do_an_di_dong/inGame.dart';
+import 'package:do_an_di_dong/models/questions.dart';
 import 'package:do_an_di_dong/models/questions_sets.dart';
 import 'package:do_an_di_dong/models/topics.dart';
+import 'package:do_an_di_dong/view_models/questions_set_details_view_model.dart';
 import 'package:do_an_di_dong/view_models/questions_sets_view_model.dart';
 import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_grid_view.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_text_form_field.dart';
+import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -37,61 +40,8 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
   Widget build(BuildContext context) {
     TextEditingController setNameTxt = TextEditingController();
     TextEditingController questionQuantityTxt = TextEditingController();
-    return BasePage(
-      actions: [
-        SpeedDial(
-          elevation: 0,
-          icon: Icons.menu,
-          buttonSize: Size(50, 50),
-          direction: SpeedDialDirection.down,
-          children: [
-            // SpeedDialChild(label: "Save", onTap: () {}),
-            // SpeedDialChild(
-            //     label: "Delete",
-            // onTap: () => showDialog<Widget>(
-            //     context: context,
-            //     builder: (context) => Dialog(
-            //           child: Center(
-            //               child: Column(
-            //             children: [
 
-            //             ],
-            //           )),
-            //         ))),
-            SpeedDialChild(
-                label: "New",
-                onTap: () => showDialog<Widget>(
-                    context: context,
-                    builder: (context) => Dialog(
-                          child: Center(
-                              child: Column(
-                            children: [
-                              CustomTextFormField(
-                                hintText: "Tên bộ đề ",
-                                textEditingController: setNameTxt,
-                              ),
-                              CustomTextFormField(
-                                hintText: "Số lượng câu ",
-                                textEditingController: questionQuantityTxt,
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    Provider.of<QuestionsSetViewModel>(context,
-                                            listen: false)
-                                        .addQuestionsSets(QuestionsSets(
-                                            topicID: widget.topic!.topicID!,
-                                            questionQuantity: int.parse(
-                                                questionQuantityTxt.text),
-                                            questionsSetName: setNameTxt.text));
-                                    initState();
-                                  },
-                                  child: Text("Thêm"))
-                            ],
-                          )),
-                        ))),
-          ],
-        ).px4()
-      ],
+    return BasePage(
       showAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.purple,
@@ -101,6 +51,49 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
+        actions: [
+          SpeedDial(
+            elevation: 0,
+            icon: Icons.menu,
+            buttonSize: Size(50, 50),
+            direction: SpeedDialDirection.down,
+            children: [
+              SpeedDialChild(
+                  label: "New",
+                  onTap: () => showDialog<Widget>(
+                      context: context,
+                      builder: (context) => Dialog(
+                            child: Center(
+                                child: Column(
+                              children: [
+                                CustomTextFormField(
+                                  hintText: "Tên bộ đề ",
+                                  textEditingController: setNameTxt,
+                                ),
+                                CustomTextFormField(
+                                  hintText: "Số lượng câu ",
+                                  textEditingController: questionQuantityTxt,
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Provider.of<QuestionsSetViewModel>(
+                                              context,
+                                              listen: false)
+                                          .addQuestionsSets(QuestionsSets(
+                                              topicID: widget.topic!.topicID!,
+                                              questionQuantity: int.parse(
+                                                  questionQuantityTxt.text),
+                                              questionsSetName:
+                                                  setNameTxt.text));
+                                      initState();
+                                    },
+                                    child: Text("Thêm"))
+                              ],
+                            )),
+                          ))),
+            ],
+          ).px4()
+        ],
       ),
       body:
           Consumer<QuestionsSetViewModel>(builder: (context, viewModel, child) {
@@ -121,8 +114,12 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
                             child:
                                 Text(questionSetsList[index].questionsSetName)))
                     .onInkTap(() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => inGame()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => inGame(
+                                setID: questionSetsList[index].questionsSetID!,
+                              )));
                 });
               });
         }

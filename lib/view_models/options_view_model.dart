@@ -14,8 +14,8 @@ class OptionsViewModel extends ChangeNotifier {
   Future<void> getOption(int questionID) async {
     fetchingData = true;
     try {
-      list = await optionRepo
-          .getOptionsList(questionID); // lấy dữ liệu từ api gán vào ds tạm
+      list = await optionRepo.getOptionsOfQuestion(
+          questionID); // lấy dữ liệu từ api gán vào ds tạm
       notifyListeners();
     } catch (e) {
       throw Exception("Failed Add Question: $e");

@@ -28,6 +28,9 @@ class TopicsService {
     //Load
     return await http.get(
       Uri.parse("${AppStrings.baseUrlApi}topics"),
+      headers: {
+        'Authorization':'Bearer ${AppStrings.TOKEN}'
+      }
     );
   }
 

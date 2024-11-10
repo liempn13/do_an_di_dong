@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:do_an_di_dong/models/Rooms.dart';
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/rooms.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/services/list_rooms_services.dart';
 
 class ListRoomsRepo {

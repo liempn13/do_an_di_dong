@@ -6,9 +6,9 @@ import 'package:do_an_di_dong/services/options_service.dart';
 class OptionRepo {
   final OptionsService service = OptionsService();
 
-  Future<List<Options>> getOptionsList(int questionID) async {
+  Future<List<Options>> getOptionsOfQuestion(int questionID) async {
     //lay ra danh sach cau hoi
-    final reponse = await service.getOption(questionID);
+    final reponse = await service.getOptionsOfQuestion(questionID);
     if (reponse.statusCode == 200) {
       return List<Options>.from(
           json.decode(reponse.body).map((x) => Options.fromJson(x)));

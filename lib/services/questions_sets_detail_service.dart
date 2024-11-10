@@ -5,7 +5,9 @@ class QuestionsSetsDetailService {
   Future<http.Response> getQuestionSetDetails(int questionsSetID) async {
     //Load
     return await http.get(
-      Uri.parse("${AppStrings.baseUrlApi}set/details/$questionsSetID"),
+      Uri.parse("${AppStrings.baseUrlApi}set/details/$questionsSetID"),headers: {
+        'Authorization':'Bearer ${AppStrings.TOKEN}'
+      }
     );
   }
 }

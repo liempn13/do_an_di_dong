@@ -24,7 +24,7 @@ class OptionsService {
         body: json.encode(option.toJson()));
   }
 
-  Future<http.Response> getOption(int questionID) async {
+  Future<http.Response> getOptionsOfQuestion(int questionID) async {
     //Load
     return await http.get(
       Uri.parse("${AppStrings.baseUrlApi}options/$questionID"),

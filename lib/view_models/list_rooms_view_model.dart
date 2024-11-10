@@ -1,4 +1,4 @@
-import 'package:do_an_di_dong/models/Rooms.dart';
+import 'package:do_an_di_dong/models/rooms.dart';
 import 'package:do_an_di_dong/repository/list_rooms_repo.dart';
 import 'package:flutter/material.dart';
 

@@ -8,9 +8,9 @@ class Questions {
   int topicID;
   factory Questions.fromJson(Map<String, dynamic> json) {
     return Questions(
-        questionContent: json["question_id"],
-        questionID: json["question_content"],
-        topicID: json["topic_id"]);
+        questionID: json["question_id"] as int,
+        questionContent: json["question_content"],
+        topicID: json["topic_id"] as int);
   }
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

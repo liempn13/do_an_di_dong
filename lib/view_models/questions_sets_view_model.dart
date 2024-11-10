@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class QuestionsSetViewModel extends ChangeNotifier {
   //lam viec voi giao dien va repo
   final QuestionSetsRepo questionSetRepository = QuestionSetsRepo();
-  QuestionsSets? questionsSets;
   List<QuestionsSets> list = []; //Danh sách tạm lưu dữ liệu gọi từ api xuống
   bool fetchingData = false; //
   List<QuestionsSets> get listQuestionSets => list;

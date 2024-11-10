@@ -1,4 +1,4 @@
-import 'package:do_an_di_dong/models/Rooms.dart';
+import 'package:do_an_di_dong/models/rooms.dart';
 import 'package:do_an_di_dong/view_models/list_rooms_view_model.dart';
 import 'package:do_an_di_dong/services/list_rooms_services.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
