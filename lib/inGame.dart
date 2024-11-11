@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:do_an_di_dong/custombutton_popup.dart';
 import 'package:do_an_di_dong/models/options.dart';
 import 'package:do_an_di_dong/models/questions.dart';
@@ -6,14 +7,54 @@ import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class inGame extends StatelessWidget {
+class inGame extends StatefulWidget {
   inGame({super.key});
 
   @override
+  State<inGame> createState() => _inGameState();
+}
+
+class _inGameState extends State<inGame> {
+  int _remainingTime = 10;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingTime > 0) {
+        setState(() {
+          _remainingTime--;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        title: Text(
+          '$_remainingTime s',
+          style: const TextStyle(
+            fontSize: 24, // Thay đổi kích thước chữ
+            fontWeight: FontWeight.bold, // Tùy chỉnh độ đậm
+            color: Colors.white, // Thay đổi màu sắc của chữ
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.purple,
         leading: IconButton(
           icon: Icon(Icons.settings, color: Colors.black),
           onPressed: () {
@@ -70,25 +111,30 @@ void showSettingsDialog(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Padding(
+        child: Container(
+          width: MediaQuery.of(context).size.width *
+              0.7, // Điều chỉnh độ rộng hộp thoại
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomButton(
-                text: 'Tiếp tục',
-                onPressed: () {
-                  Navigator.of(context)
-                      .pop(); // Close the dialog and stay on the current page
-                },
+              SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                    text: 'Tiếp tục',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
               ),
               const SizedBox(height: 16),
-              CustomButton(
-                text: 'Quay trở lại trang tiêu đề',
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(
-                      '/homePage'); // Navigate to the home page
-                },
+              SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                  text: 'Quay trở lại trang tiêu đề',
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/homePage');
+                  },
+                ),
               ),
             ],
           ),

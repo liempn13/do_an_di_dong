@@ -10,17 +10,21 @@ class settingHomepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text('Cài đặt', style: TextStyle(color: Colors.blue)),
-        backgroundColor: Colors.white,
-        elevation: 0,
+        title: Center(
+            child: Text(
+          'Cài đặt',
+          style: TextStyle(color: Colors.white),
+        )),
       ),
-      body: Center(
+      body: Padding(
+        padding: EdgeInsets.only(top: 20.0),
         child: Container(
           padding: const EdgeInsets.all(16.0),
           margin: const EdgeInsets.all(16.0),

@@ -53,20 +53,12 @@ class _homePageState extends State<homePage> {
         // Ở giữa appbar
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.grey.shade300,
-              child: const Text(
-                '3',
-              ),
-            )
-          ],
         ),
         // Bên phải appbar
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications),
+            color: Colors.white,
             onPressed: () {
               // Bay sang trang thông báo
               Navigator.pushReplacement(
@@ -101,9 +93,9 @@ class _homePageState extends State<homePage> {
                               builder: (context) => TopicsListScreen()));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.purple,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 16.0),
+                          horizontal: 64.0, vertical: 32.0),
                     ),
                     child: const Text(
                       'Luyện tập',
@@ -114,9 +106,9 @@ class _homePageState extends State<homePage> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.purple,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 16.0),
+                          horizontal: 64.0, vertical: 32.0),
                     ),
                     child: const Text(
                       'Thi đấu',
