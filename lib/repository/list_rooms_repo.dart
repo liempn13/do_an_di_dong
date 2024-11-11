@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:do_an_di_dong/models/Rooms.dart';
 import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/room_details.dart';
 import 'package:do_an_di_dong/services/list_rooms_services.dart';
 
 class ListRoomsRepo {
@@ -25,13 +26,25 @@ class ListRoomsRepo {
     }
   }
 
-  Future<Users> getCreator(int userID) async {
+  Future<Users?> getCreator(int userID) async {
     final reponse = await service.getCreator(userID);
-    if(reponse.statusCode == 200) {
+    if (reponse.statusCode == 200) {
       return Users.fromJson(json.decode(reponse.body));
+    } else {
+      return null;
     }
-    else {
-      throw Exception("Failed code");
+  }
+
+  // -------------------------- Repo tìm phòng bằng roomCode ----------------------------
+  Future<Rooms?> findRoomByCode(int roomCode) async {
+    final reponse = await service.findRoomByCode(roomCode);
+    if(reponse.statusCode == 200) {
+       final data = jsonDecode(reponse.body);
+       if(data != null && data['rooms'] != null){
+        return Rooms.fromJson(json.decode(reponse.body));
+       }  
+    } else {
+      return null; //Phòng không tồn tại
     }
   }
 }

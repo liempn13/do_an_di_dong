@@ -15,7 +15,7 @@ void main() {
     
     ChangeNotifierProvider<ListRoomsViewModel>(
       create: (context) => ListRoomsViewModel(),
-    )
+    ),
   ], child: LocalizedApp(child: MainApp())));
 }
 

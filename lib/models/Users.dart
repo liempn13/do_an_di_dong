@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class Users {
   Users(
@@ -10,7 +9,9 @@ class Users {
       required this.isAdmin,
       required this.level,
       required this.exp,
-      required this.status});
+      required this.status
+      }
+      ) : _userList = [];
   int userID;
   String userGameName;
   String email;
@@ -44,5 +45,13 @@ class Users {
     map["exp"] = exp;
     map["status"] = status;
     return map;
+  }
+
+  final List<Users> _userList;
+
+  Users? getCreator(int userID) {
+    return _userList.firstWhere(
+      (user) => user.userID == userID,// Trả về null nếu không tìm thấy
+    );
   }
 }
