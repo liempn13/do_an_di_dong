@@ -5,7 +5,7 @@ class InputStyles {
   //get the border for the textform field
   static InputBorder inputEnabledBorder() {
     return OutlineInputBorder(
-      borderSide: BorderSide.none,
+      // borderSide: BorderSide.none,
       borderRadius: BorderRadius.circular(Vx.dp8),
     );
   }
@@ -13,7 +13,7 @@ class InputStyles {
   //get the border for the textform field
   static InputBorder inputFocusBorder() {
     return OutlineInputBorder(
-      borderSide: BorderSide.none,
+      // borderSide: BorderSide.none,
       borderRadius: BorderRadius.circular(Vx.dp8),
     );
   }

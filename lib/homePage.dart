@@ -1,38 +1,37 @@
 import 'package:do_an_di_dong/inGame.dart';
+import 'package:do_an_di_dong/models/Users.dart';
 import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/notification.dart';
 import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
+import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class homePage extends StatefulWidget {
-  const homePage({super.key});
+class HomePage extends StatefulWidget {
+  Users? user;
+  HomePage({super.key, this.user});
 
   @override
-  _homePageState createState() => _homePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _homePageState extends State<homePage> {
+class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   Topics? selectedTopic;
 
-  static const List<Widget> _pages = <Widget>[
-    Center(child: Text('Trang chủ')),
-    Center(child: Text('Bảng xếp hạng')),
-    Center(child: Text('Lịch sử đấu')),
-    settingHomepage(),
-  ];
   void _onItemTapped(int index) {
     if (index == 3) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => settingHomepage()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => settingHomepage(user: widget.user!)));
     } else if (index == 1) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Screen()));
+          context, MaterialPageRoute(builder: (context) => const Screen()));
     } else if (index == 2) {
       //Truyền page lịch sử đấu
       //  Navigator.push(
@@ -49,19 +48,12 @@ class _homePageState extends State<homePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.purple,
         // Ở giữa appbar
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.grey.shade300,
-              child: const Text(
-                '3',
-              ),
-            )
-          ],
+        title: Text(
+          "Walnut Quizzes",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         // Bên phải appbar
         actions: [
@@ -79,7 +71,7 @@ class _homePageState extends State<homePage> {
       ),
       //phần thân------
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
           image: AssetImage("assets/img/anh_do_vui.jpg"),
           fit: BoxFit.cover,
@@ -98,10 +90,12 @@ class _homePageState extends State<homePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TopicsListScreen()));
+                              builder: (context) => TopicsListScreen(
+                                    users: widget.user,
+                                  )));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.purple,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32.0, vertical: 16.0),
                     ),
@@ -114,7 +108,7 @@ class _homePageState extends State<homePage> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.purple,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32.0, vertical: 16.0),
                     ),
@@ -132,13 +126,18 @@ class _homePageState extends State<homePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Trang chủ'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.view_column), label: 'Bảng xếp hạng'),
-          BottomNavigationBarItem(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.menu), label: 'Trang chủ'),
+          widget.user!.isAdmin == false
+              ? const BottomNavigationBarItem(
+                  icon: Icon(Icons.view_column), label: 'Bảng xếp hạng')
+              : const BottomNavigationBarItem(
+                  icon: Icon(Icons.group), label: "Người chơi"),
+          const BottomNavigationBarItem(
               icon: Icon(Icons.history), label: 'Lịch sử đấu'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Cài đặt')
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Cài đặt')
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

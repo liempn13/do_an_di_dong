@@ -1,16 +1,18 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:do_an_di_dong/custombutton_popup.dart';
-import 'package:do_an_di_dong/models/options.dart';
 import 'package:do_an_di_dong/models/questions.dart';
+import 'package:do_an_di_dong/models/options.dart';
 import 'package:do_an_di_dong/view_models/options_view_model.dart';
 import 'package:do_an_di_dong/view_models/questions_set_details_view_model.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
+import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class inGame extends StatefulWidget {
+class inGame extends StatelessWidget {
   int setID;
   inGame({
     super.key,
@@ -18,91 +20,174 @@ class inGame extends StatefulWidget {
   });
 
   @override
-  State<inGame> createState() => _inGameState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        leading: IconButton(
+          icon: Icon(Icons.settings, color: Colors.black),
+          onPressed: () {
+            showSettingsDialog(context);
+          },
+        ),
+      ),
+      body: QuestionsView(setID: setID),
+      backgroundColor: Colors.white,
+    );
+  }
 }
 
-class _inGameState extends State<inGame> {
-  var _questionIndex = 0;
-  var _totalScore = 0;
+class QuestionsView extends StatefulWidget {
+  int setID;
+  QuestionsView({super.key, required this.setID});
 
-  void _resetQuiz() {
-    setState(() {
-      _questionIndex = 0;
-      _totalScore = 0;
-    });
+  @override
+  State<QuestionsView> createState() => _QuestionsViewState();
+}
+
+class _QuestionsViewState extends State<QuestionsView> {
+  int _questionIndex = 0;
+  List<Questions> list = [];
+  Options? answer;
+  Timer? _timer;
+  @override
+  void dispose() {
+    widget.setID = 0;
+    super.dispose();
   }
 
-  void _answerQuestion(int score) {
-    _totalScore += score;
-    setState(() {
-      _questionIndex = _questionIndex + 1;
+  @override
+  void initState() {
+    super.initState();
+    // Đặt timer để tự động load dữ liệu mới mỗi 5 giây
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() {
+        _questionIndex++;
+        Provider.of<OptionsViewModel>(context, listen: false)
+            .getOption(list[_questionIndex].questionID);
+      });
     });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer<QuestionsSetDetailsViewModel?>(
-        builder: (builder, viewModel, child) {
-      Provider.of<QuestionsSetDetailsViewModel>(context, listen: false)
-          .getQuestionsSetsList(widget.setID);
-      List<Questions> list = viewModel!.listQuestions;
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          leading: IconButton(
-            icon: Icon(Icons.settings, color: Colors.black),
-            onPressed: () {
-              showSettingsDialog(context);
-            },
-          ),
-        ),
-        body: Column(
+  void didChangeDependencies() {
+    // Xử lí gọi danh sách câu hỏi ra ở đây, thứ tự câu đã được random ở APi
+    super.didChangeDependencies();
+    Provider.of<QuestionsSetDetailsViewModel>(context)
+        .getQuestionsSetsList(widget.setID);
+    list = List.from(
+        Provider.of<QuestionsSetDetailsViewModel>(context).listQuestions);
+  }
+
+  Widget _buildCurrentItem() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 32.0), // Khoảng cách giữa AppBar đến phần câu hỏi
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                height: 300,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 236, 231, 231),
-                  border: Border.all(color: Colors.blue),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text(
-                    "${list.first.questionContent}",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+            _questionIndex == 0
+                ? UiSpacer.emptySpace()
+                : IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      setState(() {
+                        _questionIndex--;
+                        Provider.of<OptionsViewModel>(context, listen: false)
+                            .getOption(list[_questionIndex].questionID);
+                      });
+                    }, // Câu trước
                   ),
+            _questionIndex == list.lastIndex
+                ? UiSpacer.emptySpace()
+                : IconButton(
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () {
+                      setState(() {
+                        _questionIndex++;
+                        Provider.of<OptionsViewModel>(context, listen: false)
+                            .getOption(list[_questionIndex].questionID);
+                      });
+                    }, // Câu tiếp theo
+                  ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            height: 300,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 236, 231, 231),
+              border: Border.all(color: Colors.blue),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Text(
+                list[_questionIndex].questionContent,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
             ),
-            const SizedBox(height: 32.0), // Khoảng cách giữa câu hỏi và đáp án
-
-            // Consumer<OptionsViewModel>(builder: (context, viewModel, child) {
-            //   Provider.of<OptionsViewModel>(context, listen: false)
-            //       .getOption(list.iterator.current.questionID);
-            //   List<Options> listOptions = viewModel.listOption;
-            //   return CustomListView(
-            //       dataSet: listOptions,
-            //       itemBuilder: (context, index) {
-            //         return RadioListTile(
-            //             title: Text("${listOptions[index].optionContent}"),
-            //             value: listOptions[index].optionValue,
-            //             groupValue: listOptions[index],
-            //             onChanged: (value) {});
-            //       });
-            // })
-          ],
+          ),
         ),
-        backgroundColor: Colors.white,
-      );
-    });
+        Consumer<OptionsViewModel>(builder: (context, viewModel, child) {
+          List<Options> listOptions = viewModel.listOption;
+          return Column(
+            children: [
+              RadioListTile<Options>(
+                title: Text('${listOptions.first.optionContent}'),
+                value: listOptions.first,
+                groupValue: answer,
+                onChanged: (Options? value) {
+                  setState(() {
+                    answer = value!;
+                  });
+                },
+              ),
+              RadioListTile<Options>(
+                title: Text('${listOptions[1].optionContent}'),
+                value: listOptions[1],
+                groupValue: answer,
+                onChanged: (Options? value) {
+                  setState(() {
+                    answer = value!;
+                  });
+                },
+              ),
+              RadioListTile<Options>(
+                title: Text('${listOptions[2].optionContent}'),
+                value: listOptions[2],
+                groupValue: answer,
+                onChanged: (Options? value) {
+                  setState(() {
+                    answer = value!;
+                  });
+                },
+              ),
+              RadioListTile<Options>(
+                title: Text('${listOptions.last.optionContent}'),
+                value: listOptions.last,
+                groupValue: answer,
+                onChanged: (Options? value) {
+                  setState(() {
+                    answer = value!;
+                  });
+                },
+              ),
+            ],
+          );
+        }),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildCurrentItem();
   }
 }
 

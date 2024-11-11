@@ -12,22 +12,22 @@ class OptionsViewModel extends ChangeNotifier {
       list; //Lấy dữ liệu từ thg danh sách tạm sau khi ds tạm lấy DL từ api
 
   Future<void> getOption(int questionID) async {
-    fetchingData = true;
+    // fetchingData = true;
     try {
       list = await optionRepo.getOptionsOfQuestion(
           questionID); // lấy dữ liệu từ api gán vào ds tạm
       notifyListeners();
     } catch (e) {
-      throw Exception("Failed Add Question: $e");
+      throw Exception("Failed: $e");
     }
-    fetchingData = false;
+    // fetchingData = false;
   }
 
   Future<void> addOption(Options options) async {
     try {
       await optionRepo.addOption(options);
     } catch (e) {
-      throw Exception("Failed Add Question: $e");
+      throw Exception("Failed Add Option: $e");
     }
   }
 
@@ -35,7 +35,7 @@ class OptionsViewModel extends ChangeNotifier {
     try {
       await optionRepo.updateOption(options);
     } catch (e) {
-      throw Exception("Failed to update Question: $e");
+      throw Exception("Failed to update Option: $e");
     }
   }
 }

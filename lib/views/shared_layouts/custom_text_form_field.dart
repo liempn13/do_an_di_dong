@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-
 import '../../constant/app_text_styles.dart';
 import '../../constant/input.styles.dart';
 
 class CustomTextFormField extends StatefulWidget {
-  const CustomTextFormField({
-    super.key,
+  CustomTextFormField({
+    Key? key,
     this.filled,
     this.fillColor,
     this.textEditingController,
@@ -31,7 +30,11 @@ class CustomTextFormField extends StatefulWidget {
     this.underline = false,
     this.inputFormatters,
     this.colorHintText,
-  });
+    this.enabled,
+    this.decoration,
+    this.style,
+    this.readOnly,
+  }) : super(key: key);
 
   //
   final bool? filled;
@@ -40,7 +43,8 @@ class CustomTextFormField extends StatefulWidget {
   final bool obscureText;
   final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
-
+  final bool? enabled;
+  final bool? readOnly;
   //
   final String? labelText;
   final String? hintText;
@@ -51,12 +55,12 @@ class CustomTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
   final FocusNode? nextFocusNode;
-
+  final InputDecoration? decoration;
   final bool? isReadOnly;
   final Function()? onTap;
   final int? minLines;
   final int? maxLines;
-
+  final TextStyle? style;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
 
@@ -76,31 +80,28 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         // color: Theme.of(context).textTheme.bodyLarge!.color,
       ),
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[400],
         labelText: widget.labelText,
         labelStyle: AppTextStyle.h5TitleTextStyle(
           fontWeight: FontWeight.w600,
           // color: Theme.of(context).textTheme.bodyLarge!.color,
         ),
         hintText: widget.hintText,
-        //Chỉnh style hintText
-        hintStyle: widget.colorHintText == null
-            ? AppTextStyle.hintStyle()
-            : AppTextStyle.hintStyle().copyWith(color: widget.colorHintText),
-
         errorText: widget.errorText,
         enabledBorder: widget.underline
             ? InputStyles.inputUnderlineEnabledBorder()
             : InputStyles.inputEnabledBorder(),
-        errorBorder: InputStyles.inputEnabledBorder(),
+        errorBorder: widget.underline
+            ? InputStyles.inputUnderlineEnabledBorder()
+            : InputStyles.inputEnabledBorder(),
         focusedErrorBorder: widget.underline
             ? InputStyles.inputUnderlineFocusBorder()
             : InputStyles.inputFocusBorder(),
-        focusedBorder: InputStyles.inputFocusBorder(),
+        focusedBorder: widget.underline
+            ? InputStyles.inputUnderlineFocusBorder()
+            : InputStyles.inputFocusBorder(),
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon ?? _getSuffixWidget(),
-        contentPadding: const EdgeInsets.all(10),
+        contentPadding: EdgeInsets.all(8),
       ),
 
       //Đổi màu cursor
@@ -123,6 +124,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       keyboardType: widget.keyboardType,
       minLines: widget.minLines,
       maxLines: widget.obscureText ? 1 : widget.maxLines,
+      enabled: widget.enabled,
     );
   }
 
@@ -133,10 +135,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       return ButtonTheme(
         minWidth: 30,
         height: 30,
-        padding: const EdgeInsets.all(0),
+        padding: EdgeInsets.all(0),
         child: TextButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.all(0),
+            padding: EdgeInsets.all(0),
           ),
           onPressed: () {
             setState(() {
@@ -152,7 +154,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
       );
     } else {
-      return const SizedBox.shrink();
+      return SizedBox.shrink();
     }
   }
 }

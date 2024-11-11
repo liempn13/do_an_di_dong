@@ -6,7 +6,6 @@ class UsersViewModel extends ChangeNotifier {
   final UsersRepository repository = UsersRepository();
 
   List<Users> allUsers = [];
-
   bool fetchingData = false;
   List<Users> get listUsers => allUsers;
 
@@ -15,7 +14,7 @@ class UsersViewModel extends ChangeNotifier {
   Future<void> fetchAllUsers() async {
     fetchingData = true;
     try {
-      allUsers = await repository.fetchAllUsers();
+      allUsers = await repository.getUserList();
       notifyListeners();
     } catch (e) {
       throw Exception('Lấy dữ liệu thất bại: $e');
@@ -33,7 +32,7 @@ class UsersViewModel extends ChangeNotifier {
 
   Future<void> updateUser(Users user) async {
     try {
-      await repository.updateUser(user);
+      await repository.updateProfile(user);
     } catch (e) {
       throw Exception('Cập nhật thông tin người dùng thất bại: $e');
     }
@@ -63,12 +62,12 @@ class UsersViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> getUserByID(int profileID) async {
-    try {
-      selectedUser = await repository.getUserByID(profileID);
-      notifyListeners();
-    } catch (e) {
-      throw Exception('Không thể tải thông tin hồ sơ: $e');
-    }
-  }
+  // Future<void> getUserByID(int profileID) async {
+  //   try {
+  //     selectedUser = await repository.getUserByID(profileID);
+  //     notifyListeners();
+  //   } catch (e) {
+  //     throw Exception('Không thể tải thông tin hồ sơ: $e');
+  //   }
+  // }
 }

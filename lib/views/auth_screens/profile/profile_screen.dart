@@ -1,8 +1,26 @@
+import 'package:do_an_di_dong/models/Users.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  Users user;
+  ProfileScreen({super.key, required this.user});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtName = TextEditingController();
+  TextEditingController txtPhone = TextEditingController();
+  @override
+  void initState() {
+    txtEmail.text = widget.user.email;
+    txtPhone.text = widget.user.phone;
+    txtName.text = widget.user.userGameName;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +29,13 @@ class ProfileScreen extends StatelessWidget {
         title: const Text(
           'Thông tin cá nhân',
           style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          color: Colors.white,
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/settingHomepage');
+          },
         ),
         backgroundColor: Colors.purple,
       ),
@@ -32,7 +57,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               readOnly: true,
-              controller: TextEditingController(text: 'DiênFake'),
+              controller: TextEditingController(text: widget.user.userGameName),
             ),
             const SizedBox(height: 20),
             TextField(
@@ -43,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               readOnly: true,
-              controller: TextEditingController(text: 'dien@gmail.com'),
+              controller: TextEditingController(text: widget.user.email),
             ),
             const SizedBox(height: 20),
             TextField(
@@ -54,15 +79,17 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               readOnly: true,
-              controller: TextEditingController(text: '0123456789'),
+              controller: TextEditingController(text: widget.user.phone),
             ),
             const SizedBox(height: 30),
             ElevatedButton.icon(
               onPressed: () {
-                Navigator.push(
+                Navigator.pop(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const EditProfileScreen(),
+                    builder: (context) => EditProfileScreen(
+                      user: widget.user,
+                    ),
                   ),
                 );
               },

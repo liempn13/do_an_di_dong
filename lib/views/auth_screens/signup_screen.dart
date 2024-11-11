@@ -78,7 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 FilteringTextInputFormatter.deny(RegExp(r'\s')),
               ],
               decoration: InputDecoration(
-                labelText: 'Tên đăng nhập',
+                labelText: 'Tên in-game',
                 labelStyle: const TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0)),
@@ -88,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
               onChanged: (value) {
                 setState(() {
                   _errorUsername = value.isNotEmpty && !isValidUsername(value)
-                      ? 'Tên đăng nhập chỉ được phép chứa chữ cái, số và dấu gạch dưới'
+                      ? 'Tên in-game chỉ được phép chứa chữ cái, số và dấu gạch dưới'
                       : null;
                 });
               },
@@ -282,7 +282,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         email: _emailController.text,
                         phone: _phoneController.text,
                         password: _passwordController.text,
-                        isAdmin: 0,
+                        isAdmin: false,
                         level: 1,
                         exp: 0,
                         status: 1,

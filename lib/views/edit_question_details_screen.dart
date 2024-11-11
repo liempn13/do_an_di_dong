@@ -25,7 +25,7 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
           leading:
               IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
           centerTitle: true,
-          title: const CustomTextFormField(
+          title: CustomTextFormField(
             hintText: "Nội dung câu hỏi",
           ),
           actions: [
@@ -92,7 +92,7 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
                 child: const Center(),
               ).p8(),
               ListTile(
-                title: const CustomTextFormField(
+                title: CustomTextFormField(
                   isReadOnly: true,
                 ),
                 trailing: IconButton(
@@ -102,31 +102,31 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
               ),
               //
               ListTile(
-                title: const CustomTextFormField(
+                title: CustomTextFormField(
                   isReadOnly: false,
                 ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.edit),
+                  icon: Icon(Icons.edit),
                   onPressed: () {},
                 ),
               ),
               //
               ListTile(
-                title: const CustomTextFormField(
+                title: CustomTextFormField(
                   isReadOnly: false,
                 ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.edit),
+                  icon: Icon(Icons.edit),
                   onPressed: () {},
                 ),
               ),
               //
               ListTile(
-                title: const CustomTextFormField(
+                title: CustomTextFormField(
                   isReadOnly: false,
                 ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.edit),
+                  icon: Icon(Icons.edit),
                   onPressed: () {},
                 ),
               ),

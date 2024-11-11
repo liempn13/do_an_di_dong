@@ -1,9 +1,55 @@
+import 'package:do_an_di_dong/models/Users.dart';
 import 'package:do_an_di_dong/setting_homePage.dart';
+import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
+class EditProfileScreen extends StatefulWidget {
+  Users user;
+  EditProfileScreen({super.key, required this.user});
+
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtName = TextEditingController();
+  TextEditingController txtPhone = TextEditingController();
+
+  @override
+  void initState() {
+    txtEmail.text = widget.user.email;
+    txtPhone.text = widget.user.phone;
+    txtName.text = widget.user.userGameName;
+    super.initState();
+  }
+
+  void _updateProfile() async {
+    final updatedUser = Users(
+      userID: widget.user.userID,
+      userGameName: txtName.text,
+      phone: txtPhone.text,
+      email: txtEmail.text,
+      password: widget.user.password,
+      status: widget.user.status,
+      level: widget.user.level,
+      exp: widget.user.exp,
+    );
+    try {
+      await Provider.of<UsersViewModel>(context, listen: false)
+          .updateUser(updatedUser);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Updated successfully!')),
+      );
+      // Navigator.pop(context, updatedUser);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to Update: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +64,7 @@ class EditProfileScreen extends StatelessWidget {
           color: Colors.white,
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/settingHomepage');
+            Navigator.popAndPushNamed(context, '/settingHomepage');
           },
         ),
       ),
@@ -51,7 +97,7 @@ class EditProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: TextEditingController(text: 'dienFake'),
+              controller: txtName,
               decoration: InputDecoration(
                 labelText: 'Tên:',
                 border: OutlineInputBorder(
@@ -62,7 +108,7 @@ class EditProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: TextEditingController(text: 'dien@gmail.com'),
+              controller: txtEmail,
               decoration: InputDecoration(
                 labelText: 'Email: ',
                 border: OutlineInputBorder(
@@ -73,7 +119,7 @@ class EditProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: TextEditingController(text: '0123456789'),
+              controller: txtPhone,
               decoration: InputDecoration(
                 labelText: 'Số điện thoại:',
                 border: OutlineInputBorder(
@@ -85,11 +131,13 @@ class EditProfileScreen extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
+                _updateProfile();
+                Navigator.pop(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ProfileScreen()),
-                  (Route<dynamic> route) => false,
+                      builder: (context) => ProfileScreen(
+                            user: widget.user,
+                          )),
                 );
               },
               style: ElevatedButton.styleFrom(

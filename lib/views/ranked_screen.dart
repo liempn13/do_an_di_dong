@@ -71,7 +71,8 @@ class _ScreenState extends State<Screen> {
         count++;
       });
     });
-    return Scaffold(
+    return
+     Scaffold(
       backgroundColor: const Color.fromARGB(255, 122, 28, 172),
       appBar: AppBar(),
       body: Center(

@@ -103,35 +103,47 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 onPressed: () async {
-                  setState(() {
-                    if (_emailController.text.isEmpty) {
-                      _errorEmail = 'Không được để trống tên email/sđt';
-                    } else {
-                      _errorEmail = null;
-                    }
+                  // setState(() {
+                  //   if (_emailController.text.isEmpty) {
+                  //     _errorEmail = 'Không được để trống tên email/sđt';
+                  //   } else {
+                  //     _errorEmail = null;
+                  //   }
 
-                    if (_passwordController.text.isEmpty) {
-                      _errorPass = 'Không được để trống mật khẩu';
-                    } else {
-                      _errorPass = null;
-                    }
-                  });
+                  //   if (_passwordController.text.isEmpty) {
+                  //     _errorPass = 'Không được để trống mật khẩu';
+                  //   } else {
+                  //     _errorPass = null;
+                  //   }
+                  // });
                   try {
-                    if (_errorEmail == null && _errorPass == null) {
-                      if (isEmail(_emailController.text)) {
-                        // Đăng nhập bằng email
-                        user = await usersViewModel.loginEmail(
-                            _emailController.text, _passwordController.text);
-                        Navigator.pushReplacementNamed(context, '/homePage');
-                      } else if (SPUtill.isPhoneNumber(_emailController.text)) {
-                        // Đăng nhập bằng số điện thoại
-                        user = await usersViewModel.loginPhone(
-                            _emailController.text, _passwordController.text);
-                        Navigator.pushReplacementNamed(context, '/homePage');
-                      } else {
-                        throw Exception(
-                            'Vui lòng nhập email hoặc số điện thoại hợp lệ');
-                      }
+                    if (isEmail(_emailController.text)) {
+                      // Đăng nhập bằng email
+                      user = await usersViewModel.loginEmail(
+                          _emailController.text, _passwordController.text);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => HomePage(
+                            user: user,
+                          ),
+                        ),
+                      );
+                    } else if (SPUtill.isPhoneNumber(_emailController.text)) {
+                      // Đăng nhập bằng số điện thoại
+                      user = await usersViewModel.loginPhone(
+                          _emailController.text, _passwordController.text);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => HomePage(
+                            user: user,
+                          ),
+                        ),
+                      );
+                    } else {
+                      throw Exception(
+                          'Vui lòng nhập email hoặc số điện thoại hợp lệ');
                     }
                   } catch (e) {
                     print('Error: $e');

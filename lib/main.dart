@@ -34,8 +34,7 @@ void main() {
       create: (context) => QuestionsSetDetailsViewModel(),
     ),
     ChangeNotifierProvider<OptionsViewModel>(
-      create: (context) => OptionsViewModel()),
-      
+        create: (context) => OptionsViewModel()),
     ChangeNotifierProvider<UsersViewModel>(
       create: (context) => UsersViewModel(),
     )
@@ -48,14 +47,14 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        '/homePage': (context) => const homePage(),
-        '/settingHomepage': (context) => const settingHomepage(),
-        '/profileScreen': (context) => const ProfileScreen(),
-        '/loginPage': (context) => const LoginScreen(),
-      },
+      // routes: {
+      //   '/homePage': (context) => const homePage(),
+      //   '/settingHomepage': (context) => const settingHomepage(),
+      //   '/profileScreen': (context) => const ProfileScreen(),
+      //   '/loginPage': (context) => const LoginScreen(),
+      // },
       debugShowCheckedModeBanner: false,
-      home: homePage(),
+      home: LoginScreen(),
       title: 'Walnut Quizzes',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -64,18 +63,3 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
-// void main() {
-//   runApp(const MainApp());
-// }
-
-// class MainApp extends StatelessWidget {
-//   const MainApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       home: ListRoomScreen(),
-//     );
-//   }
-// }

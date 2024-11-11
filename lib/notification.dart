@@ -15,7 +15,7 @@ class notification extends StatelessWidget {
             // Quay lại trang HomePage
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const homePage()),
+              MaterialPageRoute(builder: (context) => HomePage()),
             );
           },
           icon: const Icon(Icons.arrow_left),

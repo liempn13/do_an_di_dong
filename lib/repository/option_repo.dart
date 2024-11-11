@@ -13,7 +13,7 @@ class OptionRepo {
       return List<Options>.from(
           json.decode(reponse.body).map((x) => Options.fromJson(x)));
     } else {
-      throw Exception("Failed code");
+      throw Exception("Failed code: ${reponse.statusCode}");
     }
   }
 

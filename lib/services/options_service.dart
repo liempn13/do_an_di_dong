@@ -27,7 +27,7 @@ class OptionsService {
   Future<http.Response> getOptionsOfQuestion(int questionID) async {
     //Load
     return await http.get(
-      Uri.parse("${AppStrings.baseUrlApi}options/$questionID"),
-    );
+        Uri.parse("${AppStrings.baseUrlApi}options/question/$questionID"),
+        headers: {'Authorization': 'Bearer ${AppStrings.TOKEN}'});
   }
 }

@@ -5,16 +5,16 @@ class Users {
       required this.email,
       required this.phone,
       required this.password,
-      required this.isAdmin,
-      required this.level,
-      required this.exp,
-      required this.status});
+      this.isAdmin = false,
+      this.level = 1,
+      this.exp = 0,
+      this.status = 0});
   int? userID;
   String userGameName;
   String email;
   String phone;
   String password;
-  int isAdmin;
+  bool isAdmin;
   int level;
   int exp;
   int status;
