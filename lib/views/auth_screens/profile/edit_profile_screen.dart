@@ -1,13 +1,15 @@
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
+import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  Users? loginUser;
   Users user;
-  EditProfileScreen({super.key, required this.user});
+  EditProfileScreen({super.key, required this.user, this.loginUser});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -67,6 +69,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Navigator.popAndPushNamed(context, '/settingHomepage');
           },
         ),
+        actions: [
+          widget.loginUser!.isAdmin
+              ? IconButton(
+                  color: Colors.white,
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    Provider.of<UsersViewModel>(context)
+                        .deleteUser(widget.user);
+                  },
+                )
+              : UiSpacer.emptySpace(),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

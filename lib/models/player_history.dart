@@ -1,5 +1,5 @@
-class PlayerHistory {
-  PlayerHistory(
+class History {
+  History(
       {required this.ID,
       required this.roomID,
       required this.userID,
@@ -14,8 +14,8 @@ class PlayerHistory {
   int score;
   int playerQuantity;
   DateTime time;
-  factory PlayerHistory.fromJson(Map<String, dynamic> json) {
-    return PlayerHistory(
+  factory History.fromJson(Map<String, dynamic> json) {
+    return History(
         ID: json["ID"],
         roomID: json["room_id"],
         userID: json["user_id"],

@@ -1,4 +1,4 @@
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/services/users_service.dart';
 import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:do_an_di_dong/constant/app_strings.dart';
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:http/http.dart' as http;
 
 class ListRoomsServices{

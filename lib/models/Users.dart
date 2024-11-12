@@ -1,7 +1,6 @@
 class Users {
   Users(
-      {
-      this.userID,
+      {this.userID,
       required this.userGameName,
       required this.email,
       required this.phone,

@@ -53,20 +53,22 @@ class _QuestionsViewState extends State<QuestionsView> {
   @override
   void dispose() {
     widget.setID = 0;
+
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+    
     // Đặt timer để tự động load dữ liệu mới mỗi 5 giây
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
-      setState(() {
-        _questionIndex++;
-        Provider.of<OptionsViewModel>(context, listen: false)
-            .getOption(list[_questionIndex].questionID);
-      });
-    });
+    // _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    //   setState(() {
+    //     _questionIndex++;
+    //     Provider.of<OptionsViewModel>(context, listen: false)
+    //         .getOption(list[_questionIndex].questionID);
+    //   });
+    // });
   }
 
   @override

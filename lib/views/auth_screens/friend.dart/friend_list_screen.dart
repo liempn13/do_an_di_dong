@@ -1,8 +1,13 @@
+import 'package:do_an_di_dong/models/users.dart';
+import 'package:do_an_di_dong/view_models/users_view_model.dart';
+import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'invite_list_screen.dart';
 
 class FriendListScreen extends StatefulWidget {
-  const FriendListScreen({super.key});
+  Users user;
+  FriendListScreen({super.key, required this.user});
 
   @override
   _FriendListScreenState createState() => _FriendListScreenState();
@@ -69,58 +74,28 @@ class _FriendListScreenState extends State<FriendListScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                ListView(
-                  children: [
-                    ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.person)),
-                      title: const Text("Diênlimited"),
-                      subtitle: const Text("Tỉ số: 5-3"),
-                      trailing: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
-                        ),
-                        child: const Text("Thách đấu"),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.person)),
-                      title: const Text("Diên123"),
-                      subtitle: const Text("Tỉ số: 7-12"),
-                      trailing: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
-                        ),
-                        child: const Text("Thách đấu"),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.person)),
-                      title: const Text("Diên123vippro"),
-                      subtitle: const Text("Tỉ số: 0-0"),
-                      trailing: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
-                        ),
-                        child: const Text("Thách đấu"),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.person)),
-                      title: const Text("Diênn111"),
-                      subtitle: const Text("Tỉ số: 5-5"),
-                      trailing: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
-                        ),
-                        child: const Text("Thách đấu"),
-                      ),
-                    ),
-                  ],
-                ),
+                Consumer<UsersViewModel>(builder: (builder, viewModel, child) {
+                  Provider.of<UsersViewModel>(context, listen: false)
+                      .fetchAllFriends(widget.user.userID!);
+                  List<Users> list = viewModel.listFriends;
+                  return CustomListView(
+                      dataSet: list,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading:
+                              const CircleAvatar(child: Icon(Icons.person)),
+                          title: Text(list[index].userGameName),
+                          subtitle: Text("Level: ${list[index].level}"),
+                          trailing: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.purple,
+                            ),
+                            child: const Text("Thách đấu"),
+                          ),
+                        );
+                      });
+                }),
                 const InviteListScreen(),
               ],
             ),

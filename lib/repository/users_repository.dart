@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:do_an_di_dong/constant/app_strings.dart';
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/services/users_service.dart';
 
 class UsersRepository {
@@ -14,6 +14,16 @@ class UsersRepository {
           json.decode(response.body).map((x) => Users.fromJson(x)));
     } else {
       throw Exception("Lấy danh sách người dùng thất bại");
+    }
+  }
+
+  Future<List<Users>> getFriendsList(int id) async {
+    final response = await service.getFriends(AppStrings.TOKEN, id);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return List<Users>.from(
+          json.decode(response.body).map((x) => Users.fromJson(x)));
+    } else {
+      throw Exception("Lấy danh sách thất bại");
     }
   }
 
@@ -41,6 +51,20 @@ class UsersRepository {
     } catch (error) {
       print("An error occurred: $error");
       throw Exception('Failed to update profile');
+    }
+  }
+
+  Future<bool> deleteUser(Users user) async {
+    try {
+      final response = await service.deleteProfile(user);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print("Response body: ${response.body}");
+        throw Exception('Failed to update profile');
+      }
+    } catch (error) {
+      throw Exception('Failed to delete profile');
     }
   }
 

@@ -1,15 +1,20 @@
 import 'package:do_an_di_dong/inGame.dart';
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/notification.dart';
 import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/view_models/topics_view_model.dart';
+import 'package:do_an_di_dong/view_models/users_view_model.dart';
+import 'package:do_an_di_dong/views/auth_screens/friend.dart/friend_list_screen.dart';
+import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
+import 'package:do_an_di_dong/views/user_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   Users? user;
@@ -50,20 +55,24 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.purple,
-        // Ở giữa appbar
         title: Text(
           "Walnut Quizzes",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        // Bên phải appbar
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications),
+            icon: const Icon(Icons.group_rounded),
             onPressed: () {
-              // Bay sang trang thông báo
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const notification()),
+                MaterialPageRoute(
+                    builder: (context) => widget.user!.isAdmin
+                        ? UserListScreen(
+                            loginAdmin: widget.user,
+                          )
+                        : FriendListScreen(
+                            user: widget.user!,
+                          )),
               );
             },
           ),
@@ -99,8 +108,8 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32.0, vertical: 16.0),
                     ),
-                    child: const Text(
-                      'Luyện tập',
+                    child: Text(
+                      widget.user!.isAdmin ? 'Quản lí dữ liệu' : 'Luyện tập',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),
@@ -124,24 +133,23 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.menu), label: 'Trang chủ'),
-          widget.user!.isAdmin == false
-              ? const BottomNavigationBarItem(
-                  icon: Icon(Icons.view_column), label: 'Bảng xếp hạng')
-              : const BottomNavigationBarItem(
-                  icon: Icon(Icons.group), label: "Người chơi"),
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.history), label: 'Lịch sử đấu'),
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Cài đặt')
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: widget.user!.isAdmin
+          ? UiSpacer.emptySpace()
+          : BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              items: <BottomNavigationBarItem>[
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.menu), label: 'Trang chủ'),
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.view_column), label: 'Bảng xếp hạng'),
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.history), label: 'Lịch sử đấu'),
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.settings), label: 'Cài đặt')
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
     );
   }
 }

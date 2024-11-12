@@ -1,9 +1,16 @@
 import 'dart:convert';
 import 'package:do_an_di_dong/constant/app_strings.dart';
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:http/http.dart' as http;
 
 class UsersService {
+  Future<http.Response> getFriends(String token, int id) async {
+    return await http
+        .get(Uri.parse("${AppStrings.baseUrlApi}user/friends/$id"), headers: {
+      'Authorization': 'Bearer $token',
+    });
+  }
+
   //Tòa bộ user
   Future<http.Response> getUser(String token) async {
     return await http.get(Uri.parse("${AppStrings.baseUrlApi}users"), headers: {
@@ -32,6 +39,17 @@ class UsersService {
         'Accept': 'application/json',
       },
       body: json.encode(user.toJson()),
+    );
+  }
+
+  Future<http.Response> deleteProfile(Users user) async {
+    return await http.put(
+      Uri.parse('${AppStrings.baseUrlApi}user/delete/$user'),
+      headers: {
+        'Authorization': 'Bearer ${AppStrings.TOKEN}',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     );
   }
 

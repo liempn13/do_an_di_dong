@@ -1,8 +1,9 @@
 import 'package:do_an_di_dong/inGame.dart';
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/models/questions_sets.dart';
 import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/view_models/questions_sets_view_model.dart';
+import 'package:do_an_di_dong/views/question_list_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_grid_view.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_text_form_field.dart';
@@ -127,12 +128,21 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
                             child:
                                 Text(questionSetsList[index].questionsSetName)))
                     .onInkTap(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => inGame(
-                                setID: questionSetsList[index].questionsSetID!,
-                              )));
+                  widget.user!.isAdmin
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => QuestionListScreen(
+                                    setID:
+                                        questionSetsList[index].questionsSetID!,
+                                  )))
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => inGame(
+                                    setID:
+                                        questionSetsList[index].questionsSetID!,
+                                  )));
                 });
               });
         }

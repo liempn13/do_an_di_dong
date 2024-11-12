@@ -1,4 +1,4 @@
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/repository/users_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +6,11 @@ class UsersViewModel extends ChangeNotifier {
   final UsersRepository repository = UsersRepository();
 
   List<Users> allUsers = [];
+  List<Users> allFriends = [];
+
   bool fetchingData = false;
   List<Users> get listUsers => allUsers;
+  List<Users> get listFriends => allFriends;
 
   Users? selectedUser;
 
@@ -15,6 +18,17 @@ class UsersViewModel extends ChangeNotifier {
     fetchingData = true;
     try {
       allUsers = await repository.getUserList();
+      notifyListeners();
+    } catch (e) {
+      throw Exception('Lấy dữ liệu thất bại: $e');
+    }
+    fetchingData = false;
+  }
+
+  Future<void> fetchAllFriends(int id) async {
+    fetchingData = true;
+    try {
+      allFriends = await repository.getFriendsList(id);
       notifyListeners();
     } catch (e) {
       throw Exception('Lấy dữ liệu thất bại: $e');
@@ -35,6 +49,14 @@ class UsersViewModel extends ChangeNotifier {
       await repository.updateProfile(user);
     } catch (e) {
       throw Exception('Cập nhật thông tin người dùng thất bại: $e');
+    }
+  }
+
+  Future<void> deleteUser(Users user) async {
+    try {
+      await repository.deleteUser(user);
+    } catch (e) {
+      throw Exception('Xoá người dùng thất bại: $e');
     }
   }
 

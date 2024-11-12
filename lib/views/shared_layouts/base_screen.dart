@@ -11,7 +11,7 @@ class BasePage extends StatefulWidget {
   final Widget body;
   final Widget? bottomSheet;
   final FloatingActionButtonLocation? fabl;
-  final FloatingActionButton? fab;
+  final Widget? fab;
   final bool isLoading;
   final bool extendBodyBehindAppBar;
   final double? elevation;
@@ -105,7 +105,7 @@ class _BasePageState extends State<BasePage> {
         //   ],
         // ),
         bottomNavigationBar: widget.bottomNavigationBar,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: widget.fabl,
         bottomSheet: widget.bottomSheet,
         floatingActionButton: widget.fab,
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

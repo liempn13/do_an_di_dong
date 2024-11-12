@@ -4,6 +4,7 @@ import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/view_models/options_view_model.dart';
 import 'package:do_an_di_dong/view_models/questions_set_details_view_model.dart';
 import 'package:do_an_di_dong/view_models/questions_sets_view_model.dart';
+import 'package:do_an_di_dong/view_models/questions_view_model.dart';
 import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
@@ -27,16 +28,19 @@ void main() {
     ChangeNotifierProvider<QuestionsSetViewModel>(
       create: (context) => QuestionsSetViewModel(),
     ),
-    ChangeNotifierProvider<ListRoomsViewModel>(
-      create: (context) => ListRoomsViewModel(),
-    ),
     ChangeNotifierProvider<QuestionsSetDetailsViewModel>(
       create: (context) => QuestionsSetDetailsViewModel(),
+    ),
+    ChangeNotifierProvider<ListRoomsViewModel>(
+      create: (context) => ListRoomsViewModel(),
     ),
     ChangeNotifierProvider<OptionsViewModel>(
         create: (context) => OptionsViewModel()),
     ChangeNotifierProvider<UsersViewModel>(
       create: (context) => UsersViewModel(),
+    ),
+    ChangeNotifierProvider<QuestionsViewModel>(
+      create: (context) => QuestionsViewModel(),
     )
   ], child: const LocalizedApp(child: MainApp())));
 }

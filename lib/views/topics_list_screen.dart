@@ -1,4 +1,4 @@
-import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/views/question_set_screen.dart';
