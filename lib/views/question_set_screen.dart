@@ -128,13 +128,14 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
                             child:
                                 Text(questionSetsList[index].questionsSetName)))
                     .onInkTap(() {
+                  print(
+                      "Mã bộ đề là: ${questionSetsList[index].questionsSetID}");
                   widget.user!.isAdmin
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => QuestionListScreen(
-                                    setID:
-                                        questionSetsList[index].questionsSetID!,
+                                    set: questionSetsList[index],
                                   )))
                       : Navigator.push(
                           context,

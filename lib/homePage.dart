@@ -115,14 +115,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // widget.user!.isAdmin ?
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32.0, vertical: 16.0),
                     ),
-                    child: const Text(
-                      'Thi đấu',
+                    child: Text(
+                      widget.user!.isAdmin ? 'Thi đấu' : 'Quản lí phòng đấu',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),
