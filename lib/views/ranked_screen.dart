@@ -1,4 +1,7 @@
+import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -37,6 +40,13 @@ class _ScreenState extends State<Screen> {
       fsexp = 15;
       fswin = 20;
     });
+  }
+  void initState() {
+    super.initState();
+
+    // Gọi hàm setUsers() khi màn hình được khởi tạo
+    final viewModel = Provider.of<UsersViewModel>(context, listen: false);
+    viewModel.setUsers();
   }
 //   int incrementAndReturn() {
 //   setState(() {
@@ -133,166 +143,97 @@ class _ScreenState extends State<Screen> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 1,
-                height: 400,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/img/ranked.png'),
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    // Hạng nhì
-                    Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 140),
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(
-                                left: 0,
-                              ),
-                              child: Text(
-                                'Cristiano Ronaldo',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white),
-                              ),
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 7),
-                                child: Container(
-                                  width: 75,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(width: 2),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Center(
-                                    child: Text('Avatar'),
-                                  ),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 7),
-                              child: Container(
-                                width: 80,
-                                height: 30,
-                                decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    color: Color.fromARGB(255, 235, 211, 248)),
-                                child: const Center(
-                                  child: Text('1024 exp'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    // Hạng nhất
-                    Padding(
-                        padding: const EdgeInsets.only(left: 7, top: 25),
-                        child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 0),
-                              child: Text(
-                                'Huynh Gia Bao',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white),
-                              ),
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 7),
-                                child: Container(
-                                  width: 75,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(width: 2),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Center(
-                                    child: Text('Avatar'),
-                                  ),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 7),
-                              child: Container(
-                                width: 80,
-                                height: 30,
-                                decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    color: Color.fromARGB(255, 235, 211, 248)),
-                                child: const Center(
-                                  child: Text('2024 exp'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    // Hạng ba
-                    Padding(
-                        padding: const EdgeInsets.only(left: 25, top: 145),
-                        child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 0),
-                              child: Text(
-                                'Leneol Messi',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white),
-                              ),
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 7),
-                                child: Container(
-                                  width: 75,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(width: 2),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Center(
-                                    child: Text('Avatar'),
-                                  ),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 7),
-                              child: Container(
-                                width: 80,
-                                height: 30,
-                                decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    color: Color.fromARGB(255, 235, 211, 248)),
-                                child: const Center(
-                                  child: Text('998 exp'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                  ],
-                ),
+
+            // Bảng xếp hạng
+           Consumer<UsersViewModel>(builder: (context, viewModel, child) {
+  if (viewModel.fetchingData) {
+    return Center(child: CircularProgressIndicator());
+  }
+
+  if (viewModel.users.isEmpty) {
+    return Center(child: Text('Không có thông tin xếp hạng'));
+  }
+
+  return SingleChildScrollView(
+    child: Column(
+      children: viewModel.users.map((user) {
+        int index = viewModel.users.indexOf(user) + 1;
+
+        return Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 1,
+            height: 400,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/img/ranked.png'),
+                fit: BoxFit.fitWidth,
               ),
             ),
+            child: Row(
+              children: [
+                // Hạng nhì
+                Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 140),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 0),
+                          child: Text(
+                            user.userGameName,
+                           // Adjust based on `user` data if needed
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white),
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 7),
+                            child: Container(
+                              width: 75,
+                              height: 75,
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 2),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: const Center(
+                                child: Text('Avatar'),
+                              ),
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 7),
+                          child: Container(
+                            width: 80,
+                            height: 30,
+                            decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                                color: Color.fromARGB(255, 235, 211, 248)),
+                            child: Center(
+                              child: Text('${user.exp}'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+                // Repeat the above structure for other ranks (e.g., Hạng nhất, Hạng ba)
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    ),
+  );
+}),
             // Top >3
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
-              child: Container(
+              child:
+              Container(
                   width: MediaQuery.of(context).size.width * 1,
-                  height: 300,
+                  height: 350,
+                 // height: MediaQuery.of(context).size.height *1,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
@@ -368,6 +309,7 @@ class _ScreenState extends State<Screen> {
                           ),
                         );
                       })),
+            
             ),
           ],
         ),
