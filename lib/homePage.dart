@@ -7,7 +7,10 @@ import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/auth_screens/friend.dart/friend_list_screen.dart';
 import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
+import 'package:do_an_di_dong/views/auth_screens/history/history_screen.dart';
+import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
+import 'package:do_an_di_dong/views/room_screen/list_rooms.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
@@ -27,6 +30,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   Topics? selectedTopic;
+
+  // Danh sách các trang mà bạn muốn điều hướng
 
   void _onItemTapped(int index) {
     if (index == 3) {
@@ -117,6 +122,12 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                     onPressed: () {
                       // widget.user!.isAdmin ?
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListRoomScreen(
+                                    
+                                  )));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,

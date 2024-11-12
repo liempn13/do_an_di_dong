@@ -11,6 +11,10 @@ class UsersViewModel extends ChangeNotifier {
   bool fetchingData = false;
   List<Users> get listUsers => allUsers;
   List<Users> get listFriends => allFriends;
+  bool _isLoad = false;
+
+  List<Users> _users = [];
+  List<Users> get users => _users;
 
   Users? selectedUser;
 
@@ -92,4 +96,28 @@ class UsersViewModel extends ChangeNotifier {
   //     throw Exception('Không thể tải thông tin hồ sơ: $e');
   //   }
   // }
+
+
+  //====================== Xếp hạng ======================== Huỳnh Gia Bảo
+  // Cập nhật danh sách người dùng
+Future<void> setUsers() async {
+  fetchingData = true; 
+  notifyListeners();
+
+  try {
+    _users = await repository.getUserList(); 
+    sortUsersByExp();
+    notifyListeners();
+  } catch (e) {
+    throw Exception('Lấy dữ liệu thất bại: $e');
+  } finally {
+    fetchingData = false; 
+    notifyListeners();
+  }
+}
+
+  // Hàm sắp xếp theo EXP
+  void sortUsersByExp(){
+    _users.sort((a, b) => b.exp.compareTo(a.exp));
+  }
 }

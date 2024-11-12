@@ -109,4 +109,22 @@ class UsersRepository {
   //         'Không thể tải thông tin hồ sơ: ${response.statusCode} - ${response.body}');
   //   }
   // }
+  // ---------------------- Xếp hạng theo exp --------------------------
+ Future<List<Users>> fetchUsers() async {
+    try {
+      final response = await service.getUser(AppStrings.TOKEN);
+
+      // Kiểm tra nếu yêu cầu thành công
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+
+        // Chuyển đổi danh sách JSON thành danh sách đối tượng User
+        return data.map((json) => Users.fromJson(json)).toList();
+      } else {
+        throw Exception("Failed to load users");
+      }
+    } catch (e) {
+      throw Exception("Failed to load users");
+    }
+  }
 }
