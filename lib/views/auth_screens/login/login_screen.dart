@@ -39,13 +39,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: const TextSpan(
                 text: 'Đăng nhập ',
                 style: TextStyle(
+                  color: Colors.black,
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),
               )),
             ),
             const SizedBox(height: 40.0),
-            // Tên đăng nhập
             TextField(
               controller: _emailController,
               decoration: InputDecoration(

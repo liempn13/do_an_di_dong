@@ -61,6 +61,13 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
+      showAppBar: true,
+      appBar: AppBar(
+        foregroundColor: Colors.white,
+        title: Text("Danh sách tài khoản"),
+        centerTitle: true,
+        backgroundColor: Colors.purple,
+      ),
       body: Column(
         children: [
           Consumer<UsersViewModel>(builder: (builder, viewModel, child) {
@@ -276,109 +283,47 @@ class _UserListScreenState extends State<UserListScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 16.0),
                                     ),
-                                    onPressed: () async {
-                                      setState(() {
-                                        // Xác thực đầu vào
-                                        if (_usernameController.text.isEmpty) {
-                                          _errorUsername =
-                                              'Tên đăng nhập không được bỏ trống';
-                                        } else if (!isValidUsername(
-                                            _usernameController.text)) {
-                                          _errorUsername =
-                                              'Tên đăng nhập chỉ được phép chứa chữ cái, số và dấu gạch dưới';
-                                        } else {
-                                          _errorUsername = null;
-                                        }
-
-                                        if (_passwordController.text.isEmpty) {
-                                          _errorPass =
-                                              'Mật khẩu không được bỏ trống';
-                                        } else if (!isValidPassword(
-                                            _passwordController.text)) {
-                                          _errorPass =
-                                              'Mật khẩu phải có ít nhất 1 chữ thường, 1 chữ hoa, 1 số và 1 ký tự đặc biệt';
-                                        } else {
-                                          _errorPass = null;
-                                        }
-
-                                        if (_confirmPasswordController
-                                            .text.isEmpty) {
-                                          _errorPass2 =
-                                              'Lặp lại mật khẩu không được bỏ trống';
-                                        } else if (_confirmPasswordController
-                                                .text !=
-                                            _passwordController.text) {
-                                          _errorPass2 =
-                                              'Mật khẩu không khớp với mật khẩu chính';
-                                        } else {
-                                          _errorPass2 = null;
-                                        }
-
-                                        if (_emailController.text.isEmpty) {
-                                          _errorEmail =
-                                              'Email không được bỏ trống';
-                                        } else if (!isValidEmail(
-                                            _emailController.text)) {
-                                          _errorEmail = 'Email không hợp lệ';
-                                        } else {
-                                          _errorEmail = null;
-                                        }
-                                      });
-                                      if (_phoneController.text.length != 10) {
-                                        _errorPhone =
-                                            'Số điện thoại phải có đúng 10 chữ số';
-                                      }
-                                      if (_phoneController.text.isEmpty) {
-                                        _errorPhone =
-                                            'Số điện thoại không được bỏ trống';
-                                      } else if (!_phoneController.text
-                                              .startsWith('0') ||
-                                          _phoneController.text.length != 10) {
-                                        _errorPhone =
-                                            'Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số';
-                                      } else {
-                                        _errorPhone = null;
-                                      }
-
-                                      if (_errorUsername == null &&
-                                          _errorPass == null &&
-                                          _errorPass2 == null &&
-                                          _errorEmail == null) {
-                                        try {
-                                          Users newUser = Users(
-                                            //userID: 0,
-                                            userGameName:
-                                                _usernameController.text,
-                                            email: _emailController.text,
-                                            phone: _phoneController.text,
-                                            password: _passwordController.text,
-                                            isAdmin: true,
-                                            level: 0,
-                                            exp: 0,
-                                            status: 1,
-                                          );
-                                          Provider.of<UsersViewModel>(context)
-                                              .addUser(newUser);
-                                        } catch (e) {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: const Text('Lỗi'),
-                                                content: Text(
-                                                    'Đăng ký thất bại: $e'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text('OK'),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        }
+                                    onPressed: () {
+                                      try {
+                                        Users newUser = Users(
+                                          //userID: 0,
+                                          userGameName:
+                                              _usernameController.text,
+                                          email: _emailController.text,
+                                          phone: _phoneController.text,
+                                          password: _passwordController.text,
+                                          isAdmin: true,
+                                          level: 0,
+                                          exp: 0,
+                                          status: 0,
+                                        );
+                                        Provider.of<UsersViewModel>(context,
+                                                listen: false)
+                                            .addUser(newUser);
+                                        Navigator.pop(context);
+                                        _usernameController.clear();
+                                        _emailController.clear();
+                                        _phoneController.clear();
+                                        _passwordController.clear();
+                                      } catch (e) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text('Lỗi'),
+                                              content:
+                                                  Text('Đăng ký thất bại: $e'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
                                       }
                                     },
                                     child: const Text(

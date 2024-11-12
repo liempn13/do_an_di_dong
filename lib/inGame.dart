@@ -6,7 +6,6 @@ import 'package:do_an_di_dong/models/questions.dart';
 import 'package:do_an_di_dong/models/options.dart';
 import 'package:do_an_di_dong/view_models/options_view_model.dart';
 import 'package:do_an_di_dong/view_models/questions_set_details_view_model.dart';
-import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,33 +51,25 @@ class _QuestionsViewState extends State<QuestionsView> {
   Timer? _timer;
   @override
   void dispose() {
-    widget.setID = 0;
-
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    
+    Provider.of<QuestionsSetDetailsViewModel>(context, listen: false)
+        .getQuestionsSetsList(widget.setID);
+    list = List.from(
+        Provider.of<QuestionsSetDetailsViewModel>(context, listen: false)
+            .listQuestions);
     // Đặt timer để tự động load dữ liệu mới mỗi 5 giây
     // _timer = Timer.periodic(Duration(seconds: 5), (timer) {
     //   setState(() {
     //     _questionIndex++;
-    //     Provider.of<OptionsViewModel>(context, listen: false)
-    //         .getOption(list[_questionIndex].questionID);
-    //   });
+    Provider.of<OptionsViewModel>(context, listen: false)
+        .getOption(list[_questionIndex].questionID);
     // });
-  }
-
-  @override
-  void didChangeDependencies() {
-    // Xử lí gọi danh sách câu hỏi ra ở đây, thứ tự câu đã được random ở APi
-    super.didChangeDependencies();
-    Provider.of<QuestionsSetDetailsViewModel>(context)
-        .getQuestionsSetsList(widget.setID);
-    list = List.from(
-        Provider.of<QuestionsSetDetailsViewModel>(context).listQuestions);
+    // });
   }
 
   Widget _buildCurrentItem() {

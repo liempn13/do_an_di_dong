@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   Users? loginUser;
-  Users user;
+  Users? user;
   ProfileScreen({super.key, required this.user, this.loginUser});
 
   @override
@@ -22,9 +22,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     setState(() {
-      txtEmail.text = widget.user.email;
-      txtPhone.text = widget.user.phone;
-      txtName.text = widget.user.userGameName;
+      txtEmail.text = widget.user?.email ?? widget.loginUser!.email;
+      txtPhone.text = widget.user?.phone ?? widget.loginUser!.phone;
+      txtName.text =
+          widget.user?.userGameName ?? widget.loginUser!.userGameName;
     });
   }
 
@@ -51,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   icon: const Icon(Icons.delete),
                   onPressed: () {
                     Provider.of<UsersViewModel>(context)
-                        .deleteUser(widget.user);
+                        .deleteUser(widget.user!);
                   },
                 )
               : UiSpacer.emptySpace(),
@@ -83,7 +84,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               readOnly: true,
-              controller: TextEditingController(text: widget.user.userGameName),
+              controller: TextEditingController(
+                  text: widget.user?.userGameName ??
+                      widget.loginUser!.userGameName),
             ),
             const SizedBox(height: 20),
             TextField(
@@ -94,7 +97,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               readOnly: true,
-              controller: TextEditingController(text: widget.user.email),
+              controller: TextEditingController(
+                  text: widget.user?.email ?? widget.loginUser!.email),
             ),
             const SizedBox(height: 20),
             TextField(
@@ -105,7 +109,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               readOnly: true,
-              controller: TextEditingController(text: widget.user.phone),
+              controller: TextEditingController(
+                  text: widget.user?.phone ?? widget.loginUser!.phone),
             ),
             const SizedBox(height: 30),
             ElevatedButton.icon(
@@ -114,7 +119,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => EditProfileScreen(
-                      user: widget.user,
+                      user: widget.user ?? widget.loginUser!,
+                      loginUser: widget.loginUser,
                     ),
                   ),
                 );

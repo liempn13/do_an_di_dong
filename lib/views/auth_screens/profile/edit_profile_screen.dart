@@ -74,9 +74,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ? IconButton(
                   color: Colors.white,
                   icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    Provider.of<UsersViewModel>(context)
-                        .deleteUser(widget.user);
+                  onPressed: () async {
+                    await showDialog<bool>(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('Are you sure?'),
+                              content: Text(
+                                  'This action will permanently delete this data'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Provider.of<UsersViewModel>(context)
+                                        .deleteUser(widget.user);
+                                    Navigator.pop(context, true);
+                                  },
+                                  child: const Text('Delete'),
+                                ),
+                              ],
+                            ));
                   },
                 )
               : UiSpacer.emptySpace(),

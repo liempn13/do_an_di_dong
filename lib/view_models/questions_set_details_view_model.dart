@@ -9,13 +9,13 @@ class QuestionsSetDetailsViewModel extends ChangeNotifier {
   List<Questions> get listQuestions => list;
 
   Future<void> getQuestionsSetsList(int questionSetID) async {
-    // fetchingData = true;
+    fetchingData = true;
     try {
       list = await repo.loadQuestionSetDetails(questionSetID);
-      // notifyListeners();
+      notifyListeners();
     } catch (e) {
       throw Exception("Failed Load QuestionsSets: $e");
     }
-    // fetchingData = false;
+    fetchingData = false;
   }
 }

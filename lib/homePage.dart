@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        shadowColor: Colors.white,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.purple,
         title: Text(
@@ -125,9 +126,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ListRoomScreen(
-                                    
-                                  )));
+                              builder: (context) => ListRoomScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,
@@ -135,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                           horizontal: 32.0, vertical: 16.0),
                     ),
                     child: Text(
-                      widget.user!.isAdmin ? 'Thi đấu' : 'Quản lí phòng đấu',
+                      'Phòng đấu',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),

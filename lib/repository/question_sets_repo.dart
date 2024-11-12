@@ -33,7 +33,7 @@ class QuestionSetsRepo {
       print("Add successful");
       return true;
     } else {
-      throw Exception("Failed code");
+      throw Exception("Failed code: ${response.statusCode} ");
     }
   }
 

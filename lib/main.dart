@@ -60,7 +60,7 @@ class MainApp extends StatelessWidget {
       //   '/loginPage': (context) => const LoginScreen(),
       // },
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: const LoginScreen(),
       title: 'Walnut Quizzes',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

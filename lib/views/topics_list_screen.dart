@@ -78,6 +78,7 @@ class _TopicsListScreenState extends State<TopicsListScreen> {
                                                     .addTopic(Topics(
                                                         topicName:
                                                             topicNameTxt.text));
+                                                Navigator.pop(context, true);
                                                 initState();
                                               },
                                               child: Text("Thêm"))

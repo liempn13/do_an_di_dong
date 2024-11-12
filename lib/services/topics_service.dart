@@ -8,6 +8,7 @@ class TopicsService {
     //Them
     return await http.post(Uri.parse("${AppStrings.baseUrlApi}topic/create"),
         headers: {
+          'Authorization': 'Bearer ${AppStrings.TOKEN}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
@@ -18,6 +19,7 @@ class TopicsService {
     //Sua
     return await http.put(Uri.parse("${AppStrings.baseUrlApi}topic/update"),
         headers: {
+          'Authorization': 'Bearer ${AppStrings.TOKEN}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
@@ -26,12 +28,8 @@ class TopicsService {
 
   Future<http.Response> getTopicsList() async {
     //Load
-    return await http.get(
-      Uri.parse("${AppStrings.baseUrlApi}topics"),
-      headers: {
-        'Authorization':'Bearer ${AppStrings.TOKEN}'
-      }
-    );
+    return await http.get(Uri.parse("${AppStrings.baseUrlApi}topics"),
+        headers: {'Authorization': 'Bearer ${AppStrings.TOKEN}'});
   }
 
   Future<http.Response> getTopic(int topicID) async {

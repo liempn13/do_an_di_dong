@@ -64,16 +64,7 @@ class _EditQuestionDetailsScreenState extends State<EditQuestionDetailsScreen> {
                               )),
                             ))),
                 SpeedDialChild(label: "Lưu", onTap: () {}),
-                SpeedDialChild(
-                    label: "Xoá",
-                    onTap: () => showDialog<Widget>(
-                        context: context,
-                        builder: (context) => const Dialog(
-                              child: Center(
-                                  child: Column(
-                                children: [],
-                              )),
-                            ))),
+                SpeedDialChild(label: "Xoá", onTap: () {}),
                 SpeedDialChild(label: "New", onTap: () {}),
               ],
             ).px4()

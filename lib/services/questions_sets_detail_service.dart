@@ -3,11 +3,8 @@ import 'package:http/http.dart' as http;
 
 class QuestionsSetsDetailService {
   Future<http.Response> getQuestionSetDetails(int questionsSetID) async {
-    //Load
     return await http.get(
-      Uri.parse("${AppStrings.baseUrlApi}set/details/$questionsSetID"),headers: {
-        'Authorization':'Bearer ${AppStrings.TOKEN}'
-      }
-    );
+        Uri.parse("${AppStrings.baseUrlApi}set/details/$questionsSetID"),
+        headers: {'Authorization': 'Bearer ${AppStrings.TOKEN}'});
   }
 }

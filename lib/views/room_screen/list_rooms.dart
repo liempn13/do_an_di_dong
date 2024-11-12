@@ -36,8 +36,10 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 122, 28, 172),
       appBar: AppBar(
-        title: const Text("Room Screen"),
+        title: const Text("Danh sách phòng"),
+        centerTitle: true,
         backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

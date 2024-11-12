@@ -58,6 +58,7 @@ class _settingHomepageState extends State<settingHomepage> {
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ProfileScreen(
+                            loginUser: widget.user,
                             user: widget.user,
                           )));
                 },
