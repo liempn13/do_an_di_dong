@@ -21,13 +21,8 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ListRoomsViewModel>(context, listen: false).getRoomsList();
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Provider.of<ListRoomsViewModel>(context, listen: false)
-      // .findUserById(creator_id);
-    });
+
+    Provider.of<ListRoomsViewModel>(context, listen: false).getRoomsList();
   }
 
   Widget build(BuildContext context) {

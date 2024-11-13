@@ -81,8 +81,6 @@ class ListRoomsViewModel extends ChangeNotifier {
   Future<void> getRoomsList() async {
     //print("Toi vao duoc roi");
     fetchData = true;
-    notifyListeners();
-
     try {
       list = await listroomsRepo.getRoomList();
      // print(list);
