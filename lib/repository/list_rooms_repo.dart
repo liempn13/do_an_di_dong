@@ -10,8 +10,14 @@ class ListRoomsRepo {
   Future<List<Rooms>> getRoomList() async {
     final reponse = await service.getRoomsList();
     if (reponse.statusCode == 200) {
+      print(reponse.statusCode);
       return List<Rooms>.from(
-          json.decode(reponse.body).map((x) => Rooms.fromJson(x)));
+      json.decode(reponse.body)
+        .map((x) => Rooms.fromJson(x))
+        .where((room) => room.roomStatus != 0), // Lọc các phòng có status khác 0
+        
+    );
+    print(reponse.body);
     } else {
       throw Exception("Failed code");
     }
@@ -46,5 +52,6 @@ class ListRoomsRepo {
     } else {
       return null; //Phòng không tồn tại
     }
+    return null;
   }
 }
