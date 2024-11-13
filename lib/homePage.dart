@@ -82,6 +82,19 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
+          widget.user!.isAdmin
+              ? IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    Provider.of<UsersViewModel>(context, listen: false)
+                        .logOut();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
+                  },
+                )
+              : IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.notifications_none_outlined))
         ],
       ),
       //phần thân------

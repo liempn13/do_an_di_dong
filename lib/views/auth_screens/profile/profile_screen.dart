@@ -45,18 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           'Thông tin cá nhân',
           style: TextStyle(color: Colors.white),
         ),
-        actions: [
-          widget.loginUser!.isAdmin
-              ? IconButton(
-                  color: Colors.white,
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    Provider.of<UsersViewModel>(context)
-                        .deleteUser(widget.user!);
-                  },
-                )
-              : UiSpacer.emptySpace(),
-        ],
+
         // leading: IconButton(
         //   color: Colors.white,
         //   icon: const Icon(Icons.arrow_back),

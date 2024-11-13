@@ -42,9 +42,20 @@ class UsersService {
     );
   }
 
-  Future<http.Response> deleteProfile(Users user) async {
+  Future<http.Response> deleteProfile(int user) async {
     return await http.put(
       Uri.parse('${AppStrings.baseUrlApi}user/delete/$user'),
+      headers: {
+        'Authorization': 'Bearer ${AppStrings.TOKEN}',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+  }
+
+  Future<http.Response> unlockProfile(int user) async {
+    return await http.put(
+      Uri.parse('${AppStrings.baseUrlApi}user/unlock/$user'),
       headers: {
         'Authorization': 'Bearer ${AppStrings.TOKEN}',
         'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import 'package:do_an_di_dong/setting_homePage.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
+import 'package:do_an_di_dong/views/user_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -73,26 +74,49 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           widget.loginUser!.isAdmin
               ? IconButton(
                   color: Colors.white,
-                  icon: const Icon(Icons.delete),
+                  icon: Icon(widget.user.status == -1
+                      ? Icons.lock_open_rounded
+                      : Icons.lock),
                   onPressed: () async {
                     await showDialog<bool>(
                         context: context,
                         builder: (context) => AlertDialog(
-                              title: Text('Are you sure?'),
-                              content: Text(
-                                  'This action will permanently delete this data'),
+                              title: Text(widget.user.status == -1
+                                  ? 'Mở khoá tài khoản này ?'
+                                  : 'Khoá tài khoản này?'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, true),
-                                  child: const Text('Cancel'),
+                                  child: const Text('Huỷ'),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Provider.of<UsersViewModel>(context)
-                                        .deleteUser(widget.user);
-                                    Navigator.pop(context, true);
+                                    if (widget.user.status != -1) {
+                                      Provider.of<UsersViewModel>(context,
+                                              listen: false)
+                                          .deleteUser(widget.user.userID!);
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UserListScreen(
+                                                      loginAdmin:
+                                                          widget.loginUser)));
+                                    } else {
+                                      Provider.of<UsersViewModel>(context,
+                                              listen: false)
+                                          .unlock(widget.user.userID!);
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UserListScreen(
+                                                      loginAdmin:
+                                                          widget.loginUser)));
+                                    }
+                                    ;
                                   },
-                                  child: const Text('Delete'),
+                                  child: Text(widget.user.status == -1
+                                      ? 'Mở khoá'
+                                      : 'Khoá'),
                                 ),
                               ],
                             ));

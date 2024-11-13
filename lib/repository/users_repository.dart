@@ -45,7 +45,6 @@ class UsersRepository {
       if (response.statusCode == 200) {
         return true;
       } else {
-        print("Response body: ${response.body}");
         throw Exception('Failed to update profile');
       }
     } catch (error) {
@@ -54,7 +53,7 @@ class UsersRepository {
     }
   }
 
-  Future<bool> deleteUser(Users user) async {
+  Future<bool> deleteUser(int user) async {
     try {
       final response = await service.deleteProfile(user);
       if (response.statusCode == 200) {
@@ -65,6 +64,19 @@ class UsersRepository {
       }
     } catch (error) {
       throw Exception('Failed to delete profile');
+    }
+  }
+
+  Future<bool> unlockUser(int user) async {
+    try {
+      final response = await service.unlockProfile(user);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('Failed to unlock profile');
+      }
+    } catch (error) {
+      throw Exception('Failed to unlock profile');
     }
   }
 
@@ -110,7 +122,7 @@ class UsersRepository {
   //   }
   // }
   // ---------------------- Xếp hạng theo exp --------------------------
- Future<List<Users>> fetchUsers() async {
+  Future<List<Users>> fetchUsers() async {
     try {
       final response = await service.getUser(AppStrings.TOKEN);
 

@@ -4,10 +4,12 @@ import 'package:do_an_di_dong/views/auth_screens/profile/edit_profile_screen.dar
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/base_screen.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
+import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class UserListScreen extends StatefulWidget {
   Users? loginAdmin;
@@ -78,7 +80,14 @@ class _UserListScreenState extends State<UserListScreen> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: const CircleAvatar(child: Icon(Icons.person)),
-                    title: Text(list[index].userGameName),
+                    title: Row(
+                      children: [
+                        Text(list[index].userGameName).px4(),
+                        list[index].status == -1
+                            ? Icon(Icons.lock)
+                            : UiSpacer.emptySpace()
+                      ],
+                    ),
                     subtitle:
                         Text(list[index].isAdmin ? "ADMIN" : "Người chơi"),
                     trailing: IconButton(

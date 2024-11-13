@@ -45,6 +45,7 @@ class QuestionsView extends StatefulWidget {
 }
 
 class _QuestionsViewState extends State<QuestionsView> {
+  int score = 0;
   int _questionIndex = 0;
   List<Questions> list = [];
   Options? answer;
@@ -63,47 +64,18 @@ class _QuestionsViewState extends State<QuestionsView> {
         Provider.of<QuestionsSetDetailsViewModel>(context, listen: false)
             .listQuestions);
     // Đặt timer để tự động load dữ liệu mới mỗi 5 giây
-    // _timer = Timer.periodic(Duration(seconds: 5), (timer) {
-    //   setState(() {
-    //     _questionIndex++;
-    Provider.of<OptionsViewModel>(context, listen: false)
-        .getOption(list[_questionIndex].questionID);
-    // });
-    // });
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() {
+        _questionIndex++;
+        Provider.of<OptionsViewModel>(context, listen: false)
+            .getOption(list[_questionIndex].questionID);
+      });
+    });
   }
 
   Widget _buildCurrentItem() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _questionIndex == 0
-                ? UiSpacer.emptySpace()
-                : IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      setState(() {
-                        _questionIndex--;
-                        Provider.of<OptionsViewModel>(context, listen: false)
-                            .getOption(list[_questionIndex].questionID);
-                      });
-                    }, // Câu trước
-                  ),
-            _questionIndex == list.lastIndex
-                ? UiSpacer.emptySpace()
-                : IconButton(
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {
-                      setState(() {
-                        _questionIndex++;
-                        Provider.of<OptionsViewModel>(context, listen: false)
-                            .getOption(list[_questionIndex].questionID);
-                      });
-                    }, // Câu tiếp theo
-                  ),
-          ],
-        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
@@ -137,7 +109,11 @@ class _QuestionsViewState extends State<QuestionsView> {
                 groupValue: answer,
                 onChanged: (Options? value) {
                   setState(() {
+                    listOptions.first.optionValue ? score++ : 0;
+                    _questionIndex++;
                     answer = value!;
+                    Provider.of<OptionsViewModel>(context, listen: false)
+                        .getOption(list[_questionIndex].questionID);
                   });
                 },
               ),
@@ -147,7 +123,11 @@ class _QuestionsViewState extends State<QuestionsView> {
                 groupValue: answer,
                 onChanged: (Options? value) {
                   setState(() {
+                    listOptions[1].optionValue ? score++ : 0;
+                    _questionIndex++;
                     answer = value!;
+                    Provider.of<OptionsViewModel>(context, listen: false)
+                        .getOption(list[_questionIndex].questionID);
                   });
                 },
               ),
@@ -157,7 +137,11 @@ class _QuestionsViewState extends State<QuestionsView> {
                 groupValue: answer,
                 onChanged: (Options? value) {
                   setState(() {
+                    listOptions[2].optionValue ? score++ : 0;
+                    _questionIndex++;
                     answer = value!;
+                    Provider.of<OptionsViewModel>(context, listen: false)
+                        .getOption(list[_questionIndex].questionID);
                   });
                 },
               ),
@@ -167,7 +151,11 @@ class _QuestionsViewState extends State<QuestionsView> {
                 groupValue: answer,
                 onChanged: (Options? value) {
                   setState(() {
+                    listOptions.last.optionValue ? score++ : 0;
+                    _questionIndex++;
                     answer = value!;
+                    Provider.of<OptionsViewModel>(context, listen: false)
+                        .getOption(list[_questionIndex].questionID);
                   });
                 },
               ),

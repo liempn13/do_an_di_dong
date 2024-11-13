@@ -112,8 +112,8 @@ class _settingHomepageState extends State<settingHomepage> {
                 ),
               ).onInkTap(() {
                 userViewModel.logOut();
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const LoginScreen()));
               }),
             ],
           ),

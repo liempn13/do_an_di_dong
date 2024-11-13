@@ -56,11 +56,19 @@ class UsersViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteUser(Users user) async {
+  Future<void> deleteUser(int user) async {
     try {
       await repository.deleteUser(user);
     } catch (e) {
       throw Exception('Xoá người dùng thất bại: $e');
+    }
+  }
+
+  Future<void> unlock(int user) async {
+    try {
+      await repository.unlockUser(user);
+    } catch (e) {
+      throw Exception('Thất bại: $e');
     }
   }
 
@@ -97,27 +105,26 @@ class UsersViewModel extends ChangeNotifier {
   //   }
   // }
 
-
   //====================== Xếp hạng ======================== Huỳnh Gia Bảo
   // Cập nhật danh sách người dùng
-Future<void> setUsers() async {
-  fetchingData = true; 
-  notifyListeners();
+  Future<void> setUsers() async {
+    fetchingData = true;
+    notifyListeners();
 
-  try {
-    _users = await repository.getUserList(); 
-    sortUsersByExp();
-    notifyListeners();
-  } catch (e) {
-    throw Exception('Lấy dữ liệu thất bại: $e');
-  } finally {
-    fetchingData = false; 
-    notifyListeners();
+    try {
+      _users = await repository.getUserList();
+      sortUsersByExp();
+      notifyListeners();
+    } catch (e) {
+      throw Exception('Lấy dữ liệu thất bại: $e');
+    } finally {
+      fetchingData = false;
+      notifyListeners();
+    }
   }
-}
 
   // Hàm sắp xếp theo EXP
-  void sortUsersByExp(){
+  void sortUsersByExp() {
     _users.sort((a, b) => b.exp.compareTo(a.exp));
   }
 }
