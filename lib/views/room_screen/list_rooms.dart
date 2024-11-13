@@ -4,13 +4,16 @@ import 'package:do_an_di_dong/view_models/list_rooms_view_model.dart';
 import 'package:do_an_di_dong/services/list_rooms_services.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
+import 'package:do_an_di_dong/views/room_screen/create_room.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
+import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class ListRoomScreen extends StatefulWidget {
-  const ListRoomScreen({super.key});
+  final Users? users;
+  const ListRoomScreen({super.key, required this.users});
 
   @override
   State<ListRoomScreen> createState() => _ListRoomScreenState();
@@ -36,7 +39,16 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 122, 28, 172),
       appBar: AppBar(
-        title: const Text("Room Screen"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Quay lại trang trước
+          },
+        ),
+        title: const Text(
+          "Danh sách phòng chơi",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple,
       ),
       body: Padding(
@@ -98,6 +110,11 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                   onTap: () {
                     // Thêm hành động khi nhấn vào nút "Tạo phòng"
                     print('Tạo phòng được nhấn');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreateRoom(users: widget.users,)),
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -120,9 +137,13 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
             //------------------- Danh sách phòng đang hoạt động -------------------
             Expanded(child: Consumer<ListRoomsViewModel>(
                 builder: (context, viewModel, child) {
+                  if(viewModel.list.isEmpty){
+                    return Center(child: Text("Hiện tại không có phòng chơi nào.", style: TextStyle(color: Colors.white),),);
+                  }
               if (viewModel.fetchData) {
                 return Center(child: CircularProgressIndicator());
               } else {
+
                 //print(viewModel);
                 //print("2");
                 List<Rooms> listRooms = viewModel.roomsList;
@@ -307,4 +328,18 @@ Future<void> _showErr(BuildContext context, String message) async {
   // Tự động đóng dialog sau 3 giây
   await Future.delayed(Duration(seconds: 3));
   Navigator.of(context).pop();
+}
+
+void showDialogCreateRoom(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          //width: 100,
+          //height: 100,
+          decoration: BoxDecoration(
+            color: Colors.blueGrey,
+          ),
+        );
+      });
 }

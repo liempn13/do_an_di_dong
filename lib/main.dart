@@ -9,6 +9,7 @@ import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
+import 'package:do_an_di_dong/views/room_screen/create_room.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:do_an_di_dong/view_models/list_rooms_view_model.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
@@ -56,7 +57,7 @@ class MainApp extends StatelessWidget {
       //   '/loginPage': (context) => const LoginScreen(),
       // },
       debugShowCheckedModeBanner: false,
-      home: HomePage(user: Users(userGameName: "userGameName", email: "email@gmail.com", phone: "0987684784", password: "Password00"),),
+      home: HomePage(user: Users(userGameName: "userGameName", email: "email", phone: "phone", password: "password"),),
       title: 'Walnut Quizzes',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:do_an_di_dong/models/Rooms.dart';
 import 'package:do_an_di_dong/models/Users.dart';
+import 'package:do_an_di_dong/models/room_details.dart';
 import 'package:do_an_di_dong/repository/list_rooms_repo.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +17,9 @@ class ListRoomsViewModel extends ChangeNotifier {
   Users? user;
   Rooms? rooms;
   String? errMess;
-  //================ Lấy thông tin người tạo phòng bằng ID ==================
-  // Users? findUserById(int id) {
-  //   print("Đa vao ham tim user");
-  //   return user!.getCreator(id);
-  // }
+  List<RoomDetails> roomDetails = [];
+
+
   Future<void> getCreator(int userID) async {
     print("Đa vao getCreator");
     isLoading = true;
@@ -59,33 +58,15 @@ class ListRoomsViewModel extends ChangeNotifier {
     print(errMess);
   }
 
-  // Future<void> findRoom(int roomCode) async {
-  //   try {
-  //     final room = await listroomsRepo.findRoomByCode(roomCode);
-  //     final data = listroomsRepo.findRoomByCode(roomCode);
-  //      if (data["error"] != null) {
-  //         errorMessage = data["error"];
-  //       } else {
-  //         room = Room.fromJson(data);
-  //         errorMessage = null;
-
-  //     if(rooms == null){
-  //       errMess = "Không tìm thấy phòng";
-  //     }
-  //   } catch(e){
-  //     errMess = "Đã xảy ra lỗi $e";
-  //   }
-  //   notifyListeners();
-  // }
-
+  // -------------------- Lấy tất cả các phòng --------------------
   Future<void> getRoomsList() async {
-    //print("Toi vao duoc roi");
+    print("Lấy ds phòng");
     fetchData = true;
     notifyListeners();
 
     try {
       list = await listroomsRepo.getRoomList();
-     // print(list);
+         print(list);
       notifyListeners();
     } catch (e) {
       throw Exception("Failed to Get Rooms List: $e");
@@ -93,5 +74,13 @@ class ListRoomsViewModel extends ChangeNotifier {
       fetchData = false;
       notifyListeners();
     }
+
   }
+
+
+  Users? findOpponent(List<Users> users, int opponentID, int roomID, List<RoomDetails>  room_details) {
+  // Tìm người chơi có opponentID và roomID khớp
+  return users.firstWhere(
+    (user) => user.userID == opponentID );
+}
 }

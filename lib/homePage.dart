@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ListRoomScreen(
+                              builder: (context) => ListRoomScreen(users: widget.user,
                                     
                                   )));
                     },
