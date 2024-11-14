@@ -198,25 +198,30 @@ void showSettingsDialog(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Padding(
+        child: Container(
+          width: MediaQuery.of(context).size.width *
+              0.7, // Điều chỉnh độ rộng hộp thoại
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomButton(
-                text: 'Tiếp tục',
-                onPressed: () {
-                  Navigator.of(context)
-                      .pop(); // Close the dialog and stay on the current page
-                },
+              SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                    text: 'Tiếp tục',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
               ),
               const SizedBox(height: 16),
-              CustomButton(
-                text: 'Quay trở lại trang tiêu đề',
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(
-                      '/homePage'); // Navigate to the home page
-                },
+              SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                  text: 'Quay trở lại trang tiêu đề',
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/homePage');
+                  },
+                ),
               ),
             ],
           ),
