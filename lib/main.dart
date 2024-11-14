@@ -10,9 +10,8 @@ import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/views/auth_screens/login/login_screen.dart';
 import 'package:do_an_di_dong/views/auth_screens/profile/profile_screen.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
-import 'package:do_an_di_dong/views/room_screen/create_room.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
-import 'package:do_an_di_dong/view_models/list_rooms_view_model.dart';
+import 'package:do_an_di_dong/view_models/rooms_view_model.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/edit_question_details_screen.dart';
 import 'package:do_an_di_dong/views/question_set_screen.dart';
@@ -34,8 +33,8 @@ void main() {
     ChangeNotifierProvider<QuestionsSetDetailsViewModel>(
       create: (context) => QuestionsSetDetailsViewModel(),
     ),
-    ChangeNotifierProvider<ListRoomsViewModel>(
-      create: (context) => ListRoomsViewModel(),
+    ChangeNotifierProvider<RoomsViewModel>(
+      create: (context) => RoomsViewModel(),
     ),
     ChangeNotifierProvider<OptionsViewModel>(
         create: (context) => OptionsViewModel()),
