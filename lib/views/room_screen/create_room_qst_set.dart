@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CreateRoomQstSet extends StatefulWidget {
-    final Topics? topic;
+  final Topics? topic;
   final Users? user;
   const CreateRoomQstSet({super.key, required this.user, required this.topic});
 
@@ -24,7 +24,8 @@ class _CreateRoomQstSetState extends State<CreateRoomQstSet> {
       appBar: AppBar(
         title: Text("Chọn bộ đề"),
       ),
-      body: Consumer<QuestionsSetViewModel>(builder: (context, viewModel, child) {
+      body:
+          Consumer<QuestionsSetViewModel>(builder: (context, viewModel, child) {
         if (!viewModel.fetchingData && viewModel.listQuestionSets.isEmpty) {
           Provider.of<QuestionsSetViewModel>(context, listen: false)
               .getQuestionsSetsList(widget.topic!.topicID!);
@@ -42,12 +43,12 @@ class _CreateRoomQstSetState extends State<CreateRoomQstSet> {
                             child:
                                 Text(questionSetsList[index].questionsSetName)))
                     .onInkTap(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => inGame(
-                                setID: questionSetsList[index].questionsSetID!,
-                              )));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => inGame(
+                  //               setID: questionSetsList[index].questionsSetID!,
+                  //             )));
                 });
               });
         }

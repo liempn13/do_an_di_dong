@@ -48,11 +48,11 @@ class _UserListScreenState extends State<UserListScreen> {
     return emailRegex.hasMatch(email);
   }
 
-  bool isValidPassword(String password) {
-    final passwordRegex = RegExp(
-        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
-    return passwordRegex.hasMatch(password);
-  }
+  // bool isValidPassword(String password) {
+  //   final passwordRegex = RegExp(
+  //       r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+  //   return passwordRegex.hasMatch(password);
+  // }
 
   bool isValidUsername(String username) {
     final usernameRegex =
@@ -178,15 +178,14 @@ class _UserListScreenState extends State<UserListScreen> {
                                     errorText: _errorPass,
                                   ),
                                   onChanged: (value) {
-                                    setState(() {
-                                      _errorPass = value.isNotEmpty &&
-                                              !isValidPassword(value)
-                                          ? '''
-                                                Mật khẩu phải có 8 chữ số, 
-                                                ít nhất 1 chữ thường, 1 chữ hoa, 
-                                                1 số và 1 ký tự đặc biệt'''
-                                          : null;
-                                    });
+                                    // _errorPass = value.isNotEmpty
+                                    // &&
+                                    //         !isValidPassword(value)
+                                    //     ? '''
+                                    //             Mật khẩu phải có 8 chữ số,
+                                    //             ít nhất 1 chữ thường, 1 chữ hoa,
+                                    //             1 số và 1 ký tự đặc biệt'''
+                                    //     : null;
                                   },
                                 ),
                                 const SizedBox(height: 16.0),
@@ -205,21 +204,15 @@ class _UserListScreenState extends State<UserListScreen> {
                                       icon: Icon(_anHienPass2
                                           ? Icons.visibility_off
                                           : Icons.visibility),
-                                      onPressed: () {
-                                        setState(() {
-                                          _anHienPass2 = !_anHienPass2;
-                                        });
-                                      },
+                                      onPressed: () {},
                                     ),
                                     errorText: _errorPass2,
                                   ),
                                   onChanged: (value) {
-                                    setState(() {
-                                      _errorPass2 = value.isNotEmpty &&
-                                              value != _passwordController.text
-                                          ? 'Mật khẩu không khớp với mật khẩu chính'
-                                          : null;
-                                    });
+                                    _errorPass2 = value.isNotEmpty &&
+                                            value != _passwordController.text
+                                        ? 'Mật khẩu không khớp với mật khẩu chính'
+                                        : null;
                                   },
                                 ),
                                 const SizedBox(height: 16.0),
@@ -237,12 +230,10 @@ class _UserListScreenState extends State<UserListScreen> {
                                     errorText: _errorEmail,
                                   ),
                                   onChanged: (value) {
-                                    setState(() {
-                                      _errorEmail = value.isNotEmpty &&
-                                              !isValidEmail(value)
-                                          ? 'Email không hợp lệ'
-                                          : null;
-                                    });
+                                    _errorEmail =
+                                        value.isNotEmpty && !isValidEmail(value)
+                                            ? 'Email không hợp lệ'
+                                            : null;
                                   },
                                 ),
                                 const SizedBox(height: 16.0),
@@ -265,18 +256,16 @@ class _UserListScreenState extends State<UserListScreen> {
                                     errorText: _errorPhone,
                                   ),
                                   onChanged: (value) {
-                                    setState(() {
-                                      if (value.isEmpty) {
-                                        _errorPhone =
-                                            'Số điện thoại không được bỏ trống';
-                                      } else if (!value.startsWith('0') ||
-                                          value.length != 10) {
-                                        _errorPhone =
-                                            'Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số';
-                                      } else {
-                                        _errorPhone = null;
-                                      }
-                                    });
+                                    if (value.isEmpty) {
+                                      _errorPhone =
+                                          'Số điện thoại không được bỏ trống';
+                                    } else if (!value.startsWith('0') ||
+                                        value.length != 10) {
+                                      _errorPhone =
+                                          'Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số';
+                                    } else {
+                                      _errorPhone = null;
+                                    }
                                   },
                                 ),
                                 const SizedBox(height: 30.0),
@@ -295,7 +284,6 @@ class _UserListScreenState extends State<UserListScreen> {
                                     onPressed: () {
                                       try {
                                         Users newUser = Users(
-                                          //userID: 0,
                                           userGameName:
                                               _usernameController.text,
                                           email: _emailController.text,

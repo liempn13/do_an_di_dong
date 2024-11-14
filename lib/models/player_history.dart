@@ -1,14 +1,14 @@
 class History {
   History(
       {required this.ID,
-      required this.roomID,
+      this.roomID,
       required this.userID,
       required this.topicID,
-      required this.score,
-      required this.playerQuantity,
+      this.score = 0,
+      this.playerQuantity = 1,
       required this.time});
   int ID;
-  int roomID;
+  int? roomID;
   int userID;
   int topicID;
   int score;
@@ -31,8 +31,8 @@ class History {
     map["user_id"] = userID;
     map["topic_id"] = topicID;
     map["score"] = score;
-    map["player_quantity"];
-    map["time"];
+    map["player_quantity"] = playerQuantity;
+    map["time"] = time;
     return map;
   }
 }

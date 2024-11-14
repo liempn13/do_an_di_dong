@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 class HistorysService {
   Future<http.Response> createHistory(History history) async {
     //Them
-    return await http.post(Uri.parse("${AppStrings.baseUrlApi}"),
+    return await http.post(Uri.parse("${AppStrings.baseUrlApi}play/save"),
         headers: {
+          'Authorization': 'Bearer ${AppStrings.TOKEN}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
@@ -16,8 +17,9 @@ class HistorysService {
 
   Future<http.Response> updateHistory(History history) async {
     //Sua
-    return await http.put(Uri.parse("${AppStrings.baseUrlApi}"),
+    return await http.put(Uri.parse("${AppStrings.baseUrlApi}play/update"),
         headers: {
+          'Authorization': 'Bearer ${AppStrings.TOKEN}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
@@ -26,8 +28,7 @@ class HistorysService {
 
   Future<http.Response> getHistorysOfQuestion(int questionID) async {
     //Load
-    return await http.get(
-        Uri.parse("${AppStrings.baseUrlApi}Historys/question/$questionID"),
+    return await http.get(Uri.parse("${AppStrings.baseUrlApi}/$questionID"),
         headers: {'Authorization': 'Bearer ${AppStrings.TOKEN}'});
   }
 }

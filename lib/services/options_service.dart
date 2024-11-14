@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 class OptionsService {
   Future<http.Response> createOption(Options option) async {
     //Them
-    return await http.post(Uri.parse("${AppStrings.baseUrlApi}question"),
+    return await http.post(Uri.parse("${AppStrings.baseUrlApi}"),
         headers: {
+          'Authorization': 'Bearer ${AppStrings.TOKEN}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
@@ -16,8 +17,9 @@ class OptionsService {
 
   Future<http.Response> updateOption(Options option) async {
     //Sua
-    return await http.put(Uri.parse("${AppStrings.baseUrlApi}question"),
+    return await http.put(Uri.parse("${AppStrings.baseUrlApi}"),
         headers: {
+          'Authorization': 'Bearer ${AppStrings.TOKEN}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },

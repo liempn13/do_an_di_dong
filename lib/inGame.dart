@@ -4,6 +4,9 @@ import 'dart:math';
 import 'package:do_an_di_dong/custombutton_popup.dart';
 import 'package:do_an_di_dong/models/questions.dart';
 import 'package:do_an_di_dong/models/options.dart';
+import 'package:do_an_di_dong/models/questions_sets.dart';
+import 'package:do_an_di_dong/models/topics.dart';
+import 'package:do_an_di_dong/models/users.dart';
 import 'package:do_an_di_dong/view_models/options_view_model.dart';
 import 'package:do_an_di_dong/view_models/questions_set_details_view_model.dart';
 import 'package:do_an_di_dong/views/shared_layouts/ui_spacer.dart';
@@ -11,34 +14,48 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class inGame extends StatelessWidget {
-  int setID;
+class inGame extends StatefulWidget {
+  Users loginUser;
+  Topics topics;
+  QuestionsSets set;
   inGame({
     super.key,
-    required this.setID,
+    required this.set,
+    required this.topics,
+    required this.loginUser,
   });
 
   @override
+  State<inGame> createState() => _inGameState();
+}
+
+class _inGameState extends State<inGame> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple,
-        leading: IconButton(
-          icon: Icon(Icons.settings, color: Colors.black),
-          onPressed: () {
-            showSettingsDialog(context);
-          },
-        ),
-      ),
-      body: QuestionsView(setID: setID),
-      backgroundColor: Colors.white,
-    );
+    return PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) {
+          // logic
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.purple,
+            leading: IconButton(
+              icon: Icon(Icons.settings, color: Colors.black),
+              onPressed: () {
+                showSettingsDialog(context);
+              },
+            ),
+          ),
+          body: QuestionsView(set: widget.set),
+          backgroundColor: Colors.white,
+        ));
   }
 }
 
 class QuestionsView extends StatefulWidget {
-  int setID;
-  QuestionsView({super.key, required this.setID});
+  QuestionsSets set;
+  QuestionsView({super.key, required this.set});
 
   @override
   State<QuestionsView> createState() => _QuestionsViewState();
@@ -59,7 +76,7 @@ class _QuestionsViewState extends State<QuestionsView> {
   void initState() {
     super.initState();
     Provider.of<QuestionsSetDetailsViewModel>(context, listen: false)
-        .getQuestionsSetsList(widget.setID);
+        .getQuestionsSetsList(widget.set.questionsSetID!);
     list = List.from(
         Provider.of<QuestionsSetDetailsViewModel>(context, listen: false)
             .listQuestions);
