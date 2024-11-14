@@ -144,7 +144,114 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                 const SizedBox(width: 5),
                 //-------------------- Nút tạo phòng ----------------------
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      _roomCode.text = generateRandomString(6);
+                    });
+                    showDialog<Widget>(
+                      context: context,
+                      builder: (context) => Dialog(
+                        child: Container(
+                          width: double.infinity,
+                          constraints: BoxConstraints(
+                              maxHeight: 400), // Đặt giới hạn chiều cao tối đa
+                          child: SingleChildScrollView(
+                            // Thêm SingleChildScrollView để cuộn nội dung nếu cần
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize
+                                    .min, // Cho phép co giãn chiều cao
+                                children: [
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'Mã phòng',
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                    ),
+                                    readOnly: true,
+                                    controller: _roomCode,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          10), // Khoảng cách giữa các TextField
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'Tên phòng',
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                    ),
+                                    controller: _roomName,
+                                  ),
+                                  SizedBox(height: 10),
+                                  TextField(
+                                    controller: _password,
+                                    decoration: InputDecoration(
+                                      labelText: 'Mật khẩu',
+                                      labelStyle:
+                                          const TextStyle(color: Colors.grey),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      prefixIcon: const Icon(Icons.lock),
+                                      errorText: _errorPass,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  DropdownButtonFormField<Topics>(
+                                    value: selectedTopic,
+                                    onChanged: isEditing
+                                        ? (Topics? newValue) {
+                                            setState(() {
+                                              selectedTopic = newValue;
+                                            });
+                                          }
+                                        : null, // Khi không cho phép chọn, onChanged = null để vô hiệu hóa
+                                    items: topicList.map((Topics topic) {
+                                      return DropdownMenuItem<Topics>(
+                                        value: topic,
+                                        child: Text(topic.topicName),
+                                      );
+                                    }).toList(),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      enabled:
+                                          isEditing, // Vô hiệu hóa cả dropdown nếu _isEditing là false
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 20),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Rooms room = Rooms(
+                                        roomCode: _roomCode.text,
+                                        roomName: _roomName.text,
+                                        creatorID: widget.user.userID!,
+                                        password: _password.text,
+                                        roomStatus: 0,
+                                        topicID: selectedTopic!.topicID!,
+                                      );
+                                      Provider.of<RoomsViewModel>(context,
+                                              listen: false)
+                                          .addUser(room);
+                                    },
+                                    child: Text("Tạo"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -212,35 +319,6 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(children: [
-                                        // Padding(
-                                        //     //--------------- Người tạo phòng ---------------
-                                        //     padding: EdgeInsets.only(top: 5),
-                                        //     child: Consumer<ListRoomsViewModel>(
-                                        //         builder:
-                                        //             (context, userView, child) {
-                                        //       if (userView.isLoading) {
-                                        //         return Center(
-                                        //             child:
-                                        //                 CircularProgressIndicator());
-                                        //       } else {
-                                        //         Users? user = userView.findUserById(creator_id);
-                                        //         Container(
-                                        //           width: 50,
-                                        //           height: 50,
-                                        //           decoration: BoxDecoration(
-                                        //             border: Border.all(
-                                        //                 width: 4,
-                                        //                 color: Colors.white),
-                                        //             borderRadius:
-                                        //                 BorderRadius.circular(
-                                        //                     5),
-                                        //           ),
-                                        //           child: const Center(
-                                        //               child: Text('Avatar')),
-                                        //         );
-                                        //       }
-                                        //     })
-                                        //     ),
                                         Padding(
                                           padding: EdgeInsets.only(top: 7),
                                           child: Center(
