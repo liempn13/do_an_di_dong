@@ -1,15 +1,17 @@
 import 'package:do_an_di_dong/models/Rooms.dart';
+import 'package:do_an_di_dong/models/topics.dart';
 import 'package:do_an_di_dong/models/users.dart';
-import 'package:do_an_di_dong/view_models/list_rooms_view_model.dart';
+import 'package:do_an_di_dong/view_models/rooms_view_model.dart';
 import 'package:do_an_di_dong/services/list_rooms_services.dart';
+import 'package:do_an_di_dong/view_models/topics_view_model.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
-// import 'package:do_an_di_dong/views/room_screen/create_room.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
 
 class ListRoomScreen extends StatefulWidget {
   Users user;
@@ -20,17 +22,55 @@ class ListRoomScreen extends StatefulWidget {
 }
 
 class _ListRoomScreenState extends State<ListRoomScreen> {
-  int creator_id = 0;
+  List<Topics> topicList = [];
+  Topics? selectedTopic;
+  bool isEditing = true;
+
+  void _loadtopics() async {
+    try {
+      await Provider.of<TopicsViewModel>(context, listen: false)
+          .getTopicsList();
+      setState(() {
+        topicList =
+            Provider.of<TopicsViewModel>(context, listen: false).listTopics;
+        // if (topicList.isNotEmpty) {
+        //   selectedTopic = topicList.firstWhere(
+        //     (topic) =>
+        //         topic.topicID == widget.,
+        //   );
+        // }
+      });
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to load departments')),
+      );
+    }
+  }
+
+  String generateRandomString(int length) {
+    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    Random random = Random();
+
+    return List.generate(
+            length, (index) => characters[random.nextInt(characters.length)])
+        .join();
+  }
+
   @override
   void initState() {
     super.initState();
-
-    Provider.of<ListRoomsViewModel>(context, listen: false).getRoomsList();
+    _loadtopics();
+    Provider.of<RoomsViewModel>(context, listen: false).getRoomsList();
   }
 
   Widget build(BuildContext context) {
-    final lstViewModel = Provider.of<ListRoomsViewModel>(context);
-    final TextEditingController _roomCode = TextEditingController();
+    final lstViewModel = Provider.of<RoomsViewModel>(context);
+    TextEditingController _roomCode = TextEditingController();
+    TextEditingController _roomName = TextEditingController();
+
+    TextEditingController _password = TextEditingController();
+    String? _errorPass;
+    bool _anHienPass = true;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 122, 28, 172),
       appBar: AppBar(
@@ -105,15 +145,112 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                 //-------------------- Nút tạo phòng ----------------------
                 GestureDetector(
                   onTap: () {
-                    // Thêm hành động khi nhấn vào nút "Tạo phòng"
-                    print('Tạo phòng được nhấn');
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => CreateRoom(
-                    //             user: widget.user!,
-                    //           )),
-                    // );
+                    setState(() {
+                      _roomCode.text = generateRandomString(6);
+                    });
+                    showDialog<Widget>(
+                      context: context,
+                      builder: (context) => Dialog(
+                        child: Container(
+                          width: double.infinity,
+                          constraints: BoxConstraints(
+                              maxHeight: 400), // Đặt giới hạn chiều cao tối đa
+                          child: SingleChildScrollView(
+                            // Thêm SingleChildScrollView để cuộn nội dung nếu cần
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize
+                                    .min, // Cho phép co giãn chiều cao
+                                children: [
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'Mã phòng',
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                    ),
+                                    readOnly: true,
+                                    controller: _roomCode,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          10), // Khoảng cách giữa các TextField
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'Tên phòng',
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                    ),
+                                    controller: _roomName,
+                                  ),
+                                  SizedBox(height: 10),
+                                  TextField(
+                                    controller: _password,
+                                    decoration: InputDecoration(
+                                      labelText: 'Mật khẩu',
+                                      labelStyle:
+                                          const TextStyle(color: Colors.grey),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      prefixIcon: const Icon(Icons.lock),
+                                      errorText: _errorPass,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  DropdownButtonFormField<Topics>(
+                                    value: selectedTopic,
+                                    onChanged: isEditing
+                                        ? (Topics? newValue) {
+                                            setState(() {
+                                              selectedTopic = newValue;
+                                            });
+                                          }
+                                        : null, // Khi không cho phép chọn, onChanged = null để vô hiệu hóa
+                                    items: topicList.map((Topics topic) {
+                                      return DropdownMenuItem<Topics>(
+                                        value: topic,
+                                        child: Text(topic.topicName),
+                                      );
+                                    }).toList(),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      enabled:
+                                          isEditing, // Vô hiệu hóa cả dropdown nếu _isEditing là false
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 20),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Rooms room = Rooms(
+                                        roomCode: _roomCode.text,
+                                        roomName: _roomName.text,
+                                        creatorID: widget.user.userID!,
+                                        password: _password.text,
+                                        roomStatus: 0,
+                                        topicID: selectedTopic!.topicID!,
+                                      );
+                                      Provider.of<RoomsViewModel>(context,
+                                              listen: false)
+                                          .addUser(room);
+                                    },
+                                    child: Text("Tạo"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -134,8 +271,8 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
             ),
             const SizedBox(height: 10),
             //------------------- Danh sách phòng đang hoạt động -------------------
-            Expanded(child: Consumer<ListRoomsViewModel>(
-                builder: (context, viewModel, child) {
+            Expanded(child:
+                Consumer<RoomsViewModel>(builder: (context, viewModel, child) {
               if (viewModel.list.isEmpty) {
                 return Center(
                   child: Text(
@@ -154,7 +291,6 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                 return CustomListView(
                   dataSet: listRooms,
                   itemBuilder: (context, index) {
-                    creator_id = listRooms[index].creatorID;
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Container(
@@ -183,35 +319,6 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(children: [
-                                        // Padding(
-                                        //     //--------------- Người tạo phòng ---------------
-                                        //     padding: EdgeInsets.only(top: 5),
-                                        //     child: Consumer<ListRoomsViewModel>(
-                                        //         builder:
-                                        //             (context, userView, child) {
-                                        //       if (userView.isLoading) {
-                                        //         return Center(
-                                        //             child:
-                                        //                 CircularProgressIndicator());
-                                        //       } else {
-                                        //         Users? user = userView.findUserById(creator_id);
-                                        //         Container(
-                                        //           width: 50,
-                                        //           height: 50,
-                                        //           decoration: BoxDecoration(
-                                        //             border: Border.all(
-                                        //                 width: 4,
-                                        //                 color: Colors.white),
-                                        //             borderRadius:
-                                        //                 BorderRadius.circular(
-                                        //                     5),
-                                        //           ),
-                                        //           child: const Center(
-                                        //               child: Text('Avatar')),
-                                        //         );
-                                        //       }
-                                        //     })
-                                        //     ),
                                         Padding(
                                           padding: EdgeInsets.only(top: 7),
                                           child: Center(
@@ -241,9 +348,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                         children:
                                             List.generate(3, (playerIndex) {
                                           // ------------ Hoạt ảnh + tên người chơi -------------
-                                          print(
-                                              "Thong tin user: $lstViewModel");
-                                          print(creator_id);
+
                                           return Column(children: [
                                             Padding(
                                               padding: EdgeInsets.only(
