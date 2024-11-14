@@ -1,7 +1,7 @@
 class QuestionSetsDetail {
   QuestionSetsDetail({required this.questionsSetID, required this.questionID});
   int questionsSetID;
-  String questionID;
+  int questionID;
 
   factory QuestionSetsDetail.fromJson(Map<String, dynamic> json) {
     return QuestionSetsDetail(

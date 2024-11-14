@@ -33,7 +33,6 @@ class UsersRepository {
       print("Thêm người dùng thành công. Response body: ${response.body}");
       return true;
     } else {
-      print("Thêm người dùng thất bại: ${response.statusCode}");
       print("Response body: ${response.body}");
       throw Exception('Thêm người dùng thất bại: ${response.statusCode}');
     }

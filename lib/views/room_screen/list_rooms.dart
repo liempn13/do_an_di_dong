@@ -4,7 +4,7 @@ import 'package:do_an_di_dong/view_models/list_rooms_view_model.dart';
 import 'package:do_an_di_dong/services/list_rooms_services.dart';
 import 'package:do_an_di_dong/view_models/users_view_model.dart';
 import 'package:do_an_di_dong/views/ranked_screen.dart';
-import 'package:do_an_di_dong/views/room_screen/create_room.dart';
+// import 'package:do_an_di_dong/views/room_screen/create_room.dart';
 import 'package:do_an_di_dong/views/shared_layouts/custom_list_view.dart';
 import 'package:do_an_di_dong/views/topics_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -107,13 +107,13 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                   onTap: () {
                     // Thêm hành động khi nhấn vào nút "Tạo phòng"
                     print('Tạo phòng được nhấn');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateRoom(
-                                user: widget.user!,
-                              )),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => CreateRoom(
+                    //             user: widget.user!,
+                    //           )),
+                    // );
                   },
                   child: Container(
                     decoration: BoxDecoration(

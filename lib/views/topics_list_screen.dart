@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class TopicsListScreen extends StatefulWidget {
-  final Users? users;
-  const TopicsListScreen({super.key, this.users});
+  Users? users;
+  TopicsListScreen({super.key, this.users});
 
   @override
   State<TopicsListScreen> createState() => _TopicsListScreenState();
@@ -110,7 +110,7 @@ class _TopicsListScreenState extends State<TopicsListScreen> {
                       MaterialPageRoute(
                           builder: (context) => QuestionSetScreen(
                                 topic: topicList[index],
-                                user: widget.users,
+                                user: widget.users!,
                               )));
                 });
               });

@@ -14,9 +14,9 @@ import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class QuestionSetScreen extends StatefulWidget {
-  final Topics? topic;
-  final Users? user;
-  const QuestionSetScreen({super.key, this.topic, this.user});
+  Topics? topic;
+  Users? user;
+  QuestionSetScreen({super.key, this.topic, this.user});
 
   @override
   State<QuestionSetScreen> createState() => _QuestionSetScreenState();
@@ -139,8 +139,9 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => inGame(
-                                    setID:
-                                        questionSetsList[index].questionsSetID!,
+                                    set: questionSetsList[index],
+                                    topics: widget.topic!,
+                                    loginUser: widget.user!,
                                   )));
                 });
               });
