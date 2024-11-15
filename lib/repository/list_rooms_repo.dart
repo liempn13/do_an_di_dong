@@ -10,10 +10,10 @@ class RoomsRepo {
   Future<List<Rooms>> getRoomList() async {
     final reponse = await service.getRoomsList();
     if (reponse.statusCode == 200) {
-      print(reponse.statusCode);
       return List<Rooms>.from(
-        json.decode(reponse.body).map((x) => Rooms.fromJson(x)).where(
-            (room) => room.roomStatus != 0), // Lọc các phòng có status khác 0
+        json
+            .decode(reponse.body)
+            .map((x) => Rooms.fromJson(x)), // Lọc các phòng có status khác 0
       );
     } else {
       throw Exception("Failed code");
@@ -23,7 +23,7 @@ class RoomsRepo {
   Future<bool> addRoom(Rooms room) async {
     final response = await service.createRoom(room);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Thêm phong thành công. Response body: ${response.body}");
+      print("Thêm phòng thành công. Response body: ${response.body}");
       return true;
     } else {
       print("Response body: ${response.body}");

@@ -32,24 +32,19 @@ class inGame extends StatefulWidget {
 class _inGameState extends State<inGame> {
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) {
-          // logic
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.purple,
-            leading: IconButton(
-              icon: Icon(Icons.settings, color: Colors.black),
-              onPressed: () {
-                showSettingsDialog(context);
-              },
-            ),
-          ),
-          body: QuestionsView(set: widget.set),
-          backgroundColor: Colors.white,
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        leading: IconButton(
+          icon: Icon(Icons.settings, color: Colors.black),
+          onPressed: () {
+            showSettingsDialog(context);
+          },
+        ),
+      ),
+      body: QuestionsView(set: widget.set),
+      backgroundColor: Colors.white,
+    );
   }
 }
 

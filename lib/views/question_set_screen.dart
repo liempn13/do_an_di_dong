@@ -82,18 +82,17 @@ class _QuestionSetScreenState extends State<QuestionSetScreen> {
                                           ).p8(),
                                           ElevatedButton(
                                               onPressed: () {
-                                                Provider.of<QuestionsSetViewModel>(
-                                                        context,
-                                                        listen: false)
-                                                    .addQuestionsSets(QuestionsSets(
-                                                        topicID: widget
-                                                            .topic!.topicID!,
-                                                        questionQuantity:
-                                                            int.parse(
-                                                                questionQuantityTxt
-                                                                    .text),
-                                                        questionsSetName:
-                                                            setNameTxt.text));
+                                                Provider.of<
+                                                    QuestionsSetViewModel>(
+                                                  context,
+                                                ).addQuestionsSets(QuestionsSets(
+                                                    topicID:
+                                                        widget.topic!.topicID!,
+                                                    questionQuantity: int.parse(
+                                                        questionQuantityTxt
+                                                            .text),
+                                                    questionsSetName:
+                                                        setNameTxt.text));
                                                 initState();
                                               },
                                               child: Text("Thêm"))

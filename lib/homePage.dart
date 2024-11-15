@@ -124,8 +124,6 @@ class _HomePageState extends State<HomePage> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 64.0, vertical: 32.0),
                     ),
                     child: Text(
                       widget.user!.isAdmin ? 'Quản lí dữ liệu' : 'Luyện tập',
@@ -145,8 +143,6 @@ class _HomePageState extends State<HomePage> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 64.0, vertical: 32.0),
                     ),
                     child: Text(
                       'Phòng đấu',

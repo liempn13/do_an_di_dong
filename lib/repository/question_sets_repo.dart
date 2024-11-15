@@ -30,7 +30,6 @@ class QuestionSetsRepo {
   Future<bool> addQuetionSet(QuestionsSets question) async {
     final response = await service.createQuestionSets(question);
     if (response.statusCode == 200) {
-      print("Add successful");
       return true;
     } else {
       throw Exception("Failed code: ${response.statusCode} ");

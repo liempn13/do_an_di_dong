@@ -67,11 +67,9 @@ class RoomsViewModel extends ChangeNotifier {
 
   // -------------------- Lấy tất cả các phòng --------------------
   Future<void> getRoomsList() async {
-    print("Lấy ds phòng");
     fetchData = true;
     try {
       list = await roomsRepo.getRoomList();
-      print(list);
       notifyListeners();
     } catch (e) {
       throw Exception("Failed to Get Rooms List: $e");

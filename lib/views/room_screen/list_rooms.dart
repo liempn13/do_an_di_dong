@@ -235,7 +235,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                         roomName: _roomName.text,
                                         creatorID: widget.user.userID!,
                                         password: _password.text,
-                                        roomStatus: 0,
+                                        roomStatus: 1,
                                         topicID: selectedTopic!.topicID!,
                                       );
                                       Provider.of<RoomsViewModel>(context,
@@ -273,6 +273,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
             //------------------- Danh sách phòng đang hoạt động -------------------
             Expanded(child:
                 Consumer<RoomsViewModel>(builder: (context, viewModel, child) {
+              Provider.of<RoomsViewModel>(context, listen: false).getRoomsList();
               if (viewModel.list.isEmpty) {
                 return Center(
                   child: Text(
@@ -284,10 +285,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
               if (viewModel.fetchData) {
                 return Center(child: CircularProgressIndicator());
               } else {
-                //print(viewModel);
-                //print("2");
                 List<Rooms> listRooms = viewModel.roomsList;
-                // print(listRooms);
                 return CustomListView(
                   dataSet: listRooms,
                   itemBuilder: (context, index) {
